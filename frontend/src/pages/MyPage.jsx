@@ -8,6 +8,7 @@ export default function MyPage()
 	return <React.Fragment>
 		<Header/>
 		mypage
+		종현 테스트
 		<Footer/>
 	</React.Fragment>
 }
