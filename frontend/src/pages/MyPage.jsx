@@ -9,6 +9,7 @@ export default function MyPage()
 		<Header/>
 		mypage
 		종현 테스트
+		성현 테스트
 		<Footer/>
 	</React.Fragment>
 }
