@@ -4,6 +4,9 @@ import { BrowserRouter , Routes , Route } from "react-router-dom";
 import MainPage from "@pages/MainPage.jsx";
 import MyPage from "@pages/MyPage.jsx";
 
+import "@css/common/common.css";
+import "@css/tailwind/tailwind.css";
+
 export default function App()
 {
 	return <React.Fragment>

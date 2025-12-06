@@ -1,0 +1,52 @@
+@font-face
+{
+	font-family:"SCoreDream1";
+	src:url("@css/font/SCoreDream1.otf")format("woff");
+}
+@font-face
+{
+	font-family:"SCoreDream2";
+	src:url("@css/font/SCoreDream2.otf")format("woff");
+}
+@font-face
+{
+	font-family:"SCoreDream3";
+	src:url("@css/font/SCoreDream3.otf")format("woff");
+}
+@font-face
+{
+	font-family:"SCoreDream4";
+	src:url("@css/font/SCoreDream4.otf")format("woff");
+}
+@font-face
+{
+	font-family:"SCoreDream5";
+	src:url("@css/font/SCoreDream5.otf")format("woff");
+}
+@font-face
+{
+	font-family:"SCoreDream6";
+	src:url("@css/font/SCoreDream6.otf")format("woff");
+}
+@font-face
+{
+	font-family:"SCoreDream7";
+	src:url("@css/font/SCoreDream7.otf")format("woff");
+}
+@font-face
+{
+	font-family:"SCoreDream8";
+	src:url("@css/font/SCoreDream8.otf")format("woff");
+}
+@font-face
+{
+	font-family:"SCoreDream9";
+	src:url("@css/font/SCoreDream9.otf")format("woff");
+}
+
+html,
+head,
+body
+{
+	font-family:"SCoreDream4";
+}
