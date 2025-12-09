@@ -25,7 +25,6 @@ export default defineConfig
 			"@css":Path.resolve(__dirname,"src/css"),
 			"@hooks":Path.resolve(__dirname,"src/hooks"),
 			"@img":Path.resolve(__dirname,"src/img"),
-			"@layout":Path.resolve(__dirname,"src/layout"),
 			"@pages":Path.resolve(__dirname,"src/pages"),
 		},
 	},
