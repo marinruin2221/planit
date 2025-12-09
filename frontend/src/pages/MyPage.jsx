@@ -8,7 +8,7 @@ export default function MyPage()
 	return <React.Fragment>
 		<Header/>
 		mypage
-		종현 테스트2
+		종현 테스트3
 		성현 테스트
 		성원 테스트
 		관범 테스트
