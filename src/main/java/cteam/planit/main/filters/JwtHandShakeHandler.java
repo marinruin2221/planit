@@ -1,4 +1,4 @@
-package com.example.demo.filters;
+package cteam.planit.main.filters;
 
 import java.security.Principal;
 import java.util.Map;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
-import com.example.demo.dto.User;
+import cteam.planit.main.dto.User;
 
 @Component
 public class JwtHandShakeHandler extends DefaultHandshakeHandler {

@@ -1,4 +1,4 @@
-package com.example.demo.utils;
+package cteam.planit.main.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.dao.UserRepository;
-import com.example.demo.dto.User;
+import cteam.planit.main.dao.UserRepository;
+import cteam.planit.main.dto.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

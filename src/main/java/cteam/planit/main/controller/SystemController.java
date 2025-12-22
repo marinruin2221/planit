@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package cteam.planit.main.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.dao.UserRepository;
-import com.example.demo.dto.User;
-import com.example.demo.utils.CookieUtil;
-import com.example.demo.utils.JWTUtil;
+import cteam.planit.main.dao.UserRepository;
+import cteam.planit.main.dto.User;
+import cteam.planit.main.utils.CookieUtil;
+import cteam.planit.main.utils.JWTUtil;
 
 import jakarta.servlet.http.HttpServletResponse;
 

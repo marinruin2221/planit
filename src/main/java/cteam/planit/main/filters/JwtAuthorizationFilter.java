@@ -1,4 +1,4 @@
-package com.example.demo.filters;
+package cteam.planit.main.filters;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.demo.dto.User;
-import com.example.demo.utils.CookieUtil;
-import com.example.demo.utils.JWTUtil;
+import cteam.planit.main.dto.User;
+import cteam.planit.main.utils.CookieUtil;
+import cteam.planit.main.utils.JWTUtil;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

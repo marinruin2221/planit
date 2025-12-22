@@ -1,4 +1,4 @@
-package com.example.demo.systemclasses;
+package cteam.planit.main.systemclasses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

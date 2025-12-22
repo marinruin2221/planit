@@ -1,4 +1,4 @@
-package com.example.demo.filters;
+package cteam.planit.main.filters;
 
 import java.nio.file.AccessDeniedException;
 
@@ -12,7 +12,7 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.dto.User;
+import cteam.planit.main.dto.User;
 
 import jakarta.annotation.PostConstruct;
 
@@ -35,13 +35,13 @@ public class SubscriptionInterceptor implements ChannelInterceptor {
 
   @Override
   public void afterReceiveCompletion(@Nullable Message<?> message, MessageChannel channel, @Nullable Exception ex) {
-    // 메시지를 성공적으로 수신한 후 액션
+    // 메시지�??�공?�으�??�신?????�션
     ChannelInterceptor.super.afterReceiveCompletion(message, channel, ex);
   }
 
   @Override
   public void afterSendCompletion(Message<?> message, MessageChannel channel, boolean sent, @Nullable Exception ex) {
-    // 메시지를 성공적으로 전달한 후 액션
+    // 메시지�??�공?�으�??�달?????�션
     ChannelInterceptor.super.afterSendCompletion(message, channel, sent, ex);
   }
 
@@ -56,21 +56,21 @@ public class SubscriptionInterceptor implements ChannelInterceptor {
           for (String adminPath : adminPaths) {
             if (adminPath.equalsIgnoreCase(path)) {
               if (user == null)
-                throw new AccessDeniedException("Subscribe 권한 부족");
+                throw new AccessDeniedException("Subscribe 권한 부�?);
               if (user.roles.contains("admin"))
                 return message;
               else
-                throw new AccessDeniedException("Subscribe 권한 부족");
+                throw new AccessDeniedException("Subscribe 권한 부�?);
             }
           }
           for (String authPath : authPaths) {
             if (authPath.equalsIgnoreCase(path)) {
               if (user == null)
-                throw new AccessDeniedException("Subscribe 권한 부족");
+                throw new AccessDeniedException("Subscribe 권한 부�?);
               if (user.roles.contains("admin") || user.roles.contains("user"))
                 return message;
               else
-                throw new AccessDeniedException("Subscribe 권한 부족");
+                throw new AccessDeniedException("Subscribe 권한 부�?);
             }
           }
 

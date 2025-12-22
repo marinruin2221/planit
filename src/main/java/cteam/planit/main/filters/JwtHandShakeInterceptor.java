@@ -1,4 +1,4 @@
-package com.example.demo.filters;
+package cteam.planit.main.filters;
 
 import java.util.Map;
 import java.util.Optional;
@@ -15,9 +15,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
-import com.example.demo.dto.User;
-import com.example.demo.utils.CookieUtil;
-import com.example.demo.utils.JWTUtil;
+import cteam.planit.main.dto.User;
+import cteam.planit.main.utils.CookieUtil;
+import cteam.planit.main.utils.JWTUtil;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,8 +38,8 @@ public class JwtHandShakeInterceptor implements HandshakeInterceptor {
   @Override
   public void afterHandshake(ServerHttpRequest arg0, ServerHttpResponse arg1, WebSocketHandler arg2,
       @Nullable Exception arg3) {
-    // 핸드셰이크 이후 동작, 즉 성공 후 무슨일을 할지 작성하는 기능
-    // 여기는 일반적으로 DBMS에 로그를 남긴다거나 할때만 쓰인다
+    // ?�드?�이???�후 ?�작, �??�공 ??무슨?�을 ?��? ?�성?�는 기능
+    // ?�기???�반?�으�?DBMS??로그�??�긴?�거???�때�??�인??
   }
 
   @Override

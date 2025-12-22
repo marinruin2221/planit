@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package cteam.planit.main.services;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,13 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.example.demo.systemclasses.FileSearchStore;
-import com.example.demo.systemclasses.FileSearchStoreDocument;
-import com.example.demo.systemclasses.FileSearchStoreDocumentResult;
-import com.example.demo.systemclasses.FileSearchStoreDocumentUpload;
-import com.example.demo.systemclasses.FileSearchStoreRequest;
-import com.example.demo.systemclasses.FileSearchStoreResult;
-import com.example.demo.systemclasses.MultipartInputResource;
+import cteam.planit.main.systemclasses.FileSearchStore;
+import cteam.planit.main.systemclasses.FileSearchStoreDocument;
+import cteam.planit.main.systemclasses.FileSearchStoreDocumentResult;
+import cteam.planit.main.systemclasses.FileSearchStoreDocumentUpload;
+import cteam.planit.main.systemclasses.FileSearchStoreRequest;
+import cteam.planit.main.systemclasses.FileSearchStoreResult;
+import cteam.planit.main.systemclasses.MultipartInputResource;
 
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;

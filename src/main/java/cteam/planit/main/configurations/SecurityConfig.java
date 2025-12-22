@@ -1,4 +1,4 @@
-package com.example.demo.configurations;
+package cteam.planit.main.configurations;
 
 import java.util.List;
 
@@ -17,11 +17,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.example.demo.dto.User;
-import com.example.demo.filters.JwtAuthorizationFilter;
-import com.example.demo.services.CustomUserDetailsService;
-import com.example.demo.utils.CookieUtil;
-import com.example.demo.utils.JWTUtil;
+import cteam.planit.main.dto.User;
+import cteam.planit.main.filters.JwtAuthorizationFilter;
+import cteam.planit.main.services.CustomUserDetailsService;
+import cteam.planit.main.utils.CookieUtil;
+import cteam.planit.main.utils.JWTUtil;
 
 import jakarta.servlet.DispatcherType;
 

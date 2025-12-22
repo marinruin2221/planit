@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package cteam.planit.main.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +13,9 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.UserRepository;
-import com.example.demo.dto.User;
-import com.example.demo.utils.RandomUtil;
+import cteam.planit.main.dao.UserRepository;
+import cteam.planit.main.dto.User;
+import cteam.planit.main.utils.RandomUtil;
 
 @Service
 public class CustomUserDetailsService extends DefaultOAuth2UserService implements UserDetailsService {
@@ -36,7 +36,7 @@ public class CustomUserDetailsService extends DefaultOAuth2UserService implement
     return user.get();
   }
 
-  // Naver, Kakao 직접 제작
+  // Naver, Kakao 직접 ?�작
   @Override
   public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
     OAuth2User ouser = super.loadUser(userRequest);

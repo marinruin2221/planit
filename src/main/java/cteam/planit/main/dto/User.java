@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package cteam.planit.main.dto;
 
 import java.security.Principal;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.demo.configurations;
+package cteam.planit.main.configurations;
 
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;

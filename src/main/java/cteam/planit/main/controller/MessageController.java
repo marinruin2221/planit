@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package cteam.planit.main.controller;
 
 import org.springframework.stereotype.Controller;
 

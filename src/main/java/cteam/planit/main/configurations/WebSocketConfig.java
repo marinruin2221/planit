@@ -1,4 +1,4 @@
-package com.example.demo.configurations;
+package cteam.planit.main.configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,9 +9,9 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
-import com.example.demo.filters.JwtHandShakeHandler;
-import com.example.demo.filters.JwtHandShakeInterceptor;
-import com.example.demo.filters.SubscriptionInterceptor;
+import cteam.planit.main.filters.JwtHandShakeHandler;
+import cteam.planit.main.filters.JwtHandShakeInterceptor;
+import cteam.planit.main.filters.SubscriptionInterceptor;
 
 @Configuration
 @EnableWebSocketMessageBroker
