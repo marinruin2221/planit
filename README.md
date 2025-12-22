@@ -6,7 +6,7 @@ PlanIt 프로젝트의 백엔드 워크스페이스입니다. Spring Boot를 기
 
 | 날짜 | 담당 | 작업 내용 | 관련 파일/링크 | 비고 |
 | --- | --- | --- | --- | --- |
-| 2025-12-22 | 김관범 | 백엔드 프로젝트 문서 초기화 및 기술 스택 정리 | [`README.md`](README.md)<br>[`Instruction.md`](Instruction.md) |  |
+| 2025-12-22 | 김관범 | 백엔드 프로젝트 문서 초기화, 설정 파일 수정 및 유틸리티 추가 | [`README.md`](README.md)<br>[`Instruction.md`](Instruction.md)<br>[`src/main/resources/application.properties`](src/main/resources/application.properties)<br>[`.gitignore`](.gitignore) |  |
 
 ### 새 항목 추가 템플릿
 
