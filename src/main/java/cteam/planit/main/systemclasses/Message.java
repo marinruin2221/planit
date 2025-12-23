@@ -14,3 +14,4 @@ public class Message {
   public String content;
   public LocalDateTime time;
 }
+

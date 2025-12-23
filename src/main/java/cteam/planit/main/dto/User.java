@@ -70,3 +70,4 @@ public class User implements UserDetails, OAuth2User, Principal {
   }
 
 }
+

@@ -14,3 +14,4 @@ public class AIRequestDTO {
     private String text;
   }
 }
+

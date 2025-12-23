@@ -22,3 +22,4 @@ public class RandomUtil {
     return sb.toString();
   }
 }
+

@@ -2,7 +2,7 @@ package cteam.planit.main.filters;
 
 import java.nio.file.AccessDeniedException;
 
-import org.jspecify.annotations.Nullable;
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -35,13 +35,13 @@ public class SubscriptionInterceptor implements ChannelInterceptor {
 
   @Override
   public void afterReceiveCompletion(@Nullable Message<?> message, MessageChannel channel, @Nullable Exception ex) {
-    // ë©”ì‹œì§€ë¥??±ê³µ?ìœ¼ë¡??˜ì‹ ?????¡ì…˜
+    // After receive completion
     ChannelInterceptor.super.afterReceiveCompletion(message, channel, ex);
   }
 
   @Override
   public void afterSendCompletion(Message<?> message, MessageChannel channel, boolean sent, @Nullable Exception ex) {
-    // ë©”ì‹œì§€ë¥??±ê³µ?ìœ¼ë¡??„ë‹¬?????¡ì…˜
+    // After send completion
     ChannelInterceptor.super.afterSendCompletion(message, channel, sent, ex);
   }
 
@@ -56,21 +56,21 @@ public class SubscriptionInterceptor implements ChannelInterceptor {
           for (String adminPath : adminPaths) {
             if (adminPath.equalsIgnoreCase(path)) {
               if (user == null)
-                throw new AccessDeniedException("Subscribe ê¶Œí•œ ë¶€ì¡?);
+                throw new AccessDeniedException("Subscribe not allowed");
               if (user.roles.contains("admin"))
                 return message;
               else
-                throw new AccessDeniedException("Subscribe ê¶Œí•œ ë¶€ì¡?);
+                throw new AccessDeniedException("Subscribe not allowed");
             }
           }
           for (String authPath : authPaths) {
             if (authPath.equalsIgnoreCase(path)) {
               if (user == null)
-                throw new AccessDeniedException("Subscribe ê¶Œí•œ ë¶€ì¡?);
+                throw new AccessDeniedException("Subscribe not allowed");
               if (user.roles.contains("admin") || user.roles.contains("user"))
                 return message;
               else
-                throw new AccessDeniedException("Subscribe ê¶Œí•œ ë¶€ì¡?);
+                throw new AccessDeniedException("Subscribe not allowed");
             }
           }
 

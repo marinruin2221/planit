@@ -22,8 +22,8 @@ import cteam.planit.main.systemclasses.FileSearchStoreRequest;
 import cteam.planit.main.systemclasses.FileSearchStoreResult;
 import cteam.planit.main.systemclasses.MultipartInputResource;
 
-import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 @Scope("singleton")
@@ -41,7 +41,7 @@ public class Gemini {
   @Autowired
   public GeminiSchema schemas;
 
-  public List<FileSearchStore> storeList() {
+  public List<FileSearchStore> storeList() throws Exception {
     String result = gemini_file_store
         .get()
         .uri("fileSearchStores")
@@ -53,7 +53,7 @@ public class Gemini {
     return fssr.fileSearchStores;
   }
 
-  public FileSearchStore storeCreate(String displayName) {
+  public FileSearchStore storeCreate(String displayName) throws Exception {
     String result = gemini_file_store
         .post()
         .uri("fileSearchStores")
@@ -66,7 +66,7 @@ public class Gemini {
     return fss;
   }
 
-  public FileSearchStore storeGet(String name) {
+  public FileSearchStore storeGet(String name) throws Exception {
     String result = gemini_file_store
         .get()
         .uri(name)
@@ -87,7 +87,7 @@ public class Gemini {
         .block();
   }
 
-  public FileSearchStoreDocument documentGet(String documentName) {
+  public FileSearchStoreDocument documentGet(String documentName) throws Exception {
     String result = gemini_file_store
         .get()
         .uri(documentName)
@@ -99,7 +99,7 @@ public class Gemini {
     return fss;
   }
 
-  public List<FileSearchStoreDocument> documentList(String storeName) {
+  public List<FileSearchStoreDocument> documentList(String storeName) throws Exception {
     String result = gemini_file_store
         .get()
         .uri(storeName + "/documents")
@@ -120,7 +120,7 @@ public class Gemini {
         .block();
   }
 
-  public FileSearchStoreDocument documentUpload(String storeName, MultipartFile file) throws IOException {
+  public FileSearchStoreDocument documentUpload(String storeName, MultipartFile file) throws IOException, Exception {
 
     LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
     map.add("file", new MultipartInputResource(file));

@@ -53,3 +53,4 @@ public class AIConfig {
     return WebClient.builder();
   }
 }
+

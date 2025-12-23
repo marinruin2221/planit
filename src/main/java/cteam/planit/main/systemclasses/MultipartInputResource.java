@@ -18,3 +18,4 @@ public class MultipartInputResource extends ByteArrayResource {
     return filename;
   }
 }
+

@@ -36,7 +36,7 @@ public class CustomUserDetailsService extends DefaultOAuth2UserService implement
     return user.get();
   }
 
-  // Naver, Kakao 직접 ?�작
+  // Naver, Kakao 吏곸젒 ?쒖옉
   @Override
   public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
     OAuth2User ouser = super.loadUser(userRequest);
@@ -59,3 +59,4 @@ public class CustomUserDetailsService extends DefaultOAuth2UserService implement
     return target;
   }
 }
+

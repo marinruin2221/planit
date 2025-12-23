@@ -1,7 +1,6 @@
-package cteam.planit.main.systemclasses;
+package cteam.planit.main.dto;
 
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FileSearchStoreResult {
-  public List<FileSearchStore> fileSearchStores;
+public class TourPageDTO {
+  private List<TourItemDTO> items;
+  private int totalCount;
 }
-

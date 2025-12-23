@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.0</version>
+		<version>3.5.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -28,20 +28,37 @@
 	</scm>
 	<properties>
 		<java.version>25</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<lombok.version>edge-SNAPSHOT</lombok.version>
 	</properties>
+	
+	<repositories>
+		<repository>
+			<id>projectlombok.org</id>
+			<url>https://projectlombok.org/edge-releases</url>
+		</repository>
+	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>projectlombok.org</id>
+			<url>https://projectlombok.org/edge-releases</url>
+		</pluginRepository>
+	</pluginRepositories>
+	
 	<dependencies>
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.8.6</version>
+			<version>2.3.0</version>
 		</dependency>
 
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
-			<version>3.5.8</version>
 		</dependency>
 
 
@@ -91,7 +108,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webmvc</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
@@ -112,26 +129,17 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa-test</artifactId>
+			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -141,13 +149,26 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version>
 				<configuration>
+					<source>25</source>
+					<target>25</target>
+					<encoding>UTF-8</encoding>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
 						</path>
 					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.3.1</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>

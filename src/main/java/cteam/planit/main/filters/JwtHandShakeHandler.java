@@ -3,7 +3,7 @@ package cteam.planit.main.filters;
 import java.security.Principal;
 import java.util.Map;
 
-import org.jspecify.annotations.Nullable;
+import jakarta.annotation.Nullable;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketHandler;
@@ -13,12 +13,13 @@ import cteam.planit.main.dto.User;
 
 @Component
 public class JwtHandShakeHandler extends DefaultHandshakeHandler {
-  
+
   @Override
   protected @Nullable Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler,
       Map<String, Object> attributes) {
-    User user = (User)attributes.get("Principal");
-    if(user == null) return super.determineUser(request, wsHandler, attributes);
+    User user = (User) attributes.get("Principal");
+    if (user == null)
+      return super.determineUser(request, wsHandler, attributes);
     return user;
   }
 }

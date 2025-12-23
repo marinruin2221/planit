@@ -95,3 +95,4 @@ public class JWTUtil {
     return userRep.findByUsernameIgnoreCase(username);
   }
 }
+

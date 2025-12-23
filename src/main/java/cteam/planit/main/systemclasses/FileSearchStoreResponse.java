@@ -11,3 +11,4 @@ public class FileSearchStoreResponse {
   String name;
   String displayName;
 }
+

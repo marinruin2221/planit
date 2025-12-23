@@ -12,3 +12,4 @@ public class MainController
 		return "Hello Main Page";
 	}
 }
+

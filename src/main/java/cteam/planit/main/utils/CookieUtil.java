@@ -41,3 +41,4 @@ public class CookieUtil {
     CookieAdd(jwtName, "", 0, jwtDomain, jwtSecure, res);
   }
 }
+

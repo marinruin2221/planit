@@ -10,3 +10,4 @@ import lombok.NoArgsConstructor;
 public class FileSearchStoreDocumentUpload {
   public FileSearchStoreDocumentUploadResult response;
 }
+

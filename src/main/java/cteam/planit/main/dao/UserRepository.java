@@ -11,3 +11,4 @@ import cteam.planit.main.dto.User;
 public interface UserRepository extends JpaRepository<User, Long> {
   public Optional<User> findByUsernameIgnoreCase(String username);
 }
+

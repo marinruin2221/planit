@@ -12,3 +12,4 @@ import lombok.NoArgsConstructor;
 public class FileSearchStoreDocumentResult {
   public List<FileSearchStoreDocument> documents;
 }
+
