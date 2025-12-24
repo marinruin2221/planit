@@ -110,6 +110,10 @@ public class TourApiService {
         return itemCat3.equals("B02011100"); // 캠핑장
       case "글램핑":
         return itemCat3.equals("B02011200"); // 글램핑
+      case "기타":
+      case "야영장 및 기타":
+        // 기타 숙박 (B02011600) 및 야영장 (A03020200)
+        return itemCat3.equals("B02011600") || itemCat3.equals("A03020200");
       default:
         return false;
     }
@@ -387,9 +391,10 @@ public class TourApiService {
       try {
         System.out.println("Fetching page " + page + "...");
         final int currentPage = page;
+        // areaBasedList2 API 사용 - cat3 필드가 포함됨 (searchStay2는 cat3 미포함)
         String jsonResponse = webClient.get()
             .uri(uriBuilder -> uriBuilder
-                .path("/searchStay2")
+                .path("/areaBasedList2")
                 .queryParam("serviceKey", SERVICE_KEY)
                 .queryParam("numOfRows", size)
                 .queryParam("pageNo", currentPage)
@@ -397,6 +402,7 @@ public class TourApiService {
                 .queryParam("MobileApp", "Planit")
                 .queryParam("_type", "json")
                 .queryParam("arrange", "A")
+                .queryParam("contentTypeId", "32") // 32 = 숙박
                 .build())
             .retrieve()
             .bodyToMono(String.class)
