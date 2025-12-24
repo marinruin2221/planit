@@ -6,6 +6,8 @@ import cteam.planit.main.dto.TourDetailDTO;
 import cteam.planit.main.dto.TourItemDTO;
 import cteam.planit.main.dto.TourIntroDTO;
 import cteam.planit.main.dto.RoomInfoDTO;
+import cteam.planit.main.entity.Accommodation;
+import cteam.planit.main.repository.AccommodationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -26,7 +28,14 @@ public class TourApiService {
   // 국문 관광정보 서비스 API 엔드포인트
   private final String BASE_URL = "https://apis.data.go.kr/B551011/KorService2";
 
-  public TourApiService() {
+  private final GoogleImageSearchService googleImageSearchService;
+  private final AccommodationRepository accommodationRepository;
+
+  public TourApiService(GoogleImageSearchService googleImageSearchService,
+      AccommodationRepository accommodationRepository) {
+    this.googleImageSearchService = googleImageSearchService;
+    this.accommodationRepository = accommodationRepository;
+
     // 버퍼 크기를 16MB로 증가 (기본 256KB)
     ExchangeStrategies strategies = ExchangeStrategies.builder()
         .codecs(configurer -> configurer
@@ -154,6 +163,18 @@ public class TourApiService {
         }
       }
 
+      // 이미지가 없는 경우 Google 검색 시도
+      if (detailDTO != null && (detailDTO.getFirstimage() == null || detailDTO.getFirstimage().isEmpty())) {
+        System.out.println("Image missing for " + detailDTO.getTitle() + ", searching Google...");
+        String searchImage = googleImageSearchService.searchImage(detailDTO.getTitle() + " 외관");
+        if (searchImage != null) {
+          System.out.println("Found image from Google: " + searchImage);
+          detailDTO.setFirstimage(searchImage);
+        } else {
+          System.out.println("No image found from Google.");
+        }
+      }
+
     } catch (Exception e) {
       System.err.println("Error calling detailCommon2 API: " + e.getMessage());
       e.printStackTrace();
@@ -196,6 +217,17 @@ public class TourApiService {
             String itemContentId = item.path("contentid").asText();
             if (contentId.equals(itemContentId)) {
               TourItemDTO dto = objectMapper.treeToValue(item, TourItemDTO.class);
+
+              // 이미지가 없는 경우 Google 검색 시도
+              if (dto.getFirstimage() == null || dto.getFirstimage().isEmpty()) {
+                System.out.println("Image missing for " + dto.getTitle() + ", searching Google...");
+                String searchImage = googleImageSearchService.searchImage(dto.getTitle() + " 외관");
+                if (searchImage != null) {
+                  System.out.println("Found image from Google: " + searchImage);
+                  dto.setFirstimage(searchImage);
+                }
+              }
+
               System.out.println("Found item: " + dto.getTitle());
               return dto;
             }
@@ -437,6 +469,59 @@ public class TourApiService {
 
     this.cachedTourList = allItems;
     System.out.println("=== Finished loading all tour data. Total cached: " + cachedTourList.size() + " ===");
+
+    // DB에 저장
+    saveToDatabase(allItems);
+  }
+
+  /**
+   * API에서 가져온 데이터를 DB에 저장
+   */
+  private void saveToDatabase(List<TourItemDTO> items) {
+    System.out.println("=== Starting to save data to database ===");
+    int savedCount = 0;
+    int skippedCount = 0;
+
+    for (TourItemDTO dto : items) {
+      try {
+        // 이미 존재하는 데이터는 업데이트, 없으면 삽입
+        Accommodation entity = convertToEntity(dto);
+        accommodationRepository.save(entity);
+        savedCount++;
+      } catch (Exception e) {
+        System.err.println("Error saving contentId " + dto.getContentid() + ": " + e.getMessage());
+        skippedCount++;
+      }
+    }
+
+    System.out.println("=== Finished saving to database. Saved: " + savedCount + ", Skipped: " + skippedCount + " ===");
+  }
+
+  /**
+   * TourItemDTO를 Accommodation Entity로 변환
+   */
+  private Accommodation convertToEntity(TourItemDTO dto) {
+    return Accommodation.builder()
+        .contentId(dto.getContentid())
+        .title(dto.getTitle())
+        .addr1(dto.getAddr1())
+        .addr2(dto.getAddr2())
+        .zipcode(dto.getZipcode())
+        .areacode(dto.getAreacode())
+        .sigungucode(dto.getSigungucode())
+        .cat1(dto.getCat1())
+        .cat2(dto.getCat2())
+        .cat3(dto.getCat3())
+        .contenttypeid(dto.getContenttypeid())
+        .tel(dto.getTel())
+        .firstimage(dto.getFirstimage())
+        .firstimage2(dto.getFirstimage2())
+        .mapx(dto.getMapx())
+        .mapy(dto.getMapy())
+        .mlevel(dto.getMlevel())
+        .createdtime(dto.getCreatedtime())
+        .modifiedtime(dto.getModifiedtime())
+        .build();
   }
 
   /**
