@@ -21,11 +21,13 @@ public class TourController {
 
   @GetMapping
   public ResponseEntity<cteam.planit.main.dto.TourPageDTO> getTourList(
-      @RequestParam(required = false) String areaCode,
+      @RequestParam(required = false) List<String> areaCode,
+      @RequestParam(required = false) List<String> category,
       @RequestParam(defaultValue = "1") int page,
       @RequestParam(defaultValue = "10") int size) {
-    System.out.println("=== TourController.getTourList called ===");
-    return ResponseEntity.ok(tourApiService.getAreaBasedList(areaCode, page, size));
+    System.out.println(
+        "=== TourController.getTourList called with areaCode: " + areaCode + ", category: " + category + " ===");
+    return ResponseEntity.ok(tourApiService.getAreaBasedList(areaCode, category, page, size));
   }
 
   @GetMapping("/{contentId}")
@@ -75,5 +77,43 @@ public class TourController {
   public java.util.Map<String, Integer> getTourStats() {
     System.out.println("=== TourController.getTourStats called ===");
     return tourApiService.getImageStats();
+  }
+
+  @GetMapping("/{contentId}/price")
+  public ResponseEntity<java.util.Map<String, Object>> getTourPrice(@PathVariable String contentId,
+      @RequestParam(defaultValue = "32") String contentTypeId) {
+    System.out.println("=== TourController.getTourPrice called for: " + contentId + " ===");
+    List<cteam.planit.main.dto.RoomInfoDTO> rooms = tourApiService.getDetailInfo(contentId, contentTypeId);
+
+    java.util.Map<String, Object> result = new java.util.HashMap<>();
+    result.put("contentId", contentId);
+
+    if (rooms != null && !rooms.isEmpty()) {
+      // Find minimum price from all rooms
+      Integer minPrice = null;
+      for (cteam.planit.main.dto.RoomInfoDTO room : rooms) {
+        String priceStr = room.getRoomoffseasonminfee1();
+        if (priceStr == null || priceStr.isEmpty()) {
+          priceStr = room.getRoompeakseasonminfee1();
+        }
+        if (priceStr != null && !priceStr.isEmpty()) {
+          try {
+            int price = Integer.parseInt(priceStr.replaceAll("[^0-9]", ""));
+            if (minPrice == null || price < minPrice) {
+              minPrice = price;
+            }
+          } catch (NumberFormatException e) {
+            // Skip invalid price
+          }
+        }
+      }
+      result.put("minPrice", minPrice);
+      result.put("hasPrice", minPrice != null);
+    } else {
+      result.put("minPrice", null);
+      result.put("hasPrice", false);
+    }
+
+    return ResponseEntity.ok(result);
   }
 }

@@ -8,6 +8,7 @@ PlanIt 프로젝트의 백엔드 워크스페이스입니다. Spring Boot를 기
 | --- | --- | --- | --- | --- |
 | 2025-12-22 | 김관범 | 백엔드 프로젝트 문서 초기화, 설정 파일 수정 및 유틸리티 추가 | [`README.md`](README.md)<br>[`Instruction.md`](Instruction.md)<br>[`src/main/resources/application.properties`](src/main/resources/application.properties)<br>[`.gitignore`](.gitignore) |  |
 | 2025-12-23 | 김관범 | 투어 데이터 전체 캐싱 및 페이지네이션 구현<br> - API 키 보안 처리 (secret.properties)<br> - 전체 데이터 로딩 및 캐싱 로직 추가<br> - 페이지네이션 API 응답 구조 변경 (TourPageDTO) | [`src/main/java/cteam/planit/main/services/TourApiService.java`](src/main/java/cteam/planit/main/services/TourApiService.java)<br>[`src/main/java/cteam/planit/main/controller/TourController.java`](src/main/java/cteam/planit/main/controller/TourController.java)<br>[`src/main/java/cteam/planit/main/dto/TourPageDTO.java`](src/main/java/cteam/planit/main/dto/TourPageDTO.java)<br>[`src/main/resources/secret.properties`](src/main/resources/secret.properties) | API 키 분리 및 캐싱 적용 완료 |
+| 2025-12-24 | 김관범 | 숙박 가격 조회 API 구현<br> - `/api/tours/{contentId}/price` 엔드포인트 추가<br> - 숙박 타입 필터링 로직 개선<br> - 최저가 계산 로직 구현 | [`src/main/java/cteam/planit/main/controller/TourController.java`](src/main/java/cteam/planit/main/controller/TourController.java)<br>[`src/main/java/cteam/planit/main/services/TourApiService.java`](src/main/java/cteam/planit/main/services/TourApiService.java) | 가격 조회 API 완료 |
 
 ### 새 항목 추가 템플릿
 

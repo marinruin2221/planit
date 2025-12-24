@@ -21,7 +21,6 @@ public class TourApiService {
   private ObjectMapper objectMapper;
 
   // VisitKorea Open API Key (한국관광공사_국문 관광정보 서비스_GW)
-  // VisitKorea Open API Key (한국관광공사_국문 관광정보 서비스_GW)
   @org.springframework.beans.factory.annotation.Value("${tour.api.service.key}")
   private String SERVICE_KEY;
   // 국문 관광정보 서비스 API 엔드포인트
@@ -42,21 +41,39 @@ public class TourApiService {
     this.objectMapper = new ObjectMapper();
   }
 
-  public cteam.planit.main.dto.TourPageDTO getAreaBasedList(String areaCode, int page, int size) {
-    // 캐시된 데이터가 없으면 빈 결과 반환 (또는 로딩 대기 로직 추가 가능)
+  public cteam.planit.main.dto.TourPageDTO getAreaBasedList(List<String> areaCodes, List<String> categories, int page,
+      int size) {
+    // 캐시된 데이터가 없으면 빈 결과 반환
     if (cachedTourList == null || cachedTourList.isEmpty()) {
       return new cteam.planit.main.dto.TourPageDTO(new ArrayList<>(), 0);
     }
 
-    // 1. 필터링 (지역 코드)
-    List<TourItemDTO> filteredList = cachedTourList;
-    if (areaCode != null && !areaCode.isEmpty()) {
-      filteredList = cachedTourList.stream()
-          .filter(item -> areaCode.equals(item.getAreacode()))
-          .collect(java.util.stream.Collectors.toList());
-    }
+    // 스트림 필터링
+    List<TourItemDTO> filteredList = cachedTourList.stream()
+        .filter(item -> {
+          // 1. 지역 필터
+          if (areaCodes != null && !areaCodes.isEmpty()) {
+            if (!areaCodes.contains(item.getAreacode())) {
+              return false;
+            }
+          }
+          // 2. 카테고리(숙소유형) 필터
+          if (categories != null && !categories.isEmpty()) {
+            boolean match = false;
+            for (String cat : categories) {
+              if (isCategoryMatch(item.getCat3(), cat)) {
+                match = true;
+                break;
+              }
+            }
+            if (!match)
+              return false;
+          }
+          return true;
+        })
+        .collect(java.util.stream.Collectors.toList());
 
-    // 2. 페이지네이션 계산
+    // 페이지네이션 계산
     int totalCount = filteredList.size();
     int start = (page - 1) * size;
     int end = Math.min(start + size, totalCount);
@@ -69,6 +86,33 @@ public class TourApiService {
     System.out.println("Returning cached page " + page + " (size " + size + ") from total " + totalCount);
 
     return new cteam.planit.main.dto.TourPageDTO(pagedList, totalCount);
+  }
+
+  // 프론트엔드 카테고리 -> VisitKorea cat3 코드 매핑
+  private boolean isCategoryMatch(String itemCat3, String frontendCategory) {
+    if (itemCat3 == null)
+      return false;
+
+    switch (frontendCategory) {
+      case "호텔":
+        return itemCat3.equals("B02010100"); // 호텔
+      case "콘도미니엄":
+        return itemCat3.equals("B02010200"); // 콘도미니엄
+      case "펜션":
+        return itemCat3.equals("B02010400"); // 펜션
+      case "모텔":
+        return itemCat3.equals("B02010500"); // 모텔
+      case "게스트하우스":
+        return itemCat3.equals("B02010700"); // 게스트하우스
+      case "한옥":
+        return itemCat3.equals("B02011000"); // 한옥
+      case "캠핑장":
+        return itemCat3.equals("B02011100"); // 캠핑장
+      case "글램핑":
+        return itemCat3.equals("B02011200"); // 글램핑
+      default:
+        return false;
+    }
   }
 
   public TourDetailDTO getDetailCommon(String contentId) {
