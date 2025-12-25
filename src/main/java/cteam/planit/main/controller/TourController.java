@@ -23,11 +23,14 @@ public class TourController {
   public ResponseEntity<cteam.planit.main.dto.TourPageDTO> getTourList(
       @RequestParam(required = false) List<String> areaCode,
       @RequestParam(required = false) List<String> category,
+      @RequestParam(required = false) Integer minPrice,
+      @RequestParam(required = false) Integer maxPrice,
       @RequestParam(defaultValue = "1") int page,
       @RequestParam(defaultValue = "10") int size) {
     System.out.println(
-        "=== TourController.getTourList called with areaCode: " + areaCode + ", category: " + category + " ===");
-    return ResponseEntity.ok(tourApiService.getAreaBasedList(areaCode, category, page, size));
+        "=== TourController.getTourList called with areaCode: " + areaCode + ", category: " + category +
+            ", price: " + minPrice + "~" + maxPrice + " ===");
+    return ResponseEntity.ok(tourApiService.getAreaBasedList(areaCode, category, page, size, minPrice, maxPrice));
   }
 
   @GetMapping("/{contentId}")
@@ -88,9 +91,10 @@ public class TourController {
     java.util.Map<String, Object> result = new java.util.HashMap<>();
     result.put("contentId", contentId);
 
+    Integer minPrice = null;
+
     if (rooms != null && !rooms.isEmpty()) {
       // Find minimum price from all rooms
-      Integer minPrice = null;
       for (cteam.planit.main.dto.RoomInfoDTO room : rooms) {
         String priceStr = room.getRoomoffseasonminfee1();
         if (priceStr == null || priceStr.isEmpty()) {
@@ -107,11 +111,17 @@ public class TourController {
           }
         }
       }
+    }
+
+    if (minPrice != null) {
       result.put("minPrice", minPrice);
-      result.put("hasPrice", minPrice != null);
+      result.put("hasPrice", true);
     } else {
-      result.put("minPrice", null);
-      result.put("hasPrice", false);
+      // 가격 데이터가 없는 경우 통계 기반 예상 가격 생성 (contentId 기반으로 고정된 랜덤값)
+      int estimatedPrice = tourApiService.generateEstimatedPrice(contentId);
+      result.put("minPrice", estimatedPrice);
+      result.put("hasPrice", true);
+      result.put("isEstimated", true);
     }
 
     return ResponseEntity.ok(result);

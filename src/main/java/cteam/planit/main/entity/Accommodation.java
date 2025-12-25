@@ -71,4 +71,7 @@ public class Accommodation {
 
   @Column(name = "modifiedtime", length = 20)
   private String modifiedtime;
+
+  @Column(name = "min_price")
+  private Integer minPrice;
 }

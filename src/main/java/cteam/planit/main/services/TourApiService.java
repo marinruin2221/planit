@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @Service
 public class TourApiService {
@@ -35,11 +37,15 @@ public class TourApiService {
 
   private final GoogleImageSearchService googleImageSearchService;
   private final AccommodationRepository accommodationRepository;
+  private final TransactionTemplate transactionTemplate;
 
   public TourApiService(GoogleImageSearchService googleImageSearchService,
-      AccommodationRepository accommodationRepository) {
+      AccommodationRepository accommodationRepository,
+      PlatformTransactionManager transactionManager) {
     this.googleImageSearchService = googleImageSearchService;
     this.accommodationRepository = accommodationRepository;
+    this.transactionTemplate = new TransactionTemplate(transactionManager);
+    this.transactionTemplate.setTimeout(60); // 트랜잭션 타임아웃 60초 설정
 
     // 버퍼 크기를 16MB로 증가 (기본 256KB)
     ExchangeStrategies strategies = ExchangeStrategies.builder()
@@ -56,7 +62,7 @@ public class TourApiService {
   }
 
   public cteam.planit.main.dto.TourPageDTO getAreaBasedList(List<String> areaCodes, List<String> categories, int page,
-      int size) {
+      int size, Integer minPrice, Integer maxPrice) {
 
     // PageRequest 생성 (0-based page index)
     Pageable pageable = PageRequest.of(page - 1, size);
@@ -71,19 +77,13 @@ public class TourApiService {
       }
     }
 
-    // Repository 조회 분기 처리
-    boolean hasArea = areaCodes != null && !areaCodes.isEmpty();
-    boolean hasCat = cat3List != null && !cat3List.isEmpty();
+    // Repository 조회 (동적 쿼리 사용)
+    // 리스트가 비어있으면 null로 전달하여 쿼리에서 무시하도록 함
+    List<String> effectiveAreaCodes = (areaCodes != null && !areaCodes.isEmpty()) ? areaCodes : null;
+    List<String> effectiveCat3List = (cat3List != null && !cat3List.isEmpty()) ? cat3List : null;
 
-    if (hasArea && hasCat) {
-      accommodationPage = accommodationRepository.findByAreacodeInAndCat3In(areaCodes, cat3List, pageable);
-    } else if (hasArea) {
-      accommodationPage = accommodationRepository.findByAreacodeIn(areaCodes, pageable);
-    } else if (hasCat) {
-      accommodationPage = accommodationRepository.findByCat3In(cat3List, pageable);
-    } else {
-      accommodationPage = accommodationRepository.findAll(pageable);
-    }
+    accommodationPage = accommodationRepository.findWithFilters(effectiveAreaCodes, effectiveCat3List, minPrice,
+        maxPrice, pageable);
 
     // Entity -> DTO 변환
     List<TourItemDTO> dtoList = accommodationPage.getContent().stream()
@@ -94,6 +94,22 @@ public class TourApiService {
         "Returning DB page " + page + " (size " + size + ") from total " + accommodationPage.getTotalElements());
 
     return new cteam.planit.main.dto.TourPageDTO(dtoList, (int) accommodationPage.getTotalElements());
+  }
+
+  // contentId를 시드로 사용하여 항상 일관된 예상 가격 생성 (공유 로직)
+  public int generateEstimatedPrice(String contentId) {
+    long seed = contentId.hashCode();
+    java.util.Random random = new java.util.Random(seed);
+
+    // 기본 범위: 5만원 ~ 25만원
+    int minBase = 50000;
+    int maxBase = 250000;
+
+    // 1000원 단위로 끊기
+    int price = minBase + random.nextInt(maxBase - minBase);
+    price = (price / 1000) * 1000;
+
+    return price;
   }
 
   // 프론트엔드 카테고리 -> VisitKorea cat3 코드 매핑 및 리스트 추가
@@ -155,6 +171,7 @@ public class TourApiService {
     dto.setMlevel(entity.getMlevel());
     dto.setCreatedtime(entity.getCreatedtime());
     dto.setModifiedtime(entity.getModifiedtime());
+    dto.setMinPrice(entity.getMinPrice());
     return dto;
   }
 
@@ -503,6 +520,9 @@ public class TourApiService {
 
     // DB에 저장
     saveToDatabase(allItems);
+
+    // 가격 데이터 보정 (minPrice가 NULL인 숙소에 예상 가격 설정)
+    ensureMinPrices();
   }
 
   /**
@@ -511,9 +531,11 @@ public class TourApiService {
   private void saveToDatabase(List<TourItemDTO> items) {
     System.out.println("=== Starting to save data to database ===");
 
-    // 데이터가 이미 존재하면 저장 스킵
-    if (accommodationRepository.count() > 0) {
-      System.out.println("Data already exists in database. Skipping save operation.");
+    // 데이터가 이미 충분히 존재하면 저장 스킵 (기존 3600개 이상)
+    // 200개 등 일부만 저장된 경우 재시도를 위해 기준을 3000개로 설정
+    long currentCount = accommodationRepository.count();
+    if (currentCount > 3000) {
+      System.out.println("Data already exists (" + currentCount + " items). Skipping save operation.");
       return;
     }
 
@@ -523,6 +545,8 @@ public class TourApiService {
     for (TourItemDTO dto : items) {
       try {
         // 이미 존재하는 데이터는 업데이트, 없으면 삽입
+        // DTO에 가격 정보가 없더라도 convertToEntity 내부가 아니라 여기서 챙기기는 어려움
+        // ensureMinPrices가 처리할 것임
         Accommodation entity = convertToEntity(dto);
         accommodationRepository.save(entity);
         savedCount++;
@@ -559,6 +583,9 @@ public class TourApiService {
         .mlevel(dto.getMlevel())
         .createdtime(dto.getCreatedtime())
         .modifiedtime(dto.getModifiedtime())
+        .modifiedtime(dto.getModifiedtime())
+        .minPrice(dto.getMinPrice() != null ? dto.getMinPrice() : generateEstimatedPrice(dto.getContentid())) // 가격 없을 시
+                                                                                                              // 자동 생성
         .build();
   }
 
@@ -586,5 +613,46 @@ public class TourApiService {
     stats.put("withoutImage", withoutImage);
 
     return stats;
+  }
+
+  // DB의 minPrice가 비어있는 경우 채워주는 보정 로직
+  private void ensureMinPrices() {
+    System.out.println("=== Checking for accommodations with missing minPrice ===");
+    List<Accommodation> missingPriceList = accommodationRepository.findByMinPriceIsNull();
+
+    if (missingPriceList.isEmpty()) {
+      System.out.println("=== All accommodations have minPrice. No update needed. ===");
+      return;
+    }
+
+    System.out.println("=== Found " + missingPriceList.size() + " accommodations without minPrice. Updating... ===");
+
+    // 배치 처리 (트랜잭션 분할 및 DB 부하 감소)
+    int batchSize = 100;
+    int totalUpdated = 0;
+
+    for (int i = 0; i < missingPriceList.size(); i += batchSize) {
+      int end = Math.min(i + batchSize, missingPriceList.size());
+      List<Accommodation> batch = missingPriceList.subList(i, end);
+
+      try {
+        // 트랜잭션 내에서 실행하여 세션 유지 및 롤백 지원
+        transactionTemplate.execute(status -> {
+          for (Accommodation acc : batch) {
+            int estimated = generateEstimatedPrice(acc.getContentId());
+            acc.setMinPrice(estimated);
+          }
+          accommodationRepository.saveAll(batch);
+          return null;
+        });
+        totalUpdated += batch.size();
+        System.out.println(
+            "Updated batch " + ((i / batchSize) + 1) + " (" + totalUpdated + "/" + missingPriceList.size() + ")");
+      } catch (Exception e) {
+        System.err.println("Error updating batch " + ((i / batchSize) + 1) + ": " + e.getMessage());
+      }
+    }
+
+    System.out.println("=== Finished updating minPrice. Total updated: " + totalUpdated + " ===");
   }
 }

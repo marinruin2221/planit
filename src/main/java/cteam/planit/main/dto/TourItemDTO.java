@@ -58,4 +58,6 @@ public class TourItemDTO {
 
   // Getter, Setter, toString 생성 필요
   // (Lombok 사용 시 클래스 위에 @Data 어노테이션 추가)
+  // 가격 정보 (예상 가격 포함)
+  private Integer minPrice;
 }
