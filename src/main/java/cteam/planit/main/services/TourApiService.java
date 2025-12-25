@@ -15,6 +15,11 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class TourApiService {
@@ -52,80 +57,105 @@ public class TourApiService {
 
   public cteam.planit.main.dto.TourPageDTO getAreaBasedList(List<String> areaCodes, List<String> categories, int page,
       int size) {
-    // 캐시된 데이터가 없으면 빈 결과 반환
-    if (cachedTourList == null || cachedTourList.isEmpty()) {
-      return new cteam.planit.main.dto.TourPageDTO(new ArrayList<>(), 0);
+
+    // PageRequest 생성 (0-based page index)
+    Pageable pageable = PageRequest.of(page - 1, size);
+    Page<Accommodation> accommodationPage;
+
+    // 카테고리 매핑 (프론트엔드 한글 카테고리 -> API 코드)
+    List<String> cat3List = null;
+    if (categories != null && !categories.isEmpty()) {
+      cat3List = new ArrayList<>();
+      for (String cat : categories) {
+        mapCategory(cat, cat3List);
+      }
     }
 
-    // 스트림 필터링
-    List<TourItemDTO> filteredList = cachedTourList.stream()
-        .filter(item -> {
-          // 1. 지역 필터
-          if (areaCodes != null && !areaCodes.isEmpty()) {
-            if (!areaCodes.contains(item.getAreacode())) {
-              return false;
-            }
-          }
-          // 2. 카테고리(숙소유형) 필터
-          if (categories != null && !categories.isEmpty()) {
-            boolean match = false;
-            for (String cat : categories) {
-              if (isCategoryMatch(item.getCat3(), cat)) {
-                match = true;
-                break;
-              }
-            }
-            if (!match)
-              return false;
-          }
-          return true;
-        })
-        .collect(java.util.stream.Collectors.toList());
+    // Repository 조회 분기 처리
+    boolean hasArea = areaCodes != null && !areaCodes.isEmpty();
+    boolean hasCat = cat3List != null && !cat3List.isEmpty();
 
-    // 페이지네이션 계산
-    int totalCount = filteredList.size();
-    int start = (page - 1) * size;
-    int end = Math.min(start + size, totalCount);
-
-    if (start >= totalCount) {
-      return new cteam.planit.main.dto.TourPageDTO(new ArrayList<>(), totalCount);
+    if (hasArea && hasCat) {
+      accommodationPage = accommodationRepository.findByAreacodeInAndCat3In(areaCodes, cat3List, pageable);
+    } else if (hasArea) {
+      accommodationPage = accommodationRepository.findByAreacodeIn(areaCodes, pageable);
+    } else if (hasCat) {
+      accommodationPage = accommodationRepository.findByCat3In(cat3List, pageable);
+    } else {
+      accommodationPage = accommodationRepository.findAll(pageable);
     }
 
-    List<TourItemDTO> pagedList = filteredList.subList(start, end);
-    System.out.println("Returning cached page " + page + " (size " + size + ") from total " + totalCount);
+    // Entity -> DTO 변환
+    List<TourItemDTO> dtoList = accommodationPage.getContent().stream()
+        .map(this::convertToDTO)
+        .collect(Collectors.toList());
 
-    return new cteam.planit.main.dto.TourPageDTO(pagedList, totalCount);
+    System.out.println(
+        "Returning DB page " + page + " (size " + size + ") from total " + accommodationPage.getTotalElements());
+
+    return new cteam.planit.main.dto.TourPageDTO(dtoList, (int) accommodationPage.getTotalElements());
   }
 
-  // 프론트엔드 카테고리 -> VisitKorea cat3 코드 매핑
-  private boolean isCategoryMatch(String itemCat3, String frontendCategory) {
-    if (itemCat3 == null)
-      return false;
-
+  // 프론트엔드 카테고리 -> VisitKorea cat3 코드 매핑 및 리스트 추가
+  private void mapCategory(String frontendCategory, List<String> cat3List) {
     switch (frontendCategory) {
       case "호텔":
-        return itemCat3.equals("B02010100"); // 호텔
+        cat3List.add("B02010100");
+        break;
       case "콘도미니엄":
-        return itemCat3.equals("B02010200"); // 콘도미니엄
+        cat3List.add("B02010200");
+        break;
       case "펜션":
-        return itemCat3.equals("B02010400"); // 펜션
+        cat3List.add("B02010400");
+        break;
       case "모텔":
-        return itemCat3.equals("B02010500"); // 모텔
+        cat3List.add("B02010500");
+        break;
       case "게스트하우스":
-        return itemCat3.equals("B02010700"); // 게스트하우스
+        cat3List.add("B02010700");
+        break;
       case "한옥":
-        return itemCat3.equals("B02011000"); // 한옥
+        cat3List.add("B02011000");
+        break;
       case "캠핑장":
-        return itemCat3.equals("B02011100"); // 캠핑장
+        cat3List.add("B02011100");
+        break;
       case "글램핑":
-        return itemCat3.equals("B02011200"); // 글램핑
+        cat3List.add("B02011200");
+        break;
       case "기타":
       case "야영장 및 기타":
-        // 기타 숙박 (B02011600) 및 야영장 (A03020200)
-        return itemCat3.equals("B02011600") || itemCat3.equals("A03020200");
+        cat3List.add("B02011600");
+        cat3List.add("A03020200");
+        break;
       default:
-        return false;
+        break;
     }
+  }
+
+  // Accommodation Entity -> TourItemDTO 변환
+  private TourItemDTO convertToDTO(Accommodation entity) {
+    TourItemDTO dto = new TourItemDTO();
+    dto.setContentid(entity.getContentId());
+    dto.setTitle(entity.getTitle());
+    dto.setAddr1(entity.getAddr1());
+    dto.setAddr2(entity.getAddr2());
+    dto.setZipcode(entity.getZipcode());
+    dto.setAreacode(entity.getAreacode());
+    dto.setSigungucode(entity.getSigungucode());
+    dto.setCat1(entity.getCat1());
+    dto.setCat2(entity.getCat2());
+    dto.setCat3(entity.getCat3());
+    dto.setContenttypeid(entity.getContenttypeid());
+    dto.setTel(entity.getTel());
+    dto.setFirstimage(entity.getFirstimage());
+    dto.setFirstimage2(entity.getFirstimage2());
+    dto.setMapx(entity.getMapx());
+    dto.setMapy(entity.getMapy());
+    dto.setMlevel(entity.getMlevel());
+    dto.setCreatedtime(entity.getCreatedtime());
+    dto.setModifiedtime(entity.getModifiedtime());
+    return dto;
   }
 
   public TourDetailDTO getDetailCommon(String contentId) {
@@ -403,7 +433,8 @@ public class TourApiService {
   private List<TourItemDTO> cachedTourList = new ArrayList<>();
 
   // 서버 시작 시 데이터 로드 (비동기 처리 권장되지만, 간단한 구현을 위해 동기 처리)
-  @jakarta.annotation.PostConstruct
+  // @PostConstruct 대신 ApplicationReadyEvent 사용
+  @org.springframework.context.event.EventListener(org.springframework.boot.context.event.ApplicationReadyEvent.class)
   public void init() {
     new Thread(this::loadAllData).start();
   }
@@ -479,6 +510,13 @@ public class TourApiService {
    */
   private void saveToDatabase(List<TourItemDTO> items) {
     System.out.println("=== Starting to save data to database ===");
+
+    // 데이터가 이미 존재하면 저장 스킵
+    if (accommodationRepository.count() > 0) {
+      System.out.println("Data already exists in database. Skipping save operation.");
+      return;
+    }
+
     int savedCount = 0;
     int skippedCount = 0;
 
