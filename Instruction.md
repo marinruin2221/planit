@@ -5,7 +5,7 @@
 ## 1. 기술 스택 상세
 
 ### Core & Web
-- **Spring Boot 4.0.0**: 최신 스프링 부트 프레임워크 사용.
+- **Spring Boot 3.5.9**: 최신 스프링 부트 프레임워크 사용.
 - **Java 25**: 프로젝트 설정(`pom.xml`)에 명시된 자바 버전.
 - **Spring WebMVC**: 전통적인 서블릿 기반 웹 애플리케이션 개발.
 - **Spring WebFlux**: 리액티브 프로그래밍 지원 (비동기/논블로킹).
@@ -25,7 +25,7 @@
 - **STOMP**: 메시지 브로커 프로토콜.
 
 ### Documentation
-- **SpringDoc OpenAPI (2.8.6)**: API 문서 자동화 (Swagger UI 제공).
+- **SpringDoc OpenAPI (2.8.14)**: API 문서 자동화 (Swagger UI 제공).
 
 ### Template Engine
 - **Thymeleaf**: 서버 사이드 자바 템플릿 엔진 (Spring Security 연동 포함).
