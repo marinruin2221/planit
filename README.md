@@ -12,6 +12,8 @@ PlanIt 프로젝트의 백엔드 워크스페이스입니다. Spring Boot를 기
 | 2025-12-25 | 김관범 | DB 직접 조회(Repository) 전면 전환<br> - `TourApiService`: 메모리 캐싱(`cachedTourList`) 조회 방식 제거, `AccommodationRepository` 쿼리 조회 적용<br> - `Entity` -> `DTO` 변환 로직 구현<br> - 서버 실행 안정화: `ApplicationReadyEvent` 적용 및 중복 적재 방지<br> - 포트 5002 충돌 및 오라클 연결 오류 해결<br> - **통계 기반 예상 가격 생성 로직(`generateEstimatedPrice`) 구현**: 실제 가격 데이터 부재 시 `contentId` 해시 기반의 일관된 랜덤 가격 제공 | [`src/main/java/cteam/planit/main/services/TourApiService.java`](src/main/java/cteam/planit/main/services/TourApiService.java)<br>[`src/main/java/cteam/planit/main/repository/AccommodationRepository.java`](src/main/java/cteam/planit/main/repository/AccommodationRepository.java)<br>[`src/main/resources/application.properties`](src/main/resources/application.properties)<br>[`src/main/java/cteam/planit/main/controller/TourController.java`](src/main/java/cteam/planit/main/controller/TourController.java) | 메모리 조회 -> DB 조회 전환 완료<br>예상 가격 로직 적용 |
 | 2025-12-25 | AI | **가격 필터링 기능 구현 (백엔드)**<br> - `Accommodation` Entity에 `minPrice` 필드 추가 및 DB 업데이트 로직(`updateMinPrices`) 구현<br> - `AccommodationRepository` 다중 필터(`findWithFilters`) JPQL 쿼리 구현<br> - `TourController` 필터 파라미터(`minPrice`, `maxPrice`) 연결 | [`src/main/java/cteam/planit/main/repository/AccommodationRepository.java`](src/main/java/cteam/planit/main/repository/AccommodationRepository.java)<br>[`src/main/java/cteam/planit/main/services/TourApiService.java`](src/main/java/cteam/planit/main/services/TourApiService.java)<br>[`src/main/java/cteam/planit/main/controller/TourController.java`](src/main/java/cteam/planit/main/controller/TourController.java) | 가격 필터링 지원 완료 |
 | 2025-12-26 | AI | **AI API 설정 및 오류 수정, 지도 연동 지원**<br> - Gemini API 키 및 모델 설정(`secret.properties`, `application.properties`)<br> - AI Chat 500 오류 해결 (모델명 최신화)<br> - DB 접속 오류 및 서버 기동 안정화 | [`src/main/resources/application.properties`](src/main/resources/application.properties)<br>[`src/main/resources/secret.properties`](src/main/resources/secret.properties)<br>[`src/main/java/cteam/planit/main/services/AIService.java`](src/main/java/cteam/planit/main/services/AIService.java) | AI 연동 안정화 완료 |
+| 2025-12-26 | AI | **Toss Payments 결제 시스템 연동 (백엔드)**<br> - `PaymentController` 결제 승인 API 구현 (`/api/payments/confirm`)<br> - `PaymentService` Toss API 연동 로직 구현<br> - API 키 보안 처리 (`secret.properties`에서 `@Value` 주입) | [`src/main/java/cteam/planit/main/controller/PaymentController.java`](src/main/java/cteam/planit/main/controller/PaymentController.java)<br>[`src/main/java/cteam/planit/main/services/PaymentService.java`](src/main/java/cteam/planit/main/services/PaymentService.java)<br>[`src/main/resources/secret.properties`](src/main/resources/secret.properties) | Toss Payments 결제 승인 API 완료 |
+| 2025-12-26 | AI | **AI RAG 시스템 개선**<br> - RAG 데이터 파일 형식 변경 (TXT → CSV)<br> - UTF-8 인코딩 처리 및 한글 검색 지원<br> - Gemini File API 연동 최적화 | [`src/main/java/cteam/planit/main/services/AIService.java`](src/main/java/cteam/planit/main/services/AIService.java)<br>[`src/main/java/cteam/planit/main/services/GeminiFileService.java`](src/main/java/cteam/planit/main/services/GeminiFileService.java) | RAG 시스템 안정화 완료 |
 
 ### 새 항목 추가 템플릿
 
@@ -40,6 +42,7 @@ PlanIt 프로젝트의 백엔드 워크스페이스입니다. Spring Boot를 기
 | **API Docs** | SpringDoc OpenAPI | 2.8.6 | Swagger UI |
 | **Real-time** | WebSocket | - | SockJS, STOMP |
 | **Auth** | JJWT | 0.12.6 | JWT Token |
+| **Payment** | Toss Payments | - | 결제 연동 |
 
 ## 폴더 구조
 
@@ -61,3 +64,4 @@ project_C_Back/
 - **인증/인가**: Spring Security 및 JWT, OAuth2 Client를 이용한 사용자 인증
 - **실시간 통신**: WebSocket (SockJS, STOMP) 지원
 - **API 문서화**: SpringDoc OpenAPI (Swagger UI)
+- **결제 연동**: Toss Payments API를 통한 결제 처리

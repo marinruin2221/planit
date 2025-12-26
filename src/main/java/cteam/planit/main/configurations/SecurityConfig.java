@@ -111,6 +111,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(req -> req
             .dispatcherTypeMatchers(DispatcherType.FORWARD)
             .permitAll()
+            .requestMatchers("/api/ai/**").permitAll()
             .requestMatchers(authPaths.split(","))
             .authenticated()
             .requestMatchers(adminPaths.split(","))
@@ -167,4 +168,3 @@ public class SecurityConfig {
         .getOrBuild();
   }
 }
-
