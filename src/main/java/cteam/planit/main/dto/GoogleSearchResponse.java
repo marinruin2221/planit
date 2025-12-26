@@ -3,7 +3,10 @@ package cteam.planit.main.dto;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.ToString;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class GoogleSearchResponse {
   private List<GoogleSearchItem> items;
 

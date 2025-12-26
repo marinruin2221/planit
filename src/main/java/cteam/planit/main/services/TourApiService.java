@@ -8,6 +8,7 @@ import cteam.planit.main.dto.TourIntroDTO;
 import cteam.planit.main.dto.RoomInfoDTO;
 import cteam.planit.main.entity.Accommodation;
 import cteam.planit.main.repository.AccommodationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -23,6 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
+@Slf4j
 @Service
 public class TourApiService {
 
@@ -85,13 +87,37 @@ public class TourApiService {
     accommodationPage = accommodationRepository.findWithFilters(effectiveAreaCodes, effectiveCat3List, minPrice,
         maxPrice, pageable);
 
-    // Entity -> DTO 변환
+    // Entity -> DTO 변환 및 이미지 보강
     List<TourItemDTO> dtoList = accommodationPage.getContent().stream()
-        .map(this::convertToDTO)
+        .map(entity -> {
+          TourItemDTO dto = convertToDTO(entity);
+
+          // 이미지가 없는 경우 Google 검색 시도 (리스트 조회 시에도 적용)
+          String firstImage = dto.getFirstimage();
+          log.info("Checking image for {}: '{}'", dto.getTitle(), firstImage); // 디버깅용 로그
+
+          if (firstImage == null || firstImage.trim().isEmpty() || firstImage.contains("https://us1.discourse-cdn.com/fedoraproject/original/3X/3/b/3b6fe33d77c5c8c8d930a933d08dc68567f5d131.jpeg")) {
+            try {
+              log.info("Image missing for list item {}, searching Google...", dto.getTitle());
+              String searchImage = googleImageSearchService.searchImage(dto.getTitle() + " 숙소 건물");
+
+              if (searchImage != null) {
+                log.info("Found image from Google: {}", searchImage);
+                dto.setFirstimage(searchImage);
+
+                // DB 업데이트 (비동기로 처리하여 응답 속도 저하 최소화 권장되지만, 여기선 간단히 동기 처리)
+                entity.setFirstimage(searchImage);
+                accommodationRepository.save(entity);
+              }
+            } catch (Exception e) {
+              log.error("Error searching image for {}: {}", dto.getTitle(), e.getMessage());
+            }
+          }
+          return dto;
+        })
         .collect(Collectors.toList());
 
-    System.out.println(
-        "Returning DB page " + page + " (size " + size + ") from total " + accommodationPage.getTotalElements());
+    log.info("Returning DB page {} (size {}) from total {}", page, size, accommodationPage.getTotalElements());
 
     return new cteam.planit.main.dto.TourPageDTO(dtoList, (int) accommodationPage.getTotalElements());
   }
@@ -178,7 +204,7 @@ public class TourApiService {
   public TourDetailDTO getDetailCommon(String contentId) {
     TourDetailDTO detailDTO = null;
     try {
-      System.out.println("=== Calling VisitKorea Detail API for contentId: " + contentId + " ===");
+      log.info("=== Calling VisitKorea Detail API for contentId: {} ===", contentId);
 
       String jsonResponse = webClient.get()
           .uri(uriBuilder -> uriBuilder
@@ -198,8 +224,8 @@ public class TourApiService {
           .bodyToMono(String.class)
           .block();
 
-      System.out.println("Detail API Response: "
-          + (jsonResponse != null ? jsonResponse.substring(0, Math.min(500, jsonResponse.length())) : "null"));
+      log.info("Detail API Response: {}",
+          (jsonResponse != null ? jsonResponse.substring(0, Math.min(500, jsonResponse.length())) : "null"));
 
       if (jsonResponse != null) {
         JsonNode root = objectMapper.readTree(jsonResponse);
@@ -212,18 +238,18 @@ public class TourApiService {
 
       // 이미지가 없는 경우 Google 검색 시도
       if (detailDTO != null && (detailDTO.getFirstimage() == null || detailDTO.getFirstimage().isEmpty())) {
-        System.out.println("Image missing for " + detailDTO.getTitle() + ", searching Google...");
+        log.info("Image missing for {}, searching Google...", detailDTO.getTitle());
         String searchImage = googleImageSearchService.searchImage(detailDTO.getTitle() + " 외관");
         if (searchImage != null) {
-          System.out.println("Found image from Google: " + searchImage);
+          log.info("Found image from Google: {}", searchImage);
           detailDTO.setFirstimage(searchImage);
         } else {
-          System.out.println("No image found from Google.");
+          log.info("No image found from Google.");
         }
       }
 
     } catch (Exception e) {
-      System.err.println("Error calling detailCommon2 API: " + e.getMessage());
+      log.error("Error calling detailCommon2 API: {}", e.getMessage());
       e.printStackTrace();
     }
     return detailDTO;
@@ -236,7 +262,7 @@ public class TourApiService {
    */
   public TourItemDTO getItemByContentId(String contentId) {
     try {
-      System.out.println("=== Searching for contentId: " + contentId + " ===");
+      log.info("=== Searching for contentId: {} ===", contentId);
 
       // searchStay2에서 많은 데이터를 가져와서 contentId로 필터링
       // 더 효율적인 방법이 있다면 대체 가능
@@ -267,23 +293,23 @@ public class TourApiService {
 
               // 이미지가 없는 경우 Google 검색 시도
               if (dto.getFirstimage() == null || dto.getFirstimage().isEmpty()) {
-                System.out.println("Image missing for " + dto.getTitle() + ", searching Google...");
+                log.info("Image missing for {}, searching Google...", dto.getTitle());
                 String searchImage = googleImageSearchService.searchImage(dto.getTitle() + " 외관");
                 if (searchImage != null) {
-                  System.out.println("Found image from Google: " + searchImage);
+                  log.info("Found image from Google: {}", searchImage);
                   dto.setFirstimage(searchImage);
                 }
               }
 
-              System.out.println("Found item: " + dto.getTitle());
+              log.info("Found item: {}", dto.getTitle());
               return dto;
             }
           }
         }
       }
-      System.out.println("Item not found for contentId: " + contentId);
+      log.info("Item not found for contentId: {}", contentId);
     } catch (Exception e) {
-      System.err.println("Error searching for contentId: " + e.getMessage());
+      log.error("Error searching for contentId: {}", e.getMessage());
       e.printStackTrace();
     }
     return null;
@@ -296,7 +322,7 @@ public class TourApiService {
   public List<String> getDetailImages(String contentId) {
     List<String> imageUrls = new ArrayList<>();
     try {
-      System.out.println("=== Fetching detail images for contentId: " + contentId + " ===");
+      log.info("=== Fetching detail images for contentId: {} ===", contentId);
 
       String jsonResponse = webClient.get()
           .uri(uriBuilder -> uriBuilder
@@ -312,8 +338,8 @@ public class TourApiService {
           .bodyToMono(String.class)
           .block();
 
-      System.out.println("Image API Response: "
-          + (jsonResponse != null ? jsonResponse.substring(0, Math.min(500, jsonResponse.length())) : "null"));
+      log.info("Image API Response: {}",
+          (jsonResponse != null ? jsonResponse.substring(0, Math.min(500, jsonResponse.length())) : "null"));
 
       if (jsonResponse != null) {
         JsonNode root = objectMapper.readTree(jsonResponse);
@@ -326,7 +352,7 @@ public class TourApiService {
               imageUrls.add(originimgurl);
             }
           }
-          System.out.println("Found " + imageUrls.size() + " images");
+          log.info("Found {} images", imageUrls.size());
         } else if (!items.isMissingNode()) {
           // 단일 이미지인 경우
           String originimgurl = items.path("originimgurl").asText();
@@ -336,7 +362,7 @@ public class TourApiService {
         }
       }
     } catch (Exception e) {
-      System.err.println("Error fetching detail images: " + e.getMessage());
+      log.error("Error fetching detail images: {}", e.getMessage());
       e.printStackTrace();
     }
     return imageUrls;
@@ -348,7 +374,7 @@ public class TourApiService {
    */
   public TourIntroDTO getDetailIntro(String contentId, String contentTypeId) {
     try {
-      System.out.println("=== Fetching detail intro for contentId: " + contentId + " ===");
+      log.info("=== Fetching detail intro for contentId: {} ===", contentId);
 
       DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(BASE_URL);
       java.net.URI uri = factory.builder()
@@ -361,7 +387,7 @@ public class TourApiService {
           .queryParam("contentTypeId", contentTypeId)
           .build();
 
-      System.out.println("Request URI: " + uri);
+      log.info("Request URI: {}", uri);
 
       String jsonResponse = webClient.get()
           .uri(uri)
@@ -369,8 +395,8 @@ public class TourApiService {
           .bodyToMono(String.class)
           .block();
 
-      System.out.println("Intro API Response: "
-          + (jsonResponse != null ? jsonResponse.substring(0, Math.min(500, jsonResponse.length())) : "null"));
+      log.info("Intro API Response: {}",
+          (jsonResponse != null ? jsonResponse.substring(0, Math.min(500, jsonResponse.length())) : "null"));
 
       if (jsonResponse != null) {
         JsonNode root = objectMapper.readTree(jsonResponse);
@@ -384,7 +410,7 @@ public class TourApiService {
         }
       }
     } catch (Exception e) {
-      System.err.println("Error fetching detail intro: " + e.getMessage());
+      log.error("Error fetching detail intro: {}", e.getMessage());
       e.printStackTrace();
     }
     // Return empty DTO to avoid 404
@@ -399,7 +425,7 @@ public class TourApiService {
   public List<RoomInfoDTO> getDetailInfo(String contentId, String contentTypeId) {
     List<RoomInfoDTO> roomList = new ArrayList<>();
     try {
-      System.out.println("=== Fetching detail info (rooms) for contentId: " + contentId + " ===");
+      log.info("=== Fetching detail info (rooms) for contentId: {} ===", contentId);
 
       DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(BASE_URL);
       java.net.URI uri = factory.builder()
@@ -412,7 +438,7 @@ public class TourApiService {
           .queryParam("contentTypeId", contentTypeId)
           .build();
 
-      System.out.println("Request URI: " + uri);
+      log.info("Request URI: {}", uri);
 
       String jsonResponse = webClient.get()
           .uri(uri)
@@ -420,8 +446,8 @@ public class TourApiService {
           .bodyToMono(String.class)
           .block();
 
-      System.out.println("DetailInfo API Response: "
-          + (jsonResponse != null ? jsonResponse.substring(0, Math.min(500, jsonResponse.length())) : "null"));
+      log.info("DetailInfo API Response: {}",
+          (jsonResponse != null ? jsonResponse.substring(0, Math.min(500, jsonResponse.length())) : "null"));
 
       if (jsonResponse != null) {
         JsonNode root = objectMapper.readTree(jsonResponse);
@@ -432,7 +458,7 @@ public class TourApiService {
             RoomInfoDTO room = objectMapper.treeToValue(item, RoomInfoDTO.class);
             roomList.add(room);
           }
-          System.out.println("Found " + roomList.size() + " rooms");
+          log.info("Found {} rooms", roomList.size());
         } else if (!items.isMissingNode()) {
           // 단일 객체인 경우
           RoomInfoDTO room = objectMapper.treeToValue(items, RoomInfoDTO.class);
@@ -440,7 +466,7 @@ public class TourApiService {
         }
       }
     } catch (Exception e) {
-      System.err.println("Error fetching detail info: " + e.getMessage());
+      log.error("Error fetching detail info: {}", e.getMessage());
       e.printStackTrace();
     }
     return roomList;
@@ -461,7 +487,7 @@ public class TourApiService {
    * numOfRows를 크게 설정하여 한 번에 가져오거나 반복해서 가져옴
    */
   public void loadAllData() {
-    System.out.println("=== Starting to load all tour data for caching ===");
+    log.info("=== Starting to load all tour data for caching ===");
     List<TourItemDTO> allItems = new ArrayList<>();
     int page = 1;
     int size = 1000; // 한 번에 가져올 크기
@@ -469,7 +495,8 @@ public class TourApiService {
 
     while (hasMore) {
       try {
-        System.out.println("Fetching page " + page + "...");
+        // 컨텍스트가 닫혔는지 확인하는 간단한 방법은 없지만, 예외 발생 시 루프 탈출
+        log.info("Fetching page {}...", page);
         final int currentPage = page;
         // areaBasedList2 API 사용 - cat3 필드가 포함됨 (searchStay2는 cat3 미포함)
         String jsonResponse = webClient.get()
@@ -510,32 +537,38 @@ public class TourApiService {
           hasMore = false;
         }
       } catch (Exception e) {
-        System.err.println("Error loading data page " + page + ": " + e.getMessage());
-        hasMore = false; // 에러 발생 시 중단
+        // 컨텍스트 종료 등으로 인한 에러일 수 있으므로 로그 남기고 중단
+        log.error("Error loading data page {} (Stopping background task): {}", page, e.getMessage());
+        hasMore = false;
+        return; // 스레드 종료
       }
     }
 
     this.cachedTourList = allItems;
-    System.out.println("=== Finished loading all tour data. Total cached: " + cachedTourList.size() + " ===");
+    log.info("=== Finished loading all tour data. Total cached: {} ===", cachedTourList.size());
 
-    // DB에 저장
-    saveToDatabase(allItems);
+    try {
+      // DB에 저장
+      saveToDatabase(allItems);
 
-    // 가격 데이터 보정 (minPrice가 NULL인 숙소에 예상 가격 설정)
-    ensureMinPrices();
+      // 가격 데이터 보정 (minPrice가 NULL인 숙소에 예상 가격 설정)
+      ensureMinPrices();
+    } catch (Exception e) {
+      log.error("Error during DB save/update in background task: {}", e.getMessage());
+    }
   }
 
   /**
    * API에서 가져온 데이터를 DB에 저장
    */
   private void saveToDatabase(List<TourItemDTO> items) {
-    System.out.println("=== Starting to save data to database ===");
+    log.info("=== Starting to save data to database ===");
 
     // 데이터가 이미 충분히 존재하면 저장 스킵 (기존 3600개 이상)
     // 200개 등 일부만 저장된 경우 재시도를 위해 기준을 3000개로 설정
     long currentCount = accommodationRepository.count();
     if (currentCount > 3000) {
-      System.out.println("Data already exists (" + currentCount + " items). Skipping save operation.");
+      log.info("Data already exists ({} items). Skipping save operation.", currentCount);
       return;
     }
 
@@ -551,12 +584,12 @@ public class TourApiService {
         accommodationRepository.save(entity);
         savedCount++;
       } catch (Exception e) {
-        System.err.println("Error saving contentId " + dto.getContentid() + ": " + e.getMessage());
+        log.error("Error saving contentId {}: {}", dto.getContentid(), e.getMessage());
         skippedCount++;
       }
     }
 
-    System.out.println("=== Finished saving to database. Saved: " + savedCount + ", Skipped: " + skippedCount + " ===");
+    log.info("=== Finished saving to database. Saved: {}, Skipped: {} ===", savedCount, skippedCount);
   }
 
   /**
@@ -617,15 +650,15 @@ public class TourApiService {
 
   // DB의 minPrice가 비어있는 경우 채워주는 보정 로직
   private void ensureMinPrices() {
-    System.out.println("=== Checking for accommodations with missing minPrice ===");
+    log.info("=== Checking for accommodations with missing minPrice ===");
     List<Accommodation> missingPriceList = accommodationRepository.findByMinPriceIsNull();
 
     if (missingPriceList.isEmpty()) {
-      System.out.println("=== All accommodations have minPrice. No update needed. ===");
+      log.info("=== All accommodations have minPrice. No update needed. ===");
       return;
     }
 
-    System.out.println("=== Found " + missingPriceList.size() + " accommodations without minPrice. Updating... ===");
+    log.info("=== Found {} accommodations without minPrice. Updating... ===", missingPriceList.size());
 
     // 배치 처리 (트랜잭션 분할 및 DB 부하 감소)
     int batchSize = 100;
@@ -646,13 +679,12 @@ public class TourApiService {
           return null;
         });
         totalUpdated += batch.size();
-        System.out.println(
-            "Updated batch " + ((i / batchSize) + 1) + " (" + totalUpdated + "/" + missingPriceList.size() + ")");
+        log.info("Updated batch {} ({}/{})", (i / batchSize) + 1, totalUpdated, missingPriceList.size());
       } catch (Exception e) {
-        System.err.println("Error updating batch " + ((i / batchSize) + 1) + ": " + e.getMessage());
+        log.error("Error updating batch {}: {}", (i / batchSize) + 1, e.getMessage());
       }
     }
 
-    System.out.println("=== Finished updating minPrice. Total updated: " + totalUpdated + " ===");
+    log.info("=== Finished updating minPrice. Total updated: {} ===", totalUpdated);
   }
 }

@@ -1,5 +1,6 @@
 package cteam.planit.main.dto;
 
+import cteam.planit.main.dao.Event;
 import cteam.planit.main.entity.Accommodation;
 import lombok.Data;
 import java.util.List;
@@ -8,4 +9,5 @@ import java.util.List;
 public class AIResponseDTO {
   private String response;
   private List<Accommodation> recommendations;
+  private List<Event> recommendedEvents;
 }

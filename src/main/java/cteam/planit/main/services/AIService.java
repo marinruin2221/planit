@@ -1,5 +1,7 @@
 package cteam.planit.main.services;
 
+import cteam.planit.main.dao.Event;
+import cteam.planit.main.dao.EventRepository;
 import cteam.planit.main.dto.AIRequestDTO;
 import cteam.planit.main.dto.AIResponseDTO;
 import cteam.planit.main.entity.Accommodation;
@@ -36,6 +38,7 @@ public class AIService {
 
     private final WebClient.Builder webClientBuilder;
     private final AccommodationRepository accommodationRepository;
+    private final EventRepository eventRepository;
     private final GeminiFileService geminiFileService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -46,22 +49,27 @@ public class AIService {
     // System Prompt for RAG
     private static final String RAG_SYSTEM_PROMPT = """
                 당신은 전문적인 'AI 여행 비서'입니다.
-                제공된 파일(숙소 데이터베이스)을 바탕으로 사용자의 질문에 가장 적합한 숙소를 추천하고 여행 조언을 제공하세요.
+                제공된 파일(숙소 및 행사 데이터베이스)을 바탕으로 사용자의 질문에 가장 적합한 숙소와 관련 행사/축제를 추천하고 여행 조언을 제공하세요.
 
                 규칙:
-                1. 사용자의 질문을 분석하여 위치, 가격대, 숙소 유형, 특징(수영장, 바비큐 등)을 파악하세요.
-                2. **반드시 제공된 파일 내의 데이터에서만 숙소를 검색하세요. 파일에 없는 숙소는 절대 추천하지 마세요.**
-                3. 상위 3~5개의 숙소를 추천하며, 각 숙소의 이름, 위치, 가격(약 X만원), 그리고 추천 이유를 구체적으로 설명하세요.
-                4. **[매우 중요] 추천하는 각 숙소의 이름 바로 뒤에 반드시 `[ID:숙소ID]`를 붙여야 합니다.**
-                   - 올바른 예: **신라호텔 [ID:12345]**
-                   - 틀린 예: 신라호텔 (ID: 12345)
-                5. **만약 조건에 맞는 숙소가 파일에 없다면, 솔직하게 "죄송합니다. 해당 조건에 맞는 숙소 데이터가 없습니다."라고 말하세요. 절대 없는 정보를 지어내지 마세요.**
+                1. 사용자의 질문을 분석하여 위치, 가격대, 숙소 유형, 특징, 여행 시기 등을 파악하세요.
+                2. **반드시 제공된 파일 내의 데이터에서만 숙소와 행사를 검색하세요. 파일에 없는 정보는 절대 추천하지 마세요.**
+                3. **숙소 추천 시**:
+                   - 상위 3~5개의 숙소를 추천하세요.
+                   - 각 숙소의 이름 바로 뒤에 반드시 `[ID:숙소ID]`를 붙여야 합니다. (예: **신라호텔 [ID:12345]**)
+                4. **행사/축제 추천 시**:
+                   - 사용자의 여행 지역이나 시기에 맞는 행사/축제가 있다면 함께 추천하세요.
+                   - 각 행사의 이름 바로 뒤에 반드시 `[EventID:행사ID]`를 붙여야 합니다. (예: **머드축제 [EventID:9876]**)
+                5. **만약 조건에 맞는 숙소나 행사가 파일에 없다면, 솔직하게 해당 조건에 맞는 데이터가 없다고 말하세요.**
                 6. 답변은 친절하고 전문적인 톤을 유지하며, 마크다운(볼드체, 리스트 등)을 사용하여 가독성을 높이세요.
                 7. 마지막에는 "지도에서 위치를 확인해보세요!"와 같은 멘트를 덧붙이세요.
 
                 답변 예시:
                 1. **공주한옥마을 [ID:1867806]**: 공주 관광단지 내에 위치한...
                 2. **봉황재 [ID:2708325]**: 공주 원도심에 위치한...
+
+                추천 행사:
+                - **공주 군밤축제 [EventID:555]**: 겨울철 공주에서 즐길 수 있는...
             """;
 
     @PostConstruct
@@ -70,12 +78,14 @@ public class AIService {
             try {
                 System.out.println("[AI] Initializing Knowledge Base...");
                 List<Accommodation> allAccommodations = accommodationRepository.findAll();
-                if (allAccommodations.isEmpty()) {
-                    System.out.println("[AI] No accommodations found in DB. Skipping knowledge base upload.");
+                List<Event> allEvents = eventRepository.findAll();
+
+                if (allAccommodations.isEmpty() && allEvents.isEmpty()) {
+                    System.out.println("[AI] No data found in DB. Skipping knowledge base upload.");
                     return;
                 }
 
-                File file = createDataFile(allAccommodations);
+                File file = createDataFile(allAccommodations, allEvents);
                 System.out.println("[AI] Data file created: " + file.getAbsolutePath());
 
                 String fileUri = geminiFileService.uploadFile(file.getAbsolutePath(), "text/csv");
@@ -92,24 +102,44 @@ public class AIService {
         }).start();
     }
 
-    private File createDataFile(List<Accommodation> accommodations) throws IOException {
+    private File createDataFile(List<Accommodation> accommodations, List<Event> events) throws IOException {
         // Save to project root for easy access
         File file = new File("rag_data.csv");
         // Use UTF-8 encoding explicitly
         try (BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
             // Write CSV Header
-            writer.write("ID,Name,Address,Category,Price,AreaCode\n");
+            writer.write("Type,ID,Name,Address,Category,Price,AreaCode,Dates,Description\n");
 
+            // Write Accommodations
             for (Accommodation acc : accommodations) {
                 StringBuilder line = new StringBuilder();
+                line.append("Accommodation,");
                 line.append(escapeCsv(acc.getContentId())).append(",");
                 line.append(escapeCsv(acc.getTitle())).append(",");
                 line.append(escapeCsv(acc.getAddr1() + " " + acc.getAddr2())).append(",");
                 line.append(escapeCsv(getCategoryName(acc.getCat3()))).append(",");
                 line.append(escapeCsv(acc.getMinPrice() != null ? String.valueOf(acc.getMinPrice()) : "Unknown"))
                         .append(",");
-                line.append(escapeCsv(acc.getAreacode()));
+                line.append(escapeCsv(acc.getAreacode())).append(",");
+                line.append("N/A,"); // Dates for accommodation
+                line.append("N/A"); // Description for accommodation
+                line.append("\n");
+                writer.write(line.toString());
+            }
+
+            // Write Events
+            for (Event evt : events) {
+                StringBuilder line = new StringBuilder();
+                line.append("Event,");
+                line.append(escapeCsv(String.valueOf(evt.getId()))).append(",");
+                line.append(escapeCsv(evt.getTitle())).append(",");
+                line.append("Unknown,"); // Address for event (might not be available in simple entity)
+                line.append(escapeCsv(evt.getCategory())).append(",");
+                line.append("N/A,"); // Price for event
+                line.append("Unknown,"); // AreaCode for event
+                line.append(escapeCsv(evt.getStartAt().toString() + "~" + evt.getEndAt().toString())).append(",");
+                line.append(escapeCsv(evt.getDescription()));
                 line.append("\n");
                 writer.write(line.toString());
             }
@@ -158,18 +188,26 @@ public class AIService {
 
                     // 1. Extract IDs from response text
                     List<String> contentIds = extractContentIds(responseText);
+                    List<Long> eventIds = extractEventIds(responseText);
 
-                    // 2. Fetch Accommodation entities
+                    // 2. Fetch Entities
                     List<Accommodation> recommendations = new ArrayList<>();
                     if (!contentIds.isEmpty()) {
                         recommendations = accommodationRepository.findAllById(contentIds);
                     }
 
-                    // 3. Remove IDs from text for cleaner display (optional, but good for UX)
-                    String cleanResponse = responseText.replaceAll("\\[ID:\\d+\\]", "");
+                    List<Event> recommendedEvents = new ArrayList<>();
+                    if (!eventIds.isEmpty()) {
+                        recommendedEvents = eventRepository.findAllById(eventIds);
+                    }
+
+                    // 3. Remove IDs from text for cleaner display
+                    String cleanResponse = responseText.replaceAll("\\[ID:\\d+\\]", "")
+                            .replaceAll("\\[EventID:\\d+\\]", "");
 
                     responseDTO.setResponse(cleanResponse);
                     responseDTO.setRecommendations(recommendations);
+                    responseDTO.setRecommendedEvents(recommendedEvents);
                     return responseDTO;
                 });
     }
@@ -181,6 +219,21 @@ public class AIService {
         java.util.regex.Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
             ids.add(matcher.group(1));
+        }
+        return ids;
+    }
+
+    private List<Long> extractEventIds(String text) {
+        List<Long> ids = new ArrayList<>();
+        // Regex to find [EventID:12345] pattern
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("\\[EventID:(\\d+)\\]");
+        java.util.regex.Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            try {
+                ids.add(Long.parseLong(matcher.group(1)));
+            } catch (NumberFormatException e) {
+                // Ignore invalid IDs
+            }
         }
         return ids;
     }
