@@ -103,8 +103,9 @@ public class AIService {
     }
 
     private File createDataFile(List<Accommodation> accommodations, List<Event> events) throws IOException {
-        // Save to project root for easy access
-        File file = new File("rag_data.csv");
+        // Create a temporary file instead of saving to project root
+        File file = File.createTempFile("rag_data", ".csv");
+        file.deleteOnExit(); // Ensure file is deleted when JVM exits
         // Use UTF-8 encoding explicitly
         try (BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {

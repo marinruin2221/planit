@@ -96,19 +96,24 @@ public class TourApiService {
           String firstImage = dto.getFirstimage();
           log.info("Checking image for {}: '{}'", dto.getTitle(), firstImage); // 디버깅용 로그
 
-          if (firstImage == null || firstImage.trim().isEmpty() || firstImage.contains("https://us1.discourse-cdn.com/fedoraproject/original/3X/3/b/3b6fe33d77c5c8c8d930a933d08dc68567f5d131.jpeg")) {
+          if (firstImage == null || firstImage.trim().isEmpty() || firstImage.contains(
+              "https://us1.discourse-cdn.com/fedoraproject/original/3X/3/b/3b6fe33d77c5c8c8d930a933d08dc68567f5d131.jpeg")) {
             try {
-              log.info("Image missing for list item {}, searching Google...", dto.getTitle());
-              String searchImage = googleImageSearchService.searchImage(dto.getTitle() + " 숙소 건물");
-
-              if (searchImage != null) {
-                log.info("Found image from Google: {}", searchImage);
-                dto.setFirstimage(searchImage);
-
-                // DB 업데이트 (비동기로 처리하여 응답 속도 저하 최소화 권장되지만, 여기선 간단히 동기 처리)
-                entity.setFirstimage(searchImage);
-                accommodationRepository.save(entity);
-              }
+              log.info("Image missing for list item {}, searching Google... (DISABLED)", dto.getTitle());
+              /*
+               * Google API Disabled
+               * String searchImage = googleImageSearchService.searchImage(dto.getTitle() +
+               * " 숙소 건물");
+               * 
+               * if (searchImage != null) {
+               * log.info("Found image from Google: {}", searchImage);
+               * dto.setFirstimage(searchImage);
+               * 
+               * // DB 업데이트 (비동기로 처리하여 응답 속도 저하 최소화 권장되지만, 여기선 간단히 동기 처리)
+               * entity.setFirstimage(searchImage);
+               * accommodationRepository.save(entity);
+               * }
+               */
             } catch (Exception e) {
               log.error("Error searching image for {}: {}", dto.getTitle(), e.getMessage());
             }
@@ -238,14 +243,18 @@ public class TourApiService {
 
       // 이미지가 없는 경우 Google 검색 시도
       if (detailDTO != null && (detailDTO.getFirstimage() == null || detailDTO.getFirstimage().isEmpty())) {
-        log.info("Image missing for {}, searching Google...", detailDTO.getTitle());
-        String searchImage = googleImageSearchService.searchImage(detailDTO.getTitle() + " 외관");
-        if (searchImage != null) {
-          log.info("Found image from Google: {}", searchImage);
-          detailDTO.setFirstimage(searchImage);
-        } else {
-          log.info("No image found from Google.");
-        }
+        log.info("Image missing for {}, searching Google... (DISABLED)", detailDTO.getTitle());
+        /*
+         * Google API Disabled
+         * String searchImage =
+         * googleImageSearchService.searchImage(detailDTO.getTitle() + " 외관");
+         * if (searchImage != null) {
+         * log.info("Found image from Google: {}", searchImage);
+         * detailDTO.setFirstimage(searchImage);
+         * } else {
+         * log.info("No image found from Google.");
+         * }
+         */
       }
 
     } catch (Exception e) {
@@ -293,12 +302,16 @@ public class TourApiService {
 
               // 이미지가 없는 경우 Google 검색 시도
               if (dto.getFirstimage() == null || dto.getFirstimage().isEmpty()) {
-                log.info("Image missing for {}, searching Google...", dto.getTitle());
-                String searchImage = googleImageSearchService.searchImage(dto.getTitle() + " 외관");
-                if (searchImage != null) {
-                  log.info("Found image from Google: {}", searchImage);
-                  dto.setFirstimage(searchImage);
-                }
+                log.info("Image missing for {}, searching Google... (DISABLED)", dto.getTitle());
+                /*
+                 * Google API Disabled
+                 * String searchImage = googleImageSearchService.searchImage(dto.getTitle() +
+                 * " 외관");
+                 * if (searchImage != null) {
+                 * log.info("Found image from Google: {}", searchImage);
+                 * dto.setFirstimage(searchImage);
+                 * }
+                 */
               }
 
               log.info("Found item: {}", dto.getTitle());
