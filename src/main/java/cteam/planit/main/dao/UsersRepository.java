@@ -6,11 +6,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface UsersRepository extends JpaRepository<Users, Long>, JpaSpecificationExecutor<Users>
+public interface UsersRepository extends JpaRepository<UsersDAO, Long>, JpaSpecificationExecutor<UsersDAO>
 {
-	Optional<Users> findById(Long id);
-	Optional<Users> findByName(String name);
-	Optional<Users> findByEmail(String email);
-	List<Users> findAllByIsActiveTrue();
-	List<Users> findAllByIsActiveFalse();
+	Optional<UsersDAO> findById(Long id);
+	Optional<UsersDAO> findByName(String name);
+	Optional<UsersDAO> findByEmail(String email);
+	List<UsersDAO> findAllByIsActiveTrue();
+	List<UsersDAO> findAllByIsActiveFalse();
 }

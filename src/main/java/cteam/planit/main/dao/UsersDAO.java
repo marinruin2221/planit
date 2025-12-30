@@ -12,7 +12,7 @@ import lombok.Data;
 	allocationSize = 1
 )
 @Data
-public class Users
+public class UsersDAO
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq_gen")

@@ -5,7 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import cteam.planit.main.dao.Users;
+import cteam.planit.main.dao.UsersDAO;
 import cteam.planit.main.dao.UsersRepository;
 
 @SpringBootApplication
@@ -22,17 +22,17 @@ public class PlanitApplication implements CommandLineRunner
 	@Override
 	public void run(String... args) throws Exception
 	{
-		Users users = new Users();
-		users.setUserId("user01");
-		users.setUserPw("pw1234");
-		users.setName("성원");
-		users.setEmail("user1@test.com");
-		users.setBirthY("1995");
-		users.setBirthM("05");
-		users.setBirthD("20");
-		users.setGender("M");
-		users.setIsActive(1);
+		UsersDAO usersDAO = new UsersDAO();
+		usersDAO.setUserId("user01");
+		usersDAO.setUserPw("pw1234");
+		usersDAO.setName("성원");
+		usersDAO.setEmail("user1@test.com");
+		usersDAO.setBirthY("1995");
+		usersDAO.setBirthM("05");
+		usersDAO.setBirthD("20");
+		usersDAO.setGender("M");
+		usersDAO.setIsActive(1);
 
-		usersRepository.save(users);
+		usersRepository.save(usersDAO);
 	}
 }

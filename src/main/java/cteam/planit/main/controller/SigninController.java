@@ -2,7 +2,8 @@ package cteam.planit.main.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import cteam.planit.main.dao.Users;
+import cteam.planit.main.dao.UsersDAO;
+import cteam.planit.main.dto.UsersDTO;
 import cteam.planit.main.services.SigninService;
 
 import java.util.List;
@@ -19,8 +20,11 @@ public class SigninController
 	public SigninService service;
 
 	@GetMapping("/signin")
-	public List<Users> signin() throws Exception
+	public List<UsersDAO> signin(UsersDTO usersDTO) throws Exception
 	{
+		System.out.println(usersDTO.getUserId());
+		System.out.println(usersDTO.getUserId());
+
 		return service.signin();
 	}
 }
