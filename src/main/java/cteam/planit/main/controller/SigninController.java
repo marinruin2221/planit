@@ -2,8 +2,8 @@ package cteam.planit.main.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import cteam.planit.main.dao.Event;
-import cteam.planit.main.services.MainService;
+import cteam.planit.main.dao.Users;
+import cteam.planit.main.services.SigninService;
 
 import java.util.List;
 
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-@RequestMapping("/api/main")
-public class MainController
+@RequestMapping("/api/signin")
+public class SigninController
 {
 	@Autowired
-	public MainService service;
+	public SigninService service;
 
-	@GetMapping("/eventSelect")
-	public List<Event> eventSelect() throws Exception
+	@GetMapping("/signin")
+	public List<Users> signin() throws Exception
 	{
-		return service.eventSelect();
+		return service.signin();
 	}
 }
