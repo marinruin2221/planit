@@ -1,21 +1,43 @@
 package cteam.planit.main.services;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cteam.planit.main.dao.UsersDAO;
 import cteam.planit.main.dao.UsersRepository;
+import cteam.planit.main.dto.SigninDTO;
+import cteam.planit.main.utils.JWTUtil;
 
 @Service
 public class SigninService
 {
 	@Autowired
-    public UsersRepository usersRepository;
+	public UsersRepository usersRepository;
 
-	public List<UsersDAO> signin() throws Exception
+	@Autowired
+	public JWTUtil jwtUtil;
+
+	public SigninDTO signin(SigninDTO signinDTO) throws Exception
 	{
-        return usersRepository.findAll();
+		SigninDTO data = new SigninDTO();
+		Optional<UsersDAO> user = usersRepository.findByUserIdAndUserPw(signinDTO.getUserId(), signinDTO.getUserPw());
+
+		if(user.isPresent())
+		{
+			String token = jwtUtil.createToken(signinDTO.getUserId());
+
+			data.setUserId(signinDTO.getUserId());
+			data.setUserPw(signinDTO.getUserPw());
+			data.setToken(token);
+			data.setResult("Y");
+		}
+		else
+		{
+			data.setResult("N");
+		}
+
+		return data;
 	}
 }

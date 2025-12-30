@@ -2,14 +2,12 @@ package cteam.planit.main.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import cteam.planit.main.dao.UsersDAO;
-import cteam.planit.main.dto.UsersDTO;
+import cteam.planit.main.dto.SigninDTO;
 import cteam.planit.main.services.SigninService;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
@@ -19,12 +17,9 @@ public class SigninController
 	@Autowired
 	public SigninService service;
 
-	@GetMapping("/signin")
-	public List<UsersDAO> signin(UsersDTO usersDTO) throws Exception
+	@PostMapping("/signin")
+	public SigninDTO signin(@RequestBody SigninDTO signinDTO) throws Exception
 	{
-		System.out.println(usersDTO.getUserId());
-		System.out.println(usersDTO.getUserId());
-
-		return service.signin();
+		return service.signin(signinDTO);
 	}
 }

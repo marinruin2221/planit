@@ -22,9 +22,11 @@ public class PlanitApplication implements CommandLineRunner
 	@Override
 	public void run(String... args) throws Exception
 	{
+		if(usersRepository.count() > 0) return;
+
 		UsersDAO usersDAO = new UsersDAO();
-		usersDAO.setUserId("user01");
-		usersDAO.setUserPw("pw1234");
+		usersDAO.setUserId("marinruin");
+		usersDAO.setUserPw("sk383412@A");
 		usersDAO.setName("성원");
 		usersDAO.setEmail("user1@test.com");
 		usersDAO.setBirthY("1995");
