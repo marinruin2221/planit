@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import cteam.planit.main.dao.BreakdownDAO;
+import cteam.planit.main.dao.BreakdownRepository;
 import cteam.planit.main.dao.UsersDAO;
 import cteam.planit.main.dao.UsersRepository;
 
@@ -13,6 +15,9 @@ public class PlanitApplication implements CommandLineRunner
 {
 	@Autowired
 	private UsersRepository usersRepository;
+
+	@Autowired
+	private BreakdownRepository breakdownRepository;
 
 	public static void main(String[] args)
 	{
@@ -36,5 +41,35 @@ public class PlanitApplication implements CommandLineRunner
 		usersDAO.setIsActive(1);
 
 		usersRepository.save(usersDAO);
+
+		if(breakdownRepository.count() > 2) return;
+
+		BreakdownDAO breakdownDAO = new BreakdownDAO();
+		breakdownDAO.setUsersId(null);
+		breakdownDAO.setName("서울 강남 호텔1");
+		breakdownDAO.setDateF("2025.01.05");
+		breakdownDAO.setDateT("2025.01.07");
+		breakdownDAO.setStatus("1");
+		breakdownDAO.setIsActive(1);
+
+		breakdownRepository.save(breakdownDAO);
+
+		breakdownDAO.setUsersId(null);
+		breakdownDAO.setName("서울 강남 호텔2");
+		breakdownDAO.setDateF("2025.01.05");
+		breakdownDAO.setDateT("2025.01.07");
+		breakdownDAO.setStatus("2");
+		breakdownDAO.setIsActive(1);
+
+		breakdownRepository.save(breakdownDAO);
+
+		breakdownDAO.setUsersId(null);
+		breakdownDAO.setName("서울 강남 호텔3");
+		breakdownDAO.setDateF("2025.01.05");
+		breakdownDAO.setDateT("2025.01.07");
+		breakdownDAO.setStatus("3");
+		breakdownDAO.setIsActive(1);
+
+		breakdownRepository.save(breakdownDAO);
 	}
 }
