@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class SigninDTO
 {
+	private Long id;
 	private String userId;
 	private String userPw;
 	private String token;
