@@ -55,4 +55,17 @@ public class MypageService
 			pageable
 		);
 	}
+
+	public void breakdownCancel(BreakdownDTO breakdownDTO) throws Exception
+	{
+		Optional<BreakdownDAO> breakdown = breakdownRepository.findById(breakdownDTO.getId());
+
+		if(breakdown.isPresent())
+		{
+			BreakdownDAO data = breakdown.get();
+			data.setStatus("2");
+
+			breakdownRepository.save(data);
+		}
+	}
 }

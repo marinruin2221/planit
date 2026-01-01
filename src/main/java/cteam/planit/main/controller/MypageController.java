@@ -30,4 +30,10 @@ public class MypageController
 	{
 		return service.breakdown(breakdownDTO);
 	}
+
+	@PostMapping("/breakdownCancel")
+	public void breakdownCancel(@RequestBody BreakdownDTO breakdownDTO) throws Exception
+	{
+		service.breakdownCancel(breakdownDTO);
+	}
 }

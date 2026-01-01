@@ -103,5 +103,15 @@ public class PlanitApplication implements CommandLineRunner
 		breakdownDAO6.setStatus("3");
 		breakdownDAO6.setDeleteYN("N");
 		breakdownRepository.save(breakdownDAO6);
+
+		BreakdownDAO breakdownDAO7 = new BreakdownDAO();
+		breakdownDAO7.setUsersId(Long.valueOf("2"));
+		breakdownDAO7.setName("서울 강남 호텔7");
+		breakdownDAO7.setDateF("2025.01.05");
+		breakdownDAO7.setDateT("2025.01.07");
+		breakdownDAO7.setPrice("150000");
+		breakdownDAO7.setStatus("3");
+		breakdownDAO7.setDeleteYN("N");
+		breakdownRepository.save(breakdownDAO7);
 	}
 }
