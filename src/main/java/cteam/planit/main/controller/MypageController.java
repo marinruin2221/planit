@@ -1,12 +1,15 @@
 package cteam.planit.main.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cteam.planit.main.dto.MypageDTO;
+import cteam.planit.main.dao.BreakdownDAO;
+import cteam.planit.main.dto.BreakdownDTO;
+import cteam.planit.main.dto.InformationDTO;
 import cteam.planit.main.services.MypageService;
 
 @RestController
@@ -17,8 +20,14 @@ public class MypageController
 	public MypageService service;
 
 	@PostMapping("/information")
-	public MypageDTO information(@RequestBody MypageDTO mypageDTO) throws Exception
+	public InformationDTO information(@RequestBody InformationDTO informationDTO) throws Exception
 	{
-		return service.information(mypageDTO);
+		return service.information(informationDTO);
+	}
+
+	@PostMapping("/breakdown")
+	public Page<BreakdownDAO> breakdown(@RequestBody BreakdownDTO breakdownDTO) throws Exception
+	{
+		return service.breakdown(breakdownDTO);
 	}
 }

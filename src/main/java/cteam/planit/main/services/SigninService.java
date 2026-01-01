@@ -26,10 +26,11 @@ public class SigninService
 
 		if(user.isPresent())
 		{
-			String token = jwtUtil.createToken(signinDTO.getUserId());
+			String token = jwtUtil.createToken(user.get().getUserId());
 
-			data.setUserId(signinDTO.getUserId());
-			data.setUserPw(signinDTO.getUserPw());
+			data.setId(user.get().getId());
+			data.setUserId(user.get().getUserId());
+			data.setUserPw(user.get().getUserPw());
 			data.setToken(token);
 			data.setResult("Y");
 		}

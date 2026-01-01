@@ -3,11 +3,16 @@ package cteam.planit.main.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import cteam.planit.main.dao.BreakdownDAO;
+import cteam.planit.main.dao.BreakdownRepository;
 import cteam.planit.main.dao.UsersDAO;
 import cteam.planit.main.dao.UsersRepository;
-import cteam.planit.main.dto.MypageDTO;
+import cteam.planit.main.dto.BreakdownDTO;
+import cteam.planit.main.dto.InformationDTO;
 
 @Service
 public class MypageService
@@ -15,10 +20,13 @@ public class MypageService
 	@Autowired
 	public UsersRepository usersRepository;
 
-	public MypageDTO information(MypageDTO mypageDTO) throws Exception
+	@Autowired
+	public BreakdownRepository breakdownRepository;
+
+	public InformationDTO information(InformationDTO informationDTO) throws Exception
 	{
-		MypageDTO data = new MypageDTO();
-		Optional<UsersDAO> info = usersRepository.findByUserId(mypageDTO.getUserId());
+		InformationDTO data = new InformationDTO();
+		Optional<UsersDAO> info = usersRepository.findById(informationDTO.getId());
 
 		if(info.isPresent())
 		{
@@ -33,5 +41,18 @@ public class MypageService
 		}
 
 		return data;
+	}
+
+	public Page<BreakdownDAO> breakdown(BreakdownDTO breakdownDTO) throws Exception
+	{
+		PageRequest pageable = PageRequest.of(breakdownDTO.getPage(), breakdownDTO.getSize());
+		
+		return breakdownRepository.findByUsersIdAndDeleteYNAndNameContaining
+		(
+			breakdownDTO.getUsersId(),
+			"N",
+			breakdownDTO.getWord(),
+			pageable
+		);
 	}
 }

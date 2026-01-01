@@ -42,34 +42,66 @@ public class PlanitApplication implements CommandLineRunner
 
 		usersRepository.save(usersDAO);
 
-		if(breakdownRepository.count() > 2) return;
+		if(breakdownRepository.count() > 5) return;
 
-		BreakdownDAO breakdownDAO = new BreakdownDAO();
-		breakdownDAO.setUsersId(null);
-		breakdownDAO.setName("서울 강남 호텔1");
-		breakdownDAO.setDateF("2025.01.05");
-		breakdownDAO.setDateT("2025.01.07");
-		breakdownDAO.setStatus("1");
-		breakdownDAO.setIsActive(1);
+		BreakdownDAO breakdownDAO1 = new BreakdownDAO();
+		breakdownDAO1.setUsersId(Long.valueOf("1"));
+		breakdownDAO1.setName("서울 강남 호텔1");
+		breakdownDAO1.setDateF("2025.01.05");
+		breakdownDAO1.setDateT("2025.01.07");
+		breakdownDAO1.setPrice("150000");
+		breakdownDAO1.setStatus("1");
+		breakdownDAO1.setDeleteYN("N");
+		breakdownRepository.save(breakdownDAO1);
 
-		breakdownRepository.save(breakdownDAO);
+		BreakdownDAO breakdownDAO2 = new BreakdownDAO();
+		breakdownDAO2.setUsersId(Long.valueOf("1"));
+		breakdownDAO2.setName("서울 강남 호텔2");
+		breakdownDAO2.setDateF("2025.01.05");
+		breakdownDAO2.setDateT("2025.01.07");
+		breakdownDAO2.setPrice("150000");
+		breakdownDAO2.setStatus("2");
+		breakdownDAO2.setDeleteYN("N");
+		breakdownRepository.save(breakdownDAO2);
 
-		breakdownDAO.setUsersId(null);
-		breakdownDAO.setName("서울 강남 호텔2");
-		breakdownDAO.setDateF("2025.01.05");
-		breakdownDAO.setDateT("2025.01.07");
-		breakdownDAO.setStatus("2");
-		breakdownDAO.setIsActive(1);
+		BreakdownDAO breakdownDAO3 = new BreakdownDAO();
+		breakdownDAO3.setUsersId(Long.valueOf("1"));
+		breakdownDAO3.setName("서울 강남 호텔3");
+		breakdownDAO3.setDateF("2025.01.05");
+		breakdownDAO3.setDateT("2025.01.07");
+		breakdownDAO3.setPrice("150000");
+		breakdownDAO3.setStatus("3");
+		breakdownDAO3.setDeleteYN("N");
+		breakdownRepository.save(breakdownDAO3);
 
-		breakdownRepository.save(breakdownDAO);
+		BreakdownDAO breakdownDAO4 = new BreakdownDAO();
+		breakdownDAO4.setUsersId(Long.valueOf("1"));
+		breakdownDAO4.setName("서울 강남 호텔4");
+		breakdownDAO4.setDateF("2025.01.05");
+		breakdownDAO4.setDateT("2025.01.07");
+		breakdownDAO4.setPrice("150000");
+		breakdownDAO4.setStatus("3");
+		breakdownDAO4.setDeleteYN("N");
+		breakdownRepository.save(breakdownDAO4);
 
-		breakdownDAO.setUsersId(null);
-		breakdownDAO.setName("서울 강남 호텔3");
-		breakdownDAO.setDateF("2025.01.05");
-		breakdownDAO.setDateT("2025.01.07");
-		breakdownDAO.setStatus("3");
-		breakdownDAO.setIsActive(1);
+		BreakdownDAO breakdownDAO5 = new BreakdownDAO();
+		breakdownDAO5.setUsersId(Long.valueOf("1"));
+		breakdownDAO5.setName("서울 강남 호텔5");
+		breakdownDAO5.setDateF("2025.01.05");
+		breakdownDAO5.setDateT("2025.01.07");
+		breakdownDAO5.setPrice("150000");
+		breakdownDAO5.setStatus("3");
+		breakdownDAO5.setDeleteYN("N");
+		breakdownRepository.save(breakdownDAO5);
 
-		breakdownRepository.save(breakdownDAO);
+		BreakdownDAO breakdownDAO6 = new BreakdownDAO();
+		breakdownDAO6.setUsersId(Long.valueOf("1"));
+		breakdownDAO6.setName("서울 강남 호텔6");
+		breakdownDAO6.setDateF("2025.01.05");
+		breakdownDAO6.setDateT("2025.01.07");
+		breakdownDAO6.setPrice("150000");
+		breakdownDAO6.setStatus("3");
+		breakdownDAO6.setDeleteYN("N");
+		breakdownRepository.save(breakdownDAO6);
 	}
 }
