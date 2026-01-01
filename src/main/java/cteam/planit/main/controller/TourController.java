@@ -125,4 +125,19 @@ public class TourController {
 
     return ResponseEntity.ok(result);
   }
+
+  @GetMapping("/location-based")
+  public ResponseEntity<List<TourItemDTO>> getLocationBasedList(
+      @RequestParam double mapX,
+      @RequestParam double mapY,
+      @RequestParam(defaultValue = "2000") int radius) {
+    log.info("=== TourController.getLocationBasedList called with mapX: {}, mapY: {}, radius: {} ===", mapX, mapY,
+        radius);
+    List<TourItemDTO> result = tourApiService.getLocationBasedList(mapX, mapY, radius);
+    if (result != null && !result.isEmpty()) {
+      return ResponseEntity.ok(result);
+    } else {
+      return ResponseEntity.noContent().build();
+    }
+  }
 }

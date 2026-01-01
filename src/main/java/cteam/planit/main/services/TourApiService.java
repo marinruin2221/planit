@@ -700,4 +700,56 @@ public class TourApiService {
 
     log.info("=== Finished updating minPrice. Total updated: {} ===", totalUpdated);
   }
+
+  /**
+   * 위치 기반 숙소 목록 조회
+   * KorService2/locationBasedList1 API 사용
+   */
+  public List<TourItemDTO> getLocationBasedList(double mapX, double mapY, int radius) {
+    List<TourItemDTO> resultList = new ArrayList<>();
+    try {
+      log.info("=== Fetching location based list (X:{}, Y:{}, Radius:{}) ===", mapX, mapY, radius);
+
+      String jsonResponse = webClient.get()
+          .uri(uriBuilder -> uriBuilder
+              .path("/locationBasedList1")
+              .queryParam("serviceKey", SERVICE_KEY)
+              .queryParam("MobileOS", "ETC")
+              .queryParam("MobileApp", "Planit")
+              .queryParam("_type", "json")
+              .queryParam("mapX", mapX)
+              .queryParam("mapY", mapY)
+              .queryParam("radius", radius)
+              .queryParam("contentTypeId", "32") // 숙박
+              .queryParam("arrange", "E") // 거리순 정렬 (E)
+              .queryParam("numOfRows", 100) // 100개
+              .build())
+          .retrieve()
+          .bodyToMono(String.class)
+          .block();
+
+      if (jsonResponse != null) {
+        JsonNode root = objectMapper.readTree(jsonResponse);
+        JsonNode items = root.path("response").path("body").path("items").path("item");
+
+        if (items.isArray()) {
+          for (JsonNode item : items) {
+            TourItemDTO dto = objectMapper.treeToValue(item, TourItemDTO.class);
+            // 가격 정보 보강 (DB에 있으면 DB 값 사용, 없으면 예상 가격 및 DB 저장)
+            // 간단하게 여기서도 예상 가격 로직 적용하여 프론트에 전달
+            if (dto.getMinPrice() == null) {
+              dto.setMinPrice(generateEstimatedPrice(dto.getContentid()));
+            }
+            resultList.add(dto);
+          }
+        }
+      }
+      log.info("Found {} location-based items", resultList.size());
+
+    } catch (Exception e) {
+      log.error("Error fetching location based list: {}", e.getMessage());
+      e.printStackTrace();
+    }
+    return resultList;
+  }
 }
