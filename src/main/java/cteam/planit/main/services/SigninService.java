@@ -26,13 +26,20 @@ public class SigninService
 
 		if(user.isPresent())
 		{
-			String token = jwtUtil.createToken(user.get().getUserId());
-
-			data.setId(user.get().getId());
-			data.setUserId(user.get().getUserId());
-			data.setUserPw(user.get().getUserPw());
-			data.setToken(token);
-			data.setResult("Y");
+			if(user.get().getDeleteYN().equals("Y"))
+			{
+				data.setResult("W");
+			}
+			else
+			{
+				String token = jwtUtil.createToken(user.get().getUserId());
+	
+				data.setId(user.get().getId());
+				data.setUserId(user.get().getUserId());
+				data.setUserPw(user.get().getUserPw());
+				data.setToken(token);
+				data.setResult("Y");
+			}
 		}
 		else
 		{

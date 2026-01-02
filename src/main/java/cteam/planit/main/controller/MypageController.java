@@ -42,4 +42,10 @@ public class MypageController
 	{
 		service.breakdownCancel(breakdownDTO);
 	}
+
+	@PostMapping("/withdraw")
+	public void withdraw(@RequestBody InformationDTO informationDTO) throws Exception
+	{
+		service.withdraw(informationDTO);
+	}
 }

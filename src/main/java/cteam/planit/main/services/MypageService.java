@@ -87,4 +87,18 @@ public class MypageService
 			breakdownRepository.save(data);
 		}
 	}
+
+	public void withdraw(InformationDTO informationDTO) throws Exception
+	{
+		Optional<UsersDAO> info = usersRepository.findById(informationDTO.getId());
+
+		if(info.isPresent())
+		{
+			UsersDAO user = info.get();
+
+			user.setDeleteYN("Y");
+			
+			usersRepository.save(user);
+		}
+	}
 }
