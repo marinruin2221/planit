@@ -702,52 +702,46 @@ public class TourApiService {
   }
 
   /**
-   * 위치 기반 숙소 목록 조회
-   * KorService2/locationBasedList1 API 사용
+   * 위치 기반 숙소 목록 조회 (DB 기반)
+   * 외부 Tour API(locationBasedList1)가 빈 응답을 반환하므로 DB 데이터를 활용
    */
   public List<TourItemDTO> getLocationBasedList(double mapX, double mapY, int radius) {
     List<TourItemDTO> resultList = new ArrayList<>();
     try {
-      log.info("=== Fetching location based list (X:{}, Y:{}, Radius:{}) ===", mapX, mapY, radius);
+      log.info("=== Fetching location based list from DB (X:{}, Y:{}, Radius:{}) ===", mapX, mapY, radius);
 
-      String jsonResponse = webClient.get()
-          .uri(uriBuilder -> uriBuilder
-              .path("/locationBasedList1")
-              .queryParam("serviceKey", SERVICE_KEY)
-              .queryParam("MobileOS", "ETC")
-              .queryParam("MobileApp", "Planit")
-              .queryParam("_type", "json")
-              .queryParam("mapX", mapX)
-              .queryParam("mapY", mapY)
-              .queryParam("radius", radius)
-              .queryParam("contentTypeId", "32") // 숙박
-              .queryParam("arrange", "E") // 거리순 정렬 (E)
-              .queryParam("numOfRows", 100) // 100개
-              .build())
-          .retrieve()
-          .bodyToMono(String.class)
-          .block();
+      // radius (미터) -> 좌표 범위 변환 (대략적인 계산)
+      // 위도 1도 ≈ 111km, 경도 1도 ≈ 약 88km (한국 위도 기준)
+      double latDelta = radius / 111000.0; // 위도 변화량
+      double lonDelta = radius / 88000.0; // 경도 변화량
 
-      if (jsonResponse != null) {
-        JsonNode root = objectMapper.readTree(jsonResponse);
-        JsonNode items = root.path("response").path("body").path("items").path("item");
+      double minX = mapX - lonDelta;
+      double maxX = mapX + lonDelta;
+      double minY = mapY - latDelta;
+      double maxY = mapY + latDelta;
 
-        if (items.isArray()) {
-          for (JsonNode item : items) {
-            TourItemDTO dto = objectMapper.treeToValue(item, TourItemDTO.class);
-            // 가격 정보 보강 (DB에 있으면 DB 값 사용, 없으면 예상 가격 및 DB 저장)
-            // 간단하게 여기서도 예상 가격 로직 적용하여 프론트에 전달
-            if (dto.getMinPrice() == null) {
-              dto.setMinPrice(generateEstimatedPrice(dto.getContentid()));
-            }
-            resultList.add(dto);
-          }
+      log.info("Search range: X[{} ~ {}], Y[{} ~ {}]", minX, maxX, minY, maxY);
+
+      // DB에서 위치 기반 검색
+      List<Accommodation> accommodations = accommodationRepository.findByLocationRange(
+          minX, maxX, minY, maxY, mapX, mapY);
+
+      log.info("Found {} accommodations within range", accommodations.size());
+
+      // Entity -> DTO 변환
+      for (Accommodation acc : accommodations) {
+        TourItemDTO dto = convertToDTO(acc);
+        // 가격 정보가 없으면 예상 가격 설정
+        if (dto.getMinPrice() == null) {
+          dto.setMinPrice(generateEstimatedPrice(dto.getContentid()));
         }
+        resultList.add(dto);
       }
-      log.info("Found {} location-based items", resultList.size());
+
+      log.info("Returning {} location-based items from DB", resultList.size());
 
     } catch (Exception e) {
-      log.error("Error fetching location based list: {}", e.getMessage());
+      log.error("Error fetching location based list from DB: {}", e.getMessage());
       e.printStackTrace();
     }
     return resultList;

@@ -134,10 +134,7 @@ public class TourController {
     log.info("=== TourController.getLocationBasedList called with mapX: {}, mapY: {}, radius: {} ===", mapX, mapY,
         radius);
     List<TourItemDTO> result = tourApiService.getLocationBasedList(mapX, mapY, radius);
-    if (result != null && !result.isEmpty()) {
-      return ResponseEntity.ok(result);
-    } else {
-      return ResponseEntity.noContent().build();
-    }
+    // 결과가 없어도 빈 배열 반환 (204 No Content는 프론트엔드 JSON 파싱 오류 유발)
+    return ResponseEntity.ok(result != null ? result : java.util.Collections.emptyList());
   }
 }
