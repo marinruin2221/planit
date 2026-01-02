@@ -25,6 +25,12 @@ public class MypageController
 		return service.information(informationDTO);
 	}
 
+	@PostMapping("/informationUpdate")
+	public void informationUpdate(@RequestBody InformationDTO informationDTO) throws Exception
+	{
+		service.informationUpdate(informationDTO);
+	}
+
 	@PostMapping("/breakdown")
 	public Page<BreakdownDAO> breakdown(@RequestBody BreakdownDTO breakdownDTO) throws Exception
 	{
