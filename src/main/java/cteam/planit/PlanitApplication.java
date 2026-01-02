@@ -38,8 +38,7 @@ public class PlanitApplication implements CommandLineRunner
 		usersDAO.setBirthM("05");
 		usersDAO.setBirthD("20");
 		usersDAO.setGender("M");
-		usersDAO.setIsActive(1);
-
+		usersDAO.setDeleteYN("N");
 		usersRepository.save(usersDAO);
 
 		if(breakdownRepository.count() > 5) return;
