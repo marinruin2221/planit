@@ -1,6 +1,7 @@
 package cteam.planit.main.dto;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,13 +42,24 @@ public class User implements UserDetails, OAuth2User, Principal {
 
   public String displayname;
 
+  public String email;
+
+  // 회원가입 생일
+  public LocalDate birthDate;
+
+  // 회원가입 성별
+  public String gender;
+
+  // 회원가입 약관
+  private Boolean termAgreement;
+  private Boolean termPrivacyConsent;
+  private Boolean termAge14;
+
   @Transient
   public Map<String, Object> attributes;
 
   @ElementCollection(fetch = FetchType.EAGER)
   public List<String> roles;
-
-  public String email;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -68,6 +80,12 @@ public class User implements UserDetails, OAuth2User, Principal {
   public String getName() {
     return username;
   }
+
+  // UserDetails 기본값들(누락되면 컴파일/런타임에서 문제될 수 있어 추가 권장)
+  @Override public boolean isAccountNonExpired() { return true; }
+  @Override public boolean isAccountNonLocked() { return true; }
+  @Override public boolean isCredentialsNonExpired() { return true; }
+  @Override public boolean isEnabled() { return true; }
 
 }
 
