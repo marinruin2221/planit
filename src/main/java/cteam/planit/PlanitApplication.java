@@ -1,5 +1,8 @@
 package cteam.planit;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +12,8 @@ import cteam.planit.main.dao.BreakdownDAO;
 import cteam.planit.main.dao.BreakdownRepository;
 import cteam.planit.main.dao.UsersDAO;
 import cteam.planit.main.dao.UsersRepository;
+import cteam.planit.main.entity.Review;
+import cteam.planit.main.repository.ReviewRepository;
 
 @SpringBootApplication
 public class PlanitApplication implements CommandLineRunner
@@ -19,6 +24,9 @@ public class PlanitApplication implements CommandLineRunner
 	@Autowired
 	private BreakdownRepository breakdownRepository;
 
+	@Autowired
+	private ReviewRepository reviewRepository;
+
 	public static void main(String[] args)
 	{
 		SpringApplication.run(PlanitApplication.class, args);
@@ -28,7 +36,6 @@ public class PlanitApplication implements CommandLineRunner
 	public void run(String... args) throws Exception
 	{
 		if(usersRepository.count() > 0) return;
-
 		UsersDAO usersDAO = new UsersDAO();
 		usersDAO.setUserId("marinruin");
 		usersDAO.setUserPw("sk383412@A");
@@ -42,75 +49,33 @@ public class PlanitApplication implements CommandLineRunner
 		usersRepository.save(usersDAO);
 
 		if(breakdownRepository.count() > 5) return;
+		for(int i = 1; i <= 6; i++)
+		{
+			BreakdownDAO breakdownDAO = new BreakdownDAO();
+			breakdownDAO.setUsersId(Long.valueOf("1"));
+			breakdownDAO.setName("서울 강남 호텔" + i);
+			breakdownDAO.setDateF("2025-01-05");
+			breakdownDAO.setDateT("2025-01-07");
+			breakdownDAO.setPrice("150000");
+			breakdownDAO.setStatus("1");
+			breakdownDAO.setDeleteYN("N");
+			breakdownRepository.save(breakdownDAO);
+		}
 
-		BreakdownDAO breakdownDAO1 = new BreakdownDAO();
-		breakdownDAO1.setUsersId(Long.valueOf("1"));
-		breakdownDAO1.setName("서울 강남 호텔1");
-		breakdownDAO1.setDateF("2025-01-05");
-		breakdownDAO1.setDateT("2025-01-07");
-		breakdownDAO1.setPrice("150000");
-		breakdownDAO1.setStatus("1");
-		breakdownDAO1.setDeleteYN("N");
-		breakdownRepository.save(breakdownDAO1);
-
-		BreakdownDAO breakdownDAO2 = new BreakdownDAO();
-		breakdownDAO2.setUsersId(Long.valueOf("1"));
-		breakdownDAO2.setName("서울 강남 호텔2");
-		breakdownDAO2.setDateF("2025-01-05");
-		breakdownDAO2.setDateT("2025-01-07");
-		breakdownDAO2.setPrice("150000");
-		breakdownDAO2.setStatus("2");
-		breakdownDAO2.setDeleteYN("N");
-		breakdownRepository.save(breakdownDAO2);
-
-		BreakdownDAO breakdownDAO3 = new BreakdownDAO();
-		breakdownDAO3.setUsersId(Long.valueOf("1"));
-		breakdownDAO3.setName("서울 강남 호텔3");
-		breakdownDAO3.setDateF("2025-01-05");
-		breakdownDAO3.setDateT("2025-01-07");
-		breakdownDAO3.setPrice("150000");
-		breakdownDAO3.setStatus("3");
-		breakdownDAO3.setDeleteYN("N");
-		breakdownRepository.save(breakdownDAO3);
-
-		BreakdownDAO breakdownDAO4 = new BreakdownDAO();
-		breakdownDAO4.setUsersId(Long.valueOf("1"));
-		breakdownDAO4.setName("서울 강남 호텔4");
-		breakdownDAO4.setDateF("2025-01-05");
-		breakdownDAO4.setDateT("2025-01-07");
-		breakdownDAO4.setPrice("150000");
-		breakdownDAO4.setStatus("3");
-		breakdownDAO4.setDeleteYN("N");
-		breakdownRepository.save(breakdownDAO4);
-
-		BreakdownDAO breakdownDAO5 = new BreakdownDAO();
-		breakdownDAO5.setUsersId(Long.valueOf("1"));
-		breakdownDAO5.setName("서울 강남 호텔5");
-		breakdownDAO5.setDateF("2025-01-05");
-		breakdownDAO5.setDateT("2025-01-07");
-		breakdownDAO5.setPrice("150000");
-		breakdownDAO5.setStatus("3");
-		breakdownDAO5.setDeleteYN("N");
-		breakdownRepository.save(breakdownDAO5);
-
-		BreakdownDAO breakdownDAO6 = new BreakdownDAO();
-		breakdownDAO6.setUsersId(Long.valueOf("1"));
-		breakdownDAO6.setName("서울 강남 호텔6");
-		breakdownDAO6.setDateF("2025-01-05");
-		breakdownDAO6.setDateT("2025-01-07");
-		breakdownDAO6.setPrice("150000");
-		breakdownDAO6.setStatus("3");
-		breakdownDAO6.setDeleteYN("N");
-		breakdownRepository.save(breakdownDAO6);
-
-		BreakdownDAO breakdownDAO7 = new BreakdownDAO();
-		breakdownDAO7.setUsersId(Long.valueOf("2"));
-		breakdownDAO7.setName("서울 강남 호텔7");
-		breakdownDAO7.setDateF("2025-01-05");
-		breakdownDAO7.setDateT("2025-01-07");
-		breakdownDAO7.setPrice("150000");
-		breakdownDAO7.setStatus("3");
-		breakdownDAO7.setDeleteYN("N");
-		breakdownRepository.save(breakdownDAO7);
+		if(reviewRepository.count() > 5) return;
+		for(int i = 1; i <= 6; i++)
+		{
+			Review review = new Review();
+			review.setContentId("1");
+			review.setUsersId(Long.valueOf("1"));
+			review.setName("서울 강남 호텔" + i);
+			review.setReviewerName("여행러버" + i);
+			review.setReviewerLevel(17);
+			review.setStars(3);
+			review.setContent("나쁘지 않았지만 기대만큼은 아니었어요" + i);
+			review.setReviewDate(LocalDate.of(2026, 01, 01));
+			review.setDeleteYN("N");
+			reviewRepository.save(review);
+		}
 	}
 }
