@@ -33,10 +33,10 @@ public class PlanitApplication implements CommandLineRunner
 		usersDAO.setUserId("marinruin");
 		usersDAO.setUserPw("sk383412@A");
 		usersDAO.setName("성원");
-		usersDAO.setEmail("user1@test.com");
-		usersDAO.setBirthY("1995");
-		usersDAO.setBirthM("05");
-		usersDAO.setBirthD("20");
+		usersDAO.setEmail("marinruin@naver.com");
+		usersDAO.setBirthY("2000");
+		usersDAO.setBirthM("01");
+		usersDAO.setBirthD("14");
 		usersDAO.setGender("M");
 		usersDAO.setDeleteYN("N");
 		usersRepository.save(usersDAO);

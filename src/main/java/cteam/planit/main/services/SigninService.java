@@ -48,4 +48,29 @@ public class SigninService
 
 		return data;
 	}
+
+	public SigninDTO findid(SigninDTO signinDTO) throws Exception
+	{
+		SigninDTO data = new SigninDTO();
+		Optional<UsersDAO> user = usersRepository.findByEmailAndBirthYAndBirthMAndBirthD(signinDTO.getEmail(), signinDTO.getBirthY(), signinDTO.getBirthM(), signinDTO.getBirthD());
+
+		if(user.isPresent())
+		{
+			if(user.get().getDeleteYN().equals("Y"))
+			{
+				data.setResult("W");
+			}
+			else
+			{
+				data.setUserId(user.get().getUserId());
+				data.setResult("Y");
+			}
+		}
+		else
+		{
+			data.setResult("N");
+		}
+
+		return data;
+	}
 }

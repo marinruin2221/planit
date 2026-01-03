@@ -22,4 +22,10 @@ public class SigninController
 	{
 		return service.signin(signinDTO);
 	}
+
+	@PostMapping("/findid")
+	public SigninDTO findid(@RequestBody SigninDTO signinDTO) throws Exception
+	{
+		return service.findid(signinDTO);
+	}
 }
