@@ -24,6 +24,12 @@ public class Review {
   @Column(name = "content_id", nullable = false)
   private String contentId;
 
+  @Column(name = "users_id")
+  private Long usersId;
+
+  @Column(name = "name")
+  private String name;
+
   @Column(name = "reviewer_name", length = 100)
   private String reviewerName;
 
@@ -38,4 +44,7 @@ public class Review {
 
   @Column(name = "review_date")
   private LocalDate reviewDate;
+
+  @Column(name = "delete_yn")
+  private String deleteYN;
 }

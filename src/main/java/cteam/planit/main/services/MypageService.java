@@ -13,6 +13,9 @@ import cteam.planit.main.dao.UsersDAO;
 import cteam.planit.main.dao.UsersRepository;
 import cteam.planit.main.dto.BreakdownDTO;
 import cteam.planit.main.dto.InformationDTO;
+import cteam.planit.main.dto.ReviewDTO;
+import cteam.planit.main.entity.Review;
+import cteam.planit.main.repository.ReviewRepository;
 
 @Service
 public class MypageService
@@ -22,6 +25,9 @@ public class MypageService
 
 	@Autowired
 	public BreakdownRepository breakdownRepository;
+
+	@Autowired
+	public ReviewRepository reviewRepository;
 
 	public InformationDTO information(InformationDTO informationDTO) throws Exception
 	{
@@ -85,6 +91,32 @@ public class MypageService
 			data.setStatus("2");
 
 			breakdownRepository.save(data);
+		}
+	}
+
+	public Page<Review> review(ReviewDTO reviewDTO) throws Exception
+	{
+		PageRequest pageable = PageRequest.of(reviewDTO.getPage(), reviewDTO.getSize());
+
+		return reviewRepository.findByUsersIdAndDeleteYNAndNameContaining
+		(
+			reviewDTO.getUsersId(),
+			"N",
+			reviewDTO.getWord(),
+			pageable
+		);
+	}
+
+	public void reviewDelete(ReviewDTO reviewDTO) throws Exception
+	{
+		Optional<Review> review = reviewRepository.findById(reviewDTO.getId());
+
+		if(review.isPresent())
+		{
+			Review data = review.get();
+			data.setDeleteYN("Y");
+
+			reviewRepository.save(data);
 		}
 	}
 

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import cteam.planit.main.dao.BreakdownDAO;
 import cteam.planit.main.dto.BreakdownDTO;
 import cteam.planit.main.dto.InformationDTO;
+import cteam.planit.main.dto.ReviewDTO;
+import cteam.planit.main.entity.Review;
 import cteam.planit.main.services.MypageService;
 
 @RestController
@@ -41,6 +43,18 @@ public class MypageController
 	public void breakdownCancel(@RequestBody BreakdownDTO breakdownDTO) throws Exception
 	{
 		service.breakdownCancel(breakdownDTO);
+	}
+
+	@PostMapping("/review")
+	public Page<Review> review(@RequestBody ReviewDTO reviewDTO) throws Exception
+	{
+		return service.review(reviewDTO);
+	}
+
+	@PostMapping("/reviewDelete")
+	public void reviewDelete(@RequestBody ReviewDTO reviewDTO) throws Exception
+	{
+		service.reviewDelete(reviewDTO);
 	}
 
 	@PostMapping("/withdraw")
