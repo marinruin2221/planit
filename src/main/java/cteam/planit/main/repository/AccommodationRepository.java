@@ -28,6 +28,8 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, St
 
     List<Accommodation> findByMinPriceIsNull();
 
+    List<Accommodation> findTop10ByOrderByMinPriceAsc();
+
     @org.springframework.data.jpa.repository.Query("SELECT a FROM Accommodation a WHERE " +
             "(:areaCodes IS NULL OR a.areacode IN :areaCodes) AND " +
             "(:categories IS NULL OR a.cat3 IN :categories) AND " +

@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 
 import cteam.planit.main.dao.Event;
 import cteam.planit.main.dao.EventRepository;
+import cteam.planit.main.entity.Accommodation;
+import cteam.planit.main.repository.AccommodationRepository;
 
 @Service
 public class MainService
 {
 	@Autowired
     public EventRepository eventRepository;
+
+	@Autowired
+	public AccommodationRepository accommodationRepository;
 
 	public List<Event> eventSelect() throws Exception
 	{
@@ -26,5 +31,10 @@ public class MainService
 				Sort.by("sortOrder").ascending()
 			))
 			.getContent();
+	}
+
+	public List<Accommodation> bestGoodStay() throws Exception
+	{
+		return accommodationRepository.findTop10ByOrderByMinPriceAsc();
 	}
 }
