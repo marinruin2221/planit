@@ -27,11 +27,15 @@ public class TourController {
       @RequestParam(required = false) List<String> category,
       @RequestParam(required = false) Integer minPrice,
       @RequestParam(required = false) Integer maxPrice,
+      @RequestParam(required = false) String keyword,
+      @RequestParam(required = false) String dateF,
+      @RequestParam(required = false) String dateT,
+      @RequestParam(required = false) String personnel,
       @RequestParam(defaultValue = "1") int page,
       @RequestParam(defaultValue = "10") int size) {
     log.info("=== TourController.getTourList called with areaCode: {}, category: {}, price: {}~{} ===", areaCode,
         category, minPrice, maxPrice);
-    return ResponseEntity.ok(tourApiService.getAreaBasedList(areaCode, category, page, size, minPrice, maxPrice));
+    return ResponseEntity.ok(tourApiService.getAreaBasedList(areaCode, category, page, size, minPrice, maxPrice, keyword, dateF, dateT, personnel));
   }
 
   @GetMapping("/{contentId}")

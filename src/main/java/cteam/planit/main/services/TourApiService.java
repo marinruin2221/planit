@@ -64,7 +64,7 @@ public class TourApiService {
   }
 
   public cteam.planit.main.dto.TourPageDTO getAreaBasedList(List<String> areaCodes, List<String> categories, int page,
-      int size, Integer minPrice, Integer maxPrice) {
+      int size, Integer minPrice, Integer maxPrice, String keyword, String dateF, String dateT, String personnel) {
 
     // PageRequest 생성 (0-based page index)
     Pageable pageable = PageRequest.of(page - 1, size);
@@ -85,7 +85,7 @@ public class TourApiService {
     List<String> effectiveCat3List = (cat3List != null && !cat3List.isEmpty()) ? cat3List : null;
 
     accommodationPage = accommodationRepository.findWithFilters(effectiveAreaCodes, effectiveCat3List, minPrice,
-        maxPrice, pageable);
+        maxPrice, keyword, pageable);
 
     // Entity -> DTO 변환 및 이미지 보강
     List<TourItemDTO> dtoList = accommodationPage.getContent().stream()

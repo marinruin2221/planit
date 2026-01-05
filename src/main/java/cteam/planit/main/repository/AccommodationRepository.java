@@ -30,16 +30,25 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, St
 
     List<Accommodation> findTop10ByOrderByMinPriceAsc();
 
-    @org.springframework.data.jpa.repository.Query("SELECT a FROM Accommodation a WHERE " +
-            "(:areaCodes IS NULL OR a.areacode IN :areaCodes) AND " +
-            "(:categories IS NULL OR a.cat3 IN :categories) AND " +
-            "(:minPrice IS NULL OR a.minPrice IS NULL OR a.minPrice >= :minPrice) AND " +
-            "(:maxPrice IS NULL OR a.minPrice IS NULL OR a.minPrice <= :maxPrice)")
+    @org.springframework.data.jpa.repository.Query(
+        "SELECT a FROM Accommodation a WHERE " +
+        "(:areaCodes IS NULL OR a.areacode IN :areaCodes) AND " +
+        "(:categories IS NULL OR a.cat3 IN :categories) AND " +
+        "(:minPrice IS NULL OR a.minPrice IS NULL OR a.minPrice >= :minPrice) AND " +
+        "(:maxPrice IS NULL OR a.minPrice IS NULL OR a.minPrice <= :maxPrice) AND " +
+        "(" +
+        "  :keyword IS NULL OR " +
+        "  a.title LIKE %:keyword% OR " +
+        "  a.addr1 LIKE %:keyword% OR " +
+        "  a.addr2 LIKE %:keyword%" +
+        ")"
+    )
     Page<Accommodation> findWithFilters(
             @org.springframework.data.repository.query.Param("areaCodes") List<String> areaCodes,
             @org.springframework.data.repository.query.Param("categories") List<String> categories,
             @org.springframework.data.repository.query.Param("minPrice") Integer minPrice,
             @org.springframework.data.repository.query.Param("maxPrice") Integer maxPrice,
+            @org.springframework.data.repository.query.Param("keyword") String keyword,
             Pageable pageable);
 
     /**
