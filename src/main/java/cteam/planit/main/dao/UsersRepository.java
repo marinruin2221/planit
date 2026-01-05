@@ -13,7 +13,7 @@ public interface UsersRepository extends JpaRepository<UsersDAO, Long>, JpaSpeci
     boolean existsByUserId(String userId);
     boolean existsByEmail(String email);
 
-	Optional<UsersDAO> findByUserIdAndUserPw(String userId, String userPw);
+	//Optional<UsersDAO> findByUserIdAndUserPw(String userId, String userPw);
 	Optional<UsersDAO> findByEmailAndBirthYAndBirthMAndBirthD(String email, String birthY, String birthM, String birthD);
 
 	// ✅ (권장) 로그인/조회용으로 아이디만 찾는 메서드
