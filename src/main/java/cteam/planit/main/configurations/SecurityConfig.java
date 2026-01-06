@@ -50,7 +50,7 @@ public class SecurityConfig
 		.csrf(csrf -> csrf.disable())
 		.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 		.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/auth/me", "/api/auth/logout").permitAll()
+            .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/auth/me", "/api/auth/logout", "/api/auth/findid").permitAll()
 			.requestMatchers("/api/main/**").permitAll()
 			.requestMatchers("/api/events/**").permitAll()
             .requestMatchers("/api/tours/**").permitAll()

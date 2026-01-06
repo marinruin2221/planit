@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import cteam.planit.main.dao.UsersRepository;
 import cteam.planit.main.dto.LoginRequestDTO;
 import cteam.planit.main.dto.LoginResponseDTO;
+import cteam.planit.main.dto.SigninDTO;
 import cteam.planit.main.dto.SignupRequestDTO;
 import cteam.planit.main.dto.SignupResponseDTO;
 import cteam.planit.main.services.AuthService;
@@ -86,4 +87,9 @@ public class AuthController {
         return ResponseEntity.noContent().build();
     }
     
+    @PostMapping("/findid")
+    public SigninDTO findid(@RequestBody SigninDTO signinDTO)
+    {
+        return authService.findid(signinDTO);
+    }
 }

@@ -1,5 +1,7 @@
 package cteam.planit.main.services;
 
+import java.util.Optional;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,7 @@ import cteam.planit.main.dao.UsersDAO;
 import cteam.planit.main.dao.UsersRepository;
 import cteam.planit.main.dto.LoginRequestDTO;
 import cteam.planit.main.dto.LoginResponseDTO;
+import cteam.planit.main.dto.SigninDTO;
 import cteam.planit.main.dto.SignupRequestDTO;
 import cteam.planit.main.dto.SignupResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -80,5 +83,34 @@ public class AuthService {
         }
 
         return new LoginResponseDTO(u.getId(), u.getUserId(), u.getName(), u.getEmail());
+    }
+
+    public SigninDTO findid(SigninDTO signinDTO)
+    {
+        Optional<UsersDAO> user = usersRepository.findByEmailAndBirthYAndBirthMAndBirthD(signinDTO.getEmail(), signinDTO.getBirthY(), signinDTO.getBirthM(), signinDTO.getBirthD());
+        
+        if(user.isPresent())
+        {
+            if(user.get().getDeleteYN().equals("Y"))
+            {
+                signinDTO.setResult("W");
+            }
+            else
+            {
+                signinDTO.setUserId(user.get().getUserId());
+                signinDTO.setEmail(user.get().getEmail());
+                signinDTO.setBirthY(user.get().getBirthY());
+                signinDTO.setBirthM(user.get().getBirthM());
+                signinDTO.setBirthD(user.get().getBirthD());
+    
+                signinDTO.setResult("Y");
+            }
+        }
+        else
+        {
+            signinDTO.setResult("N");
+        }
+
+        return signinDTO;
     }
 }
