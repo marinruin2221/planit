@@ -50,7 +50,8 @@ public class SecurityConfig
 		.csrf(csrf -> csrf.disable())
 		.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 		.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/auth/me").permitAll()
+            .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/auth/me", "/api/auth/logout").permitAll()
+			.requestMatchers("/api/main/**").permitAll()
             .requestMatchers("/api/dev/**").permitAll() // 개발용 확인 API 쓰면 임시 오픈
             .anyRequest().authenticated()
         )

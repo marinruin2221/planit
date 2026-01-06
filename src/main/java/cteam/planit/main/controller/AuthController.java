@@ -40,22 +40,40 @@ public class AuthController {
 
     @GetMapping("/me")
     public Map<String, Object> me(Authentication authentication) {
+
+        // 로그인 안 된 경우
         if (authentication == null || !authentication.isAuthenticated()
                 || "anonymousUser".equals(authentication.getPrincipal())) {
             return Map.of("loggedIn", false);
         }
 
-        String userId = authentication.getName(); // 세션 인증된 userId
-        var u = usersRepository.findByUserId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        // authentication.getName()이 항상 DB userId와 일치한다고 가정하면 위험해서
+        // principal 타입별로 안전하게 처리
+        String userId;
 
-        // 현재 구조: 회원가입 nickname을 UsersDAO.name에 저장 중이므로 name을 nickname으로 내려줍니다.
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof org.springframework.security.core.userdetails.UserDetails ud) {
+            userId = ud.getUsername();
+        } else {
+            userId = authentication.getName();
+        }
+
+        // 사용자 조회 실패해도 예외 던지지 말고 loggedIn:false 처리 (프론트 안정)
+        var opt = usersRepository.findByUserId(userId);
+        if (opt.isEmpty()) {
+            return Map.of("loggedIn", false);
+        }
+
+        var u = opt.get();
+
         return Map.of(
                 "loggedIn", true,
                 "userId", u.getUserId(),
-                "nickname", u.getName()
+                "nickname", u.getName(),
+                "email", u.getEmail()
         );
     }
+
 
     /**
      * 로그아웃 (세션 무효화)
