@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "COMMON_IMAGE")
+@SequenceGenerator(name = "common_image_seq_gen", sequenceName = "COMMON_IMAGE_SEQ", allocationSize = 1)
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class CommonImage {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "common_image_seq_gen")
   private Long id;
 
   @Column(nullable = false, unique = true)

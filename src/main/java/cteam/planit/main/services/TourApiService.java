@@ -266,25 +266,40 @@ public class TourApiService {
 
   /**
    * contentId로 특정 숙박 항목 조회
-   * KorService2에는 detailCommon 엔드포인트가 없으므로
-   * searchStay2 API로 검색 후 contentId로 필터링
+   * DB 우선 조회, 없으면 detailCommon2 API 호출
    */
   public TourItemDTO getItemByContentId(String contentId) {
     try {
-      log.info("=== Searching for contentId: {} ===", contentId);
+      log.info("=== Fetching item by contentId: {} ===", contentId);
 
-      // searchStay2에서 많은 데이터를 가져와서 contentId로 필터링
-      // 더 효율적인 방법이 있다면 대체 가능
+      // 1) DB에서 먼저 조회
+      java.util.Optional<Accommodation> dbResult = accommodationRepository.findByContentId(contentId);
+      if (dbResult.isPresent()) {
+        log.info("Found item in DB: {}", dbResult.get().getTitle());
+        TourItemDTO dto = convertToDTO(dbResult.get());
+        if (dto.getMinPrice() == null) {
+          dto.setMinPrice(generateEstimatedPrice(dto.getContentid()));
+        }
+        return dto;
+      }
+
+      // 2) DB에 없으면 VisitKorea API 호출
+      log.info("Item not found in DB, calling detailCommon2 API...");
+
       String jsonResponse = webClient.get()
           .uri(uriBuilder -> uriBuilder
-              .path("/searchStay2")
+              .path("/detailCommon2")
               .queryParam("serviceKey", SERVICE_KEY)
-              .queryParam("numOfRows", 1000) // 충분히 많이 가져옴
-              .queryParam("pageNo", 1)
               .queryParam("MobileOS", "ETC")
               .queryParam("MobileApp", "Planit")
               .queryParam("_type", "json")
-              .queryParam("arrange", "A")
+              .queryParam("contentId", contentId)
+              .queryParam("defaultYN", "Y")
+              .queryParam("firstImageYN", "Y")
+              .queryParam("addrinfoYN", "Y")
+              .queryParam("mapinfoYN", "Y")
+              .queryParam("overviewYN", "Y")
+              .queryParam("catcodeYN", "Y")
               .build())
           .retrieve()
           .bodyToMono(String.class)
@@ -294,35 +309,21 @@ public class TourApiService {
         JsonNode root = objectMapper.readTree(jsonResponse);
         JsonNode items = root.path("response").path("body").path("items").path("item");
 
-        if (items.isArray()) {
-          for (JsonNode item : items) {
-            String itemContentId = item.path("contentid").asText();
-            if (contentId.equals(itemContentId)) {
-              TourItemDTO dto = objectMapper.treeToValue(item, TourItemDTO.class);
-
-              // 이미지가 없는 경우 Google 검색 시도
-              if (dto.getFirstimage() == null || dto.getFirstimage().isEmpty()) {
-                log.info("Image missing for {}, searching Google... (DISABLED)", dto.getTitle());
-                /*
-                 * Google API Disabled
-                 * String searchImage = googleImageSearchService.searchImage(dto.getTitle() +
-                 * " 외관");
-                 * if (searchImage != null) {
-                 * log.info("Found image from Google: {}", searchImage);
-                 * dto.setFirstimage(searchImage);
-                 * }
-                 */
-              }
-
-              log.info("Found item: {}", dto.getTitle());
-              return dto;
-            }
-          }
+        if (items.isArray() && items.size() > 0) {
+          TourItemDTO dto = objectMapper.treeToValue(items.get(0), TourItemDTO.class);
+          dto.setMinPrice(generateEstimatedPrice(dto.getContentid()));
+          log.info("Found item from API (array): {}", dto.getTitle());
+          return dto;
+        } else if (!items.isMissingNode() && !items.isArray()) {
+          TourItemDTO dto = objectMapper.treeToValue(items, TourItemDTO.class);
+          dto.setMinPrice(generateEstimatedPrice(dto.getContentid()));
+          log.info("Found item from API (single): {}", dto.getTitle());
+          return dto;
         }
       }
       log.info("Item not found for contentId: {}", contentId);
     } catch (Exception e) {
-      log.error("Error searching for contentId: {}", e.getMessage());
+      log.error("Error fetching item by contentId: {}", e.getMessage());
       e.printStackTrace();
     }
     return null;
