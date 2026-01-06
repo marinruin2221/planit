@@ -1,5 +1,6 @@
 package cteam.planit.main.services;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,6 +117,23 @@ public class MypageService
 			reviewDTO.getWord(),
 			pageable
 		);
+	}
+
+	public void reviewCreate(ReviewDTO reviewDTO) throws Exception
+	{
+		Review review = Review.builder()
+			.contentId(reviewDTO.getContentId())
+			.userId(reviewDTO.getUserId())
+			.name(reviewDTO.getName())
+			.reviewerName(reviewDTO.getName())
+			.reviewerLevel(Integer.parseInt(reviewDTO.getLevel()))
+			.stars(Integer.parseInt(reviewDTO.getStars()))
+			.content(reviewDTO.getContent())
+			.reviewDate(LocalDate.now())
+			.deleteYN("N")
+			.build();
+
+		reviewRepository.save(review);
 	}
 
 	public void reviewDelete(ReviewDTO reviewDTO) throws Exception

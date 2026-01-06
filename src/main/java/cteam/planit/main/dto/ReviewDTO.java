@@ -6,11 +6,13 @@ import lombok.Data;
 public class ReviewDTO
 {
 	private Long id;			// 여행 리뷰 시퀀스
+	private String contentId;   // 여행 리뷰 숙소 ID
 	private String userId;		// 여행 리뷰 사용자 ID
 	private String name;		// 여행 리뷰 이름
 	private String date;		// 여행 리뷰 날짜
 	private String stars;		// 여행 리뷰 별점
 	private String level;		// 여행 리뷰 레벨
+	private String content;     // 리뷰 내용	
 	private String deleteYN;	// 여행 리뷰 삭제 여부 (Y:삭제됨, N:삭제안됨)
 
 	private String word;		// 검색

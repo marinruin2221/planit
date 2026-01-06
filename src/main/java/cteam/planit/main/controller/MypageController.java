@@ -51,6 +51,12 @@ public class MypageController
 		return service.review(reviewDTO);
 	}
 
+	@PostMapping("/reviewCreate")
+	public void reviewCreate(@RequestBody ReviewDTO reviewDTO) throws Exception
+	{
+		service.reviewCreate(reviewDTO);
+	}
+
 	@PostMapping("/reviewDelete")
 	public void reviewDelete(@RequestBody ReviewDTO reviewDTO) throws Exception
 	{

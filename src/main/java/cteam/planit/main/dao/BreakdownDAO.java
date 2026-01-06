@@ -17,6 +17,7 @@ public class BreakdownDAO
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "breakdown_seq_gen")
 	private Long id;			// 예약 내역 시퀀스
+	private String contentId;   // 예약 내역 숙소 ID
 	private String userId;		// 예약 내역 사용자 ID
 	private String name;		// 예약 내역 이름
 	private String dateF;		// 예약 내역 체크인
