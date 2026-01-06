@@ -24,8 +24,8 @@ public class Review {
   @Column(name = "content_id", nullable = false)
   private String contentId;
 
-  @Column(name = "users_id")
-  private Long usersId;
+  @Column(name = "user_id")
+  private String userId;
 
   @Column(name = "name")
   private String name;

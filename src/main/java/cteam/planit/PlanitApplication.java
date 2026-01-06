@@ -9,17 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import cteam.planit.main.dao.BreakdownDAO;
 import cteam.planit.main.dao.BreakdownRepository;
-import cteam.planit.main.dao.UsersDAO;
-import cteam.planit.main.dao.UsersRepository;
 import cteam.planit.main.entity.Review;
 import cteam.planit.main.repository.ReviewRepository;
 
 @SpringBootApplication
 public class PlanitApplication implements CommandLineRunner
 {
-	@Autowired
-	private UsersRepository usersRepository;
-
 	@Autowired
 	private BreakdownRepository breakdownRepository;
 
@@ -34,24 +29,11 @@ public class PlanitApplication implements CommandLineRunner
 	@Override
 	public void run(String... args) throws Exception
 	{
-		if(usersRepository.count() > 0) return;
-		UsersDAO usersDAO = new UsersDAO();
-		usersDAO.setUserId("marinruin");
-		usersDAO.setUserPw("sk383412@A");
-		usersDAO.setName("성원");
-		usersDAO.setEmail("marinruin@naver.com");
-		usersDAO.setBirthY("2000");
-		usersDAO.setBirthM("01");
-		usersDAO.setBirthD("14");
-		usersDAO.setGender("M");
-		usersDAO.setDeleteYN("N");
-		usersRepository.save(usersDAO);
-
 		if(breakdownRepository.count() > 5) return;
 		for(int i = 1; i <= 6; i++)
 		{
 			BreakdownDAO breakdownDAO = new BreakdownDAO();
-			breakdownDAO.setUsersId(Long.valueOf("1"));
+			breakdownDAO.setUserId("marinruin");
 			breakdownDAO.setName("서울 강남 호텔" + i);
 			breakdownDAO.setDateF("2025-01-05");
 			breakdownDAO.setDateT("2025-01-07");
@@ -66,7 +48,7 @@ public class PlanitApplication implements CommandLineRunner
 		{
 			Review review = new Review();
 			review.setContentId("1");
-			review.setUsersId(Long.valueOf("1"));
+			review.setUserId("marinruin");
 			review.setName("서울 강남 호텔" + i);
 			review.setReviewerName("여행러버" + i);
 			review.setReviewerLevel(17);

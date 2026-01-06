@@ -19,5 +19,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
   @Query("SELECT AVG(r.stars) FROM Review r WHERE r.contentId = :contentId")
   Double getAverageStarsByContentId(String contentId);
 
-  Page<Review> findByUsersIdAndDeleteYNAndNameContaining(Long usersId, String deleteYN, String word, Pageable pageable);
+  Page<Review> findByUserIdAndDeleteYNAndNameContaining(String userId, String deleteYN, String word, Pageable pageable);
 }

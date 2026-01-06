@@ -6,7 +6,7 @@ import lombok.Data;
 public class BreakdownDTO
 {
 	private Long id;			// 예약 내역 시퀀스
-	private Long usersId;		// 예약 내역 사용자 시퀀스
+	private String userId;		// 예약 내역 사용자 ID
 	private String name;		// 예약 내역 이름
 	private String dateF;		// 예약 내역 체크인
 	private String dateT;		// 예약 내역 체크아웃

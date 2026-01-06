@@ -128,7 +128,7 @@ public class ReviewService {
             
             Review review = Review.builder()
                     .contentId(contentId)
-                    .usersId(Long.valueOf("1"))
+                    .userId("marinruin")
                     .name("리뷰 테스트 데이터 " + i)
                     .reviewerName(reviewerNames[rand.nextInt(reviewerNames.length)])
                     .reviewerLevel(rand.nextInt(20) + 1)

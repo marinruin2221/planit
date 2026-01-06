@@ -32,7 +32,7 @@ public class MypageService
 	public InformationDTO information(InformationDTO informationDTO) throws Exception
 	{
 		InformationDTO data = new InformationDTO();
-		Optional<UsersDAO> info = usersRepository.findById(informationDTO.getId());
+		Optional<UsersDAO> info = usersRepository.findByUserId(informationDTO.getUserId());
 
 		if(info.isPresent())
 		{
@@ -51,7 +51,7 @@ public class MypageService
 
 	public void informationUpdate(InformationDTO informationDTO) throws Exception
 	{
-    	Optional<UsersDAO> info = usersRepository.findById(informationDTO.getId());
+    	Optional<UsersDAO> info = usersRepository.findByUserId(informationDTO.getUserId());
 
 		if(info.isPresent())
 		{
@@ -72,9 +72,9 @@ public class MypageService
 	{
 		PageRequest pageable = PageRequest.of(breakdownDTO.getPage(), breakdownDTO.getSize());
 		
-		return breakdownRepository.findByUsersIdAndDeleteYNAndNameContaining
+		return breakdownRepository.findByUserIdAndDeleteYNAndNameContaining
 		(
-			breakdownDTO.getUsersId(),
+			breakdownDTO.getUserId(),
 			"N",
 			breakdownDTO.getWord(),
 			pageable
@@ -98,9 +98,9 @@ public class MypageService
 	{
 		PageRequest pageable = PageRequest.of(reviewDTO.getPage(), reviewDTO.getSize());
 
-		return reviewRepository.findByUsersIdAndDeleteYNAndNameContaining
+		return reviewRepository.findByUserIdAndDeleteYNAndNameContaining
 		(
-			reviewDTO.getUsersId(),
+			reviewDTO.getUserId(),
 			"N",
 			reviewDTO.getWord(),
 			pageable
@@ -122,7 +122,7 @@ public class MypageService
 
 	public void withdraw(InformationDTO informationDTO) throws Exception
 	{
-		Optional<UsersDAO> info = usersRepository.findById(informationDTO.getId());
+		Optional<UsersDAO> info = usersRepository.findByUserId(informationDTO.getUserId());
 
 		if(info.isPresent())
 		{
