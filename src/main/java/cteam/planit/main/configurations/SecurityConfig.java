@@ -17,24 +17,22 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig
-{
+public class SecurityConfig {
 	@Bean
-	public PasswordEncoder passwordEncoder()
-	{
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 	@Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception
-    {
-        return config.getAuthenticationManager();
-    }
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
+
 	@Bean
-	public CorsConfigurationSource corsConfigurationSource()
-	{
+	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowedOrigins(List.of("http://localhost:5001"));
-		config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowedHeaders(List.of("*"));
 		config.setAllowCredentials(true);
 
@@ -44,24 +42,25 @@ public class SecurityConfig
 	}
 
 	@Bean
-	public SecurityFilterChain security(HttpSecurity http) throws Exception
-	{
+	public SecurityFilterChain security(HttpSecurity http) throws Exception {
 		return http
-		.csrf(csrf -> csrf.disable())
-		.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-		.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/auth/me", "/api/auth/logout", "/api/auth/findid").permitAll()
-			.requestMatchers("/api/main/**").permitAll()
-			.requestMatchers("/api/events/**").permitAll()
-            .requestMatchers("/api/tours/**").permitAll()
-			.requestMatchers("/api/images/**").permitAll()
-            .requestMatchers("/api/dev/**").permitAll() // 개발용 확인 API 쓰면 임시 오픈
-            .anyRequest().authenticated()
-        )
-		//.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-		.formLogin(form -> form.disable())
-		.logout(logout -> logout.disable())
-		.httpBasic(basic -> basic.disable())
-		.build();
+				.csrf(csrf -> csrf.disable())
+				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/api/auth/signup", "/api/auth/login", "/api/auth/me", "/api/auth/logout",
+								"/api/auth/findid")
+						.permitAll()
+						.requestMatchers("/api/main/**").permitAll()
+						.requestMatchers("/api/events/**").permitAll()
+						.requestMatchers("/api/tours/**").permitAll()
+						.requestMatchers("/api/images/**").permitAll()
+						.requestMatchers("/api/ratings/**").permitAll()
+						.requestMatchers("/api/reviews/**").permitAll()
+						.requestMatchers("/api/dev/**").permitAll()
+						.anyRequest().authenticated())
+				.formLogin(form -> form.disable())
+				.logout(logout -> logout.disable())
+				.httpBasic(basic -> basic.disable())
+				.build();
 	}
 }
