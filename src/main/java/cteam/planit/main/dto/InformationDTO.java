@@ -14,4 +14,6 @@ public class InformationDTO
 	private String birthM;	// 사용자 생월
 	private String birthD;	// 사용자 생일
 	private String gender;	// 사용자 성별
+
+	private String emailOverlapYN; // 이메일 중복 여부
 }

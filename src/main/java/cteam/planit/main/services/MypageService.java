@@ -49,7 +49,7 @@ public class MypageService
 		return data;
 	}
 
-	public void informationUpdate(InformationDTO informationDTO) throws Exception
+	public InformationDTO informationUpdate(InformationDTO informationDTO) throws Exception
 	{
     	Optional<UsersDAO> info = usersRepository.findByUserId(informationDTO.getUserId());
 
@@ -57,15 +57,26 @@ public class MypageService
 		{
 			UsersDAO user = info.get();
 
-			if(informationDTO.getName() != null) user.setName(informationDTO.getName());
-			if(informationDTO.getEmail() != null) user.setEmail(informationDTO.getEmail());
-			if(informationDTO.getBirthY() != null) user.setBirthY(informationDTO.getBirthY());
-			if(informationDTO.getBirthM() != null) user.setBirthM(informationDTO.getBirthM());
-			if(informationDTO.getBirthD() != null) user.setBirthD(informationDTO.getBirthD());
-			if(informationDTO.getGender() != null) user.setGender(informationDTO.getGender());
+			if(usersRepository.existsByEmail(informationDTO.getEmail()))
+			{
+				informationDTO.setEmailOverlapYN("Y");
+			}
+			else
+			{
+				if(informationDTO.getName() != null) user.setName(informationDTO.getName());
+				if(informationDTO.getEmail() != null) user.setEmail(informationDTO.getEmail());
+				if(informationDTO.getBirthY() != null) user.setBirthY(informationDTO.getBirthY());
+				if(informationDTO.getBirthM() != null) user.setBirthM(informationDTO.getBirthM());
+				if(informationDTO.getBirthD() != null) user.setBirthD(informationDTO.getBirthD());
+				if(informationDTO.getGender() != null) user.setGender(informationDTO.getGender());
+	
+				usersRepository.save(user);
 
-			usersRepository.save(user);
+				informationDTO.setEmailOverlapYN("N");
+			}
 		}
+
+		return informationDTO;
 	}
 
 	public Page<BreakdownDAO> breakdown(BreakdownDTO breakdownDTO) throws Exception

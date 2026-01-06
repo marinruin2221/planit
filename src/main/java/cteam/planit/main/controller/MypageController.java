@@ -28,9 +28,9 @@ public class MypageController
 	}
 
 	@PostMapping("/informationUpdate")
-	public void informationUpdate(@RequestBody InformationDTO informationDTO) throws Exception
+	public InformationDTO informationUpdate(@RequestBody InformationDTO informationDTO) throws Exception
 	{
-		service.informationUpdate(informationDTO);
+		return service.informationUpdate(informationDTO);
 	}
 
 	@PostMapping("/breakdown")
