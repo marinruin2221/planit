@@ -52,6 +52,9 @@ public class SecurityConfig
 		.authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/auth/me", "/api/auth/logout").permitAll()
 			.requestMatchers("/api/main/**").permitAll()
+			.requestMatchers("/api/events/**").permitAll()
+            .requestMatchers("/api/tours/**").permitAll()
+			.requestMatchers("/api/images/**").permitAll()
             .requestMatchers("/api/dev/**").permitAll() // 개발용 확인 API 쓰면 임시 오픈
             .anyRequest().authenticated()
         )
