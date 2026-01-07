@@ -54,13 +54,18 @@ public class MypageService
 
 	public InformationDTO informationUpdate(InformationDTO informationDTO) throws Exception
 	{
-    	Optional<UsersDAO> info = usersRepository.findByUserId(informationDTO.getUserId());
+		Optional<UsersDAO> info = usersRepository.findByUserId(informationDTO.getUserId());
 
 		if(info.isPresent())
 		{
 			UsersDAO user = info.get();
 
-			if(usersRepository.existsByEmail(informationDTO.getEmail()))
+			boolean emailDuplicate = usersRepository.existsByEmailAndUserIdNot(
+				informationDTO.getEmail(),
+				informationDTO.getUserId()
+			);
+
+			if(emailDuplicate)
 			{
 				informationDTO.setEmailOverlapYN("Y");
 			}
@@ -72,7 +77,7 @@ public class MypageService
 				if(informationDTO.getBirthM() != null) user.setBirthM(informationDTO.getBirthM());
 				if(informationDTO.getBirthD() != null) user.setBirthD(informationDTO.getBirthD());
 				if(informationDTO.getGender() != null) user.setGender(informationDTO.getGender());
-	
+
 				usersRepository.save(user);
 
 				informationDTO.setEmailOverlapYN("N");
