@@ -57,6 +57,7 @@ public class SecurityConfig {
 						.requestMatchers("/api/ratings/**").permitAll()
 						.requestMatchers("/api/reviews/**").permitAll()
 						.requestMatchers("/api/dev/**").permitAll()
+						.requestMatchers("/api/ai/**").permitAll()
 						.anyRequest().authenticated())
 				.formLogin(form -> form.disable())
 				.logout(logout -> logout.disable())
