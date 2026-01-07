@@ -1,0 +1,395 @@
+2026-01-07T19:42:31.163+09:00  INFO 10816 --- [demo] [restartedMain] cteam.planit.PlanitApplication           : Starting PlanitApplication using Java 25.0.1 with PID 10816 (D:\Kimkwanbum\Project_planit\project_C_Back\target\classes started by Administrator in D:\Kimkwanbum\Project_planit\project_C_Back)
+2026-01-07T19:42:31.165+09:00  INFO 10816 --- [demo] [restartedMain] cteam.planit.PlanitApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-01-07T19:42:31.199+09:00  INFO 10816 --- [demo] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\Administrator\.m2\repository\com\oracle\database\jdbc\ojdbc11\23.7.0.25.01\ojdbc11-23.7.0.25.01.jar referenced one or more files that do not exist: file:/C:/Users/Administrator/.m2/repository/com/oracle/database/jdbc/ojdbc11/23.7.0.25.01/oraclepki.jar
+2026-01-07T19:42:31.200+09:00  INFO 10816 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-07T19:42:31.200+09:00  INFO 10816 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-07T19:42:32.399+09:00  INFO 10816 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-07T19:42:32.557+09:00  INFO 10816 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 149 ms. Found 9 JPA repository interfaces.
+2026-01-07T19:42:33.750+09:00  INFO 10816 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 5002 (http)
+2026-01-07T19:42:33.769+09:00  INFO 10816 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-07T19:42:33.770+09:00  INFO 10816 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-01-07T19:42:33.825+09:00  INFO 10816 --- [demo] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-07T19:42:33.826+09:00  INFO 10816 --- [demo] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2625 ms
+2026-01-07T19:42:34.222+09:00  INFO 10816 --- [demo] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-07T19:42:34.301+09:00  INFO 10816 --- [demo] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-01-07T19:42:34.369+09:00  INFO 10816 --- [demo] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-07T19:42:34.704+09:00  INFO 10816 --- [demo] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-07T19:42:34.743+09:00  INFO 10816 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-07T19:42:35.174+09:00  INFO 10816 --- [demo] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@2748b872
+2026-01-07T19:42:35.176+09:00  INFO 10816 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-07T19:42:35.310+09:00  WARN 10816 --- [demo] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-07T19:42:35.404+09:00  INFO 10816 --- [demo] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 19.24
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-07T19:42:36.182+09:00  INFO 10816 --- [demo] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-07T19:42:38.008+09:00  INFO 10816 --- [demo] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-07T19:42:38.279+09:00  INFO 10816 --- [demo] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-07T19:42:38.796+09:00  INFO 10816 --- [demo] [Thread-6] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'transactionManager' in thread "Thread-6" while other thread holds singleton lock for other beans [jpa.named-queries#7, authController, usersRepository, authService]
+2026-01-07T19:42:38.800+09:00  INFO 10816 --- [demo] [Thread-6] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'platformTransactionManagerCustomizers' in thread "Thread-6" while other thread holds singleton lock for other beans [authController, usersRepository, authService]
+2026-01-07T19:42:38.801+09:00  INFO 10816 --- [demo] [Thread-6] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizationAutoConfiguration' in thread "Thread-6" while other thread holds singleton lock for other beans [authController, usersRepository, authService]
+2026-01-07T19:42:38.802+09:00  INFO 10816 --- [demo] [Thread-6] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'transactionExecutionListeners' in thread "Thread-6" while other thread holds singleton lock for other beans [authController, usersRepository, authService]
+2026-01-07T19:42:38.804+09:00  INFO 10816 --- [demo] [Thread-6] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'spring.transaction-org.springframework.boot.autoconfigure.transaction.TransactionProperties' in thread "Thread-6" while other thread holds singleton lock for other beans [authController, usersRepository, authService]
+2026-01-07T19:42:38.839+09:00  INFO 10816 --- [demo] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-01-07T19:42:39.335+09:00  WARN 10816 --- [demo] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-07T19:42:39.640+09:00  INFO 10816 --- [demo] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-01-07T19:42:39.838+09:00  WARN 10816 --- [demo] [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2026-01-07T19:42:40.042+09:00  INFO 10816 --- [demo] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-01-07T19:42:40.117+09:00  INFO 10816 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 5002 (http) with context path '/'
+2026-01-07T19:42:40.135+09:00  INFO 10816 --- [demo] [restartedMain] cteam.planit.PlanitApplication           : Started PlanitApplication in 9.314 seconds (process running for 9.756)
+2026-01-07T19:42:40.141+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Starting Image Migration...
+2026-01-07T19:42:40.200+09:00  INFO 10816 --- [demo] [RMI TCP Connection(2)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-07T19:42:40.201+09:00  INFO 10816 --- [demo] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-07T19:42:40.202+09:00  INFO 10816 --- [demo] [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-01-07T19:42:40.413+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'camping' already exists. Skipping.
+2026-01-07T19:42:40.622+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'default' already exists. Skipping.
+2026-01-07T19:42:40.845+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'hotel' already exists. Skipping.
+2026-01-07T19:42:41.037+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'pension' already exists. Skipping.
+2026-01-07T19:42:41.281+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'resort' already exists. Skipping.
+2026-01-07T19:42:41.474+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'guesthouse' already exists. Skipping.
+2026-01-07T19:42:41.474+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image Migration Completed.
+2026-01-07T19:42:41.587+09:00  WARN 10816 --- [demo] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-01-07T19:42:41.587+09:00  INFO 10816 --- [demo] [Thread-10] c.planit.main.services.TourApiService    : === Starting to load all tour data for caching ===
+2026-01-07T19:42:41.587+09:00  WARN 10816 --- [demo] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-01-07T19:42:41.588+09:00  INFO 10816 --- [demo] [Thread-10] c.planit.main.services.TourApiService    : Fetching page 1...
+2026-01-07T19:42:42.579+09:00  INFO 10816 --- [demo] [Thread-10] c.planit.main.services.TourApiService    : Fetching page 2...
+2026-01-07T19:42:43.269+09:00  INFO 10816 --- [demo] [Thread-10] c.planit.main.services.TourApiService    : Fetching page 3...
+2026-01-07T19:42:43.524+09:00  INFO 10816 --- [demo] [Thread-10] c.planit.main.services.TourApiService    : Fetching page 4...
+2026-01-07T19:42:43.835+09:00  INFO 10816 --- [demo] [Thread-10] c.planit.main.services.TourApiService    : === Finished loading all tour data. Total cached: 3480 ===
+2026-01-07T19:42:43.835+09:00  INFO 10816 --- [demo] [Thread-10] c.planit.main.services.TourApiService    : === Starting to save data to database ===
+2026-01-07T19:42:43.849+09:00  INFO 10816 --- [demo] [Thread-10] c.planit.main.services.TourApiService    : Data already exists (3480 items). Skipping save operation.
+2026-01-07T19:42:43.850+09:00  INFO 10816 --- [demo] [Thread-10] c.planit.main.services.TourApiService    : === Checking for accommodations with missing minPrice ===
+2026-01-07T19:42:43.861+09:00  INFO 10816 --- [demo] [Thread-10] c.planit.main.services.TourApiService    : === All accommodations have minPrice. No update needed. ===
+2026-01-07T19:44:46.986+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.controller.TourController  : === TourController.getTourList called with areaCode: null, category: null, price: 0~500000 ===
+2026-01-07T19:44:47.075+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Checking image for 경포도도애견펜션: 'http://tong.visitkorea.or.kr/cms/resource/71/2920171_image2_1.jpg'
+2026-01-07T19:44:47.075+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Checking image for 경포비치호텔: 'null'
+2026-01-07T19:44:47.076+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Image missing for list item 경포비치호텔, searching Google... (DISABLED)
+2026-01-07T19:44:47.076+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Checking image for 경포에메랄드: 'http://tong.visitkorea.or.kr/cms/resource/19/598219_image2_1.jpg'
+2026-01-07T19:44:47.076+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Checking image for 경포우성펜션: 'http://tong.visitkorea.or.kr/cms/resource/38/2383438_image2_1.jpg'
+2026-01-07T19:44:47.076+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Checking image for 경함정: 'null'
+2026-01-07T19:44:47.077+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Image missing for list item 경함정, searching Google... (DISABLED)
+2026-01-07T19:44:47.077+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Checking image for 계곡과소나무 펜션: 'http://tong.visitkorea.or.kr/cms/resource/02/2738902_image2_1.jpg'
+2026-01-07T19:44:47.077+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Checking image for 계룡산작은쉼터: 'http://tong.visitkorea.or.kr/cms/resource/21/1871621_image2_1.jpg'
+2026-01-07T19:44:47.077+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Checking image for 계림궁: 'null'
+2026-01-07T19:44:47.077+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Image missing for list item 계림궁, searching Google... (DISABLED)
+2026-01-07T19:44:47.078+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Checking image for 계와고택: 'null'
+2026-01-07T19:44:47.078+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Image missing for list item 계와고택, searching Google... (DISABLED)
+2026-01-07T19:44:47.078+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Checking image for 고기리 다온스테이: 'null'
+2026-01-07T19:44:47.078+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Image missing for list item 고기리 다온스테이, searching Google... (DISABLED)
+2026-01-07T19:44:47.078+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Returning DB page 1 (size 10) from total 3480
+2026-01-07T19:45:41.646+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-4] c.planit.main.controller.TourController  : === TourController.getTourImages called for: 2738740 ===
+2026-01-07T19:45:41.646+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-3] c.planit.main.controller.TourController  : === TourController.getTourDetail called for: 2738740 ===
+2026-01-07T19:45:41.646+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-2] c.planit.main.controller.TourController  : === TourController.getTourRooms called for: 2738740 (type: 32) ===
+2026-01-07T19:45:41.647+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-3] c.planit.main.services.TourApiService    : === Fetching item by contentId: 2738740 ===
+2026-01-07T19:45:41.646+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-5] c.planit.main.controller.TourController  : === TourController.getTourIntro called for: 2738740 (type: 32) ===
+2026-01-07T19:45:41.646+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-6] c.planit.main.controller.TourController  : === TourController.getTourPrice called for: 2738740 ===
+2026-01-07T19:45:41.647+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-4] c.planit.main.services.TourApiService    : === Fetching detail images for contentId: 2738740 ===
+2026-01-07T19:45:41.647+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-2] c.planit.main.services.TourApiService    : === Fetching detail info (rooms) for contentId: 2738740 ===
+2026-01-07T19:45:41.647+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-5] c.planit.main.services.TourApiService    : === Fetching detail intro for contentId: 2738740 ===
+2026-01-07T19:45:41.647+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-6] c.planit.main.services.TourApiService    : === Fetching detail info (rooms) for contentId: 2738740 ===
+2026-01-07T19:45:41.648+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-5] c.planit.main.services.TourApiService    : Request URI: https://apis.data.go.kr/B551011/KorService2/detailIntro1?serviceKey=12aaa76366c600af8b6c2c181edc274d746e44eaa73f3d06fdb69319bdbfe1d0&MobileOS=ETC&MobileApp=Planit&_type=json&contentId=2738740&contentTypeId=32
+2026-01-07T19:45:41.648+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-2] c.planit.main.services.TourApiService    : Request URI: https://apis.data.go.kr/B551011/KorService2/detailInfo1?serviceKey=12aaa76366c600af8b6c2c181edc274d746e44eaa73f3d06fdb69319bdbfe1d0&MobileOS=ETC&MobileApp=Planit&_type=json&contentId=2738740&contentTypeId=32
+2026-01-07T19:45:41.648+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-6] c.planit.main.services.TourApiService    : Request URI: https://apis.data.go.kr/B551011/KorService2/detailInfo1?serviceKey=12aaa76366c600af8b6c2c181edc274d746e44eaa73f3d06fdb69319bdbfe1d0&MobileOS=ETC&MobileApp=Planit&_type=json&contentId=2738740&contentTypeId=32
+2026-01-07T19:45:41.667+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-3] c.planit.main.services.TourApiService    : Found item in DB: 계곡과소나무 펜션
+2026-01-07T19:45:41.715+09:00 ERROR 10816 --- [demo] [http-nio-5002-exec-2] c.planit.main.services.TourApiService    : Error fetching detail info: 404 Not Found from GET https://apis.data.go.kr/B551011/KorService2/detailInfo1
+2026-01-07T19:45:41.821+09:00  WARN 10816 --- [demo] [http-nio-5002-exec-8] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1, SQLState: 23000
+2026-01-07T19:45:41.821+09:00 ERROR 10816 --- [demo] [http-nio-5002-exec-8] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-00001: 무결성 제약 조건(STUDY01.SYS_C00420734)에 위배됩니다
+
+https://docs.oracle.com/error-help/db/ora-00001/
+2026-01-07T19:45:41.837+09:00 ERROR 10816 --- [demo] [http-nio-5002-exec-8] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [ORA-00001: 무결성 제약 조건(STUDY01.SYS_C00420734)에 위배됩니다
+
+https://docs.oracle.com/error-help/db/ora-00001/] [insert into rating (average_score,color_class,label,review_count,content_id) values (?,?,?,?,?)]; SQL [insert into rating (average_score,color_class,label,review_count,content_id) values (?,?,?,?,?)]; constraint [STUDY01.SYS_C00420734]] with root cause
+
+Error : 1, Position : 0, SQL = insert into rating (average_score,color_class,label,review_count,content_id) values (:1 ,:2 ,:3 ,:4 ,:5 ), Original SQL = insert into rating (average_score,color_class,label,review_count,content_id) values (?,?,?,?,?), Error Message = ORA-00001: 무결성 제약 조건(STUDY01.SYS_C00420734)에 위배됩니다
+
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:723) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:615) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1372) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:969) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:237) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:524) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:298) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForRows(T4CPreparedStatement.java:1508) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.OracleStatement.executeSQLStatement(OracleStatement.java:2009) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1622) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3973) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.OraclePreparedStatement.doExecuteLargeUpdate(OraclePreparedStatement.java:4339) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.OraclePreparedStatement.executeLargeUpdate(OraclePreparedStatement.java:4316) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.OraclePreparedStatement.executeUpdate(OraclePreparedStatement.java:4291) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeUpdate(OraclePreparedStatementWrapper.java:1004) ~[ojdbc11-23.7.0.25.01.jar:23.7.0.25.01]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-6.3.3.jar:na]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:194) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:134) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:55) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:55) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:194) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:132) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:104) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:110) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:644) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:511) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:414) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:41) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1429) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:491) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2354) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:1978) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:439) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:169) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:267) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:101) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:563) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:795) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:758) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.commitTransactionAfterReturning(TransactionAspectSupport.java:698) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:416) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.15.jar:6.2.15]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728) ~[spring-aop-6.2.15.jar:6.2.15]
+	at cteam.planit.main.services.RatingService$$SpringCGLIB$$0.initializeRatingWithDummy(<generated>) ~[classes/:na]
+	at cteam.planit.main.controller.RatingController.lambda$getRating$0(RatingController.java:21) ~[classes/:na]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at cteam.planit.main.controller.RatingController.getRating(RatingController.java:21) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.50.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.50.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:66) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:490) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:351) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:83) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:129) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:334) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:225) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319) ~[spring-security-config-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240) ~[spring-security-config-6.5.7.jar:6.5.7]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-01-07T19:45:42.118+09:00 ERROR 10816 --- [demo] [http-nio-5002-exec-6] c.planit.main.services.TourApiService    : Error fetching detail info: 404 Not Found from GET https://apis.data.go.kr/B551011/KorService2/detailInfo1
+2026-01-07T19:45:42.118+09:00 ERROR 10816 --- [demo] [http-nio-5002-exec-5] c.planit.main.services.TourApiService    : Error fetching detail intro: 404 Not Found from GET https://apis.data.go.kr/B551011/KorService2/detailIntro1
+2026-01-07T19:45:42.119+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-4] c.planit.main.services.TourApiService    : Image API Response: {"response": {"header":{"resultCode":"0000","resultMsg":"OK"},"body": {"items": {"item":[{"contentid":"2738740","originimgurl":"http://tong.visitkorea.or.kr/cms/resource/92/2738892_image2_1.jpg","imgname":"계곡과소나무 오토캠핑장_관리소","smallimageurl":"http://tong.visitkorea.or.kr/cms/resource/92/2738892_image2_1.jpg","cpyrhtDivCd":"Type3","serialnum":"2738892_2"},{"contentid":"2738740","originimgurl":"http://tong.visitkorea.or.kr/cms/resource/95/2738895_image2_1.jpg","imgname":"계곡과소나무 오토캠핑장_샤워실","smallimag
+2026-01-07T19:45:42.121+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-4] c.planit.main.services.TourApiService    : Found 4 images
+2026-01-07T19:46:01.897+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-2] c.planit.main.controller.TourController  : === TourController.getTourDetail called for: 2738740 ===
+2026-01-07T19:46:01.897+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-8] c.planit.main.controller.TourController  : === TourController.getTourImages called for: 2738740 ===
+2026-01-07T19:46:01.897+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-10] c.planit.main.controller.TourController  : === TourController.getTourIntro called for: 2738740 (type: 32) ===
+2026-01-07T19:46:01.897+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.controller.TourController  : === TourController.getTourRooms called for: 2738740 (type: 32) ===
+2026-01-07T19:46:01.897+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-2] c.planit.main.services.TourApiService    : === Fetching item by contentId: 2738740 ===
+2026-01-07T19:46:01.897+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-8] c.planit.main.services.TourApiService    : === Fetching detail images for contentId: 2738740 ===
+2026-01-07T19:46:01.897+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-10] c.planit.main.services.TourApiService    : === Fetching detail intro for contentId: 2738740 ===
+2026-01-07T19:46:01.898+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : === Fetching detail info (rooms) for contentId: 2738740 ===
+2026-01-07T19:46:01.898+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-4] c.planit.main.controller.TourController  : === TourController.getTourPrice called for: 2738740 ===
+2026-01-07T19:46:01.899+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-10] c.planit.main.services.TourApiService    : Request URI: https://apis.data.go.kr/B551011/KorService2/detailIntro1?serviceKey=12aaa76366c600af8b6c2c181edc274d746e44eaa73f3d06fdb69319bdbfe1d0&MobileOS=ETC&MobileApp=Planit&_type=json&contentId=2738740&contentTypeId=32
+2026-01-07T19:46:01.899+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Request URI: https://apis.data.go.kr/B551011/KorService2/detailInfo1?serviceKey=12aaa76366c600af8b6c2c181edc274d746e44eaa73f3d06fdb69319bdbfe1d0&MobileOS=ETC&MobileApp=Planit&_type=json&contentId=2738740&contentTypeId=32
+2026-01-07T19:46:01.899+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-4] c.planit.main.services.TourApiService    : === Fetching detail info (rooms) for contentId: 2738740 ===
+2026-01-07T19:46:01.899+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-4] c.planit.main.services.TourApiService    : Request URI: https://apis.data.go.kr/B551011/KorService2/detailInfo1?serviceKey=12aaa76366c600af8b6c2c181edc274d746e44eaa73f3d06fdb69319bdbfe1d0&MobileOS=ETC&MobileApp=Planit&_type=json&contentId=2738740&contentTypeId=32
+2026-01-07T19:46:01.906+09:00 ERROR 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Error fetching detail info: 404 Not Found from GET https://apis.data.go.kr/B551011/KorService2/detailInfo1
+2026-01-07T19:46:01.906+09:00 ERROR 10816 --- [demo] [http-nio-5002-exec-4] c.planit.main.services.TourApiService    : Error fetching detail info: 404 Not Found from GET https://apis.data.go.kr/B551011/KorService2/detailInfo1
+2026-01-07T19:46:01.916+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-2] c.planit.main.services.TourApiService    : Found item in DB: 계곡과소나무 펜션
+2026-01-07T19:46:02.585+09:00 ERROR 10816 --- [demo] [http-nio-5002-exec-10] c.planit.main.services.TourApiService    : Error fetching detail intro: 404 Not Found from GET https://apis.data.go.kr/B551011/KorService2/detailIntro1
+2026-01-07T19:46:02.585+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-8] c.planit.main.services.TourApiService    : Image API Response: {"response": {"header":{"resultCode":"0000","resultMsg":"OK"},"body": {"items": {"item":[{"contentid":"2738740","originimgurl":"http://tong.visitkorea.or.kr/cms/resource/92/2738892_image2_1.jpg","imgname":"계곡과소나무 오토캠핑장_관리소","smallimageurl":"http://tong.visitkorea.or.kr/cms/resource/92/2738892_image2_1.jpg","cpyrhtDivCd":"Type3","serialnum":"2738892_2"},{"contentid":"2738740","originimgurl":"http://tong.visitkorea.or.kr/cms/resource/95/2738895_image2_1.jpg","imgname":"계곡과소나무 오토캠핑장_샤워실","smallimag
+2026-01-07T19:46:02.586+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-8] c.planit.main.services.TourApiService    : Found 4 images
+2026-01-07T19:46:32.527+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.controller.TourController  : === TourController.getTourList called with areaCode: null, category: null, price: 0~500000 ===
+2026-01-07T19:46:32.554+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Checking image for 경포도도애견펜션: 'http://tong.visitkorea.or.kr/cms/resource/71/2920171_image2_1.jpg'
+2026-01-07T19:46:32.554+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Checking image for 경포비치호텔: 'null'
+2026-01-07T19:46:32.554+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Image missing for list item 경포비치호텔, searching Google... (DISABLED)
+2026-01-07T19:46:32.555+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Checking image for 경포에메랄드: 'http://tong.visitkorea.or.kr/cms/resource/19/598219_image2_1.jpg'
+2026-01-07T19:46:32.555+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Checking image for 경포우성펜션: 'http://tong.visitkorea.or.kr/cms/resource/38/2383438_image2_1.jpg'
+2026-01-07T19:46:32.555+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Checking image for 경함정: 'null'
+2026-01-07T19:46:32.555+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Image missing for list item 경함정, searching Google... (DISABLED)
+2026-01-07T19:46:32.555+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Checking image for 계곡과소나무 펜션: 'http://tong.visitkorea.or.kr/cms/resource/02/2738902_image2_1.jpg'
+2026-01-07T19:46:32.555+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Checking image for 계룡산작은쉼터: 'http://tong.visitkorea.or.kr/cms/resource/21/1871621_image2_1.jpg'
+2026-01-07T19:46:32.556+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Checking image for 계림궁: 'null'
+2026-01-07T19:46:32.556+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Image missing for list item 계림궁, searching Google... (DISABLED)
+2026-01-07T19:46:32.556+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Checking image for 계와고택: 'null'
+2026-01-07T19:46:32.556+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Image missing for list item 계와고택, searching Google... (DISABLED)
+2026-01-07T19:46:32.556+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Checking image for 고기리 다온스테이: 'null'
+2026-01-07T19:46:32.556+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Image missing for list item 고기리 다온스테이, searching Google... (DISABLED)
+2026-01-07T19:46:32.558+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-9] c.planit.main.services.TourApiService    : Returning DB page 1 (size 10) from total 3480
+2026-01-07T19:46:33.240+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.controller.TourController  : === TourController.getLocationBasedList called with mapX: 127.0722199, mapY: 37.6611575, radius: 20000 ===
+2026-01-07T19:46:33.240+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : === Fetching location based list from DB (X:127.0722199, Y:37.6611575, Radius:20000) ===
+2026-01-07T19:46:33.240+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Search range: X[126.84494717272726 ~ 127.29949262727273], Y[37.48097731981982 ~ 37.84133768018018]
+2026-01-07T19:46:33.326+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Found 100 accommodations within range
+2026-01-07T19:46:33.327+09:00  INFO 10816 --- [demo] [http-nio-5002-exec-7] c.planit.main.services.TourApiService    : Returning 100 location-based items from DB
+2026-01-07T19:48:33.407+09:00  INFO 10816 --- [demo] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-01-07T19:48:33.412+09:00  INFO 10816 --- [demo] [Thread-8] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-07T19:48:33.417+09:00  INFO 10816 --- [demo] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-01-07T19:48:33.438+09:00  INFO 10816 --- [demo] [Thread-8] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-07T19:48:33.442+09:00  INFO 10816 --- [demo] [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-07T19:48:33.517+09:00  INFO 10816 --- [demo] [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-07T19:48:33.633+09:00  INFO 10816 --- [demo] [restartedMain] cteam.planit.PlanitApplication           : Starting PlanitApplication using Java 25.0.1 with PID 10816 (D:\Kimkwanbum\Project_planit\project_C_Back\target\classes started by Administrator in D:\Kimkwanbum\Project_planit\project_C_Back)
+2026-01-07T19:48:33.634+09:00  INFO 10816 --- [demo] [restartedMain] cteam.planit.PlanitApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-01-07T19:48:34.206+09:00  INFO 10816 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-07T19:48:34.241+09:00  INFO 10816 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 9 JPA repository interfaces.
+2026-01-07T19:48:34.393+09:00  INFO 10816 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 5002 (http)
+2026-01-07T19:48:34.395+09:00  INFO 10816 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-07T19:48:34.395+09:00  INFO 10816 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-01-07T19:48:34.425+09:00  INFO 10816 --- [demo] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-07T19:48:34.426+09:00  INFO 10816 --- [demo] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 789 ms
+2026-01-07T19:48:34.521+09:00  INFO 10816 --- [demo] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-07T19:48:34.524+09:00  INFO 10816 --- [demo] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-07T19:48:34.555+09:00  INFO 10816 --- [demo] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-07T19:48:34.557+09:00  INFO 10816 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-01-07T19:48:34.632+09:00  INFO 10816 --- [demo] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection oracle.jdbc.driver.T4CConnection@3a56d46e
+2026-01-07T19:48:34.632+09:00  INFO 10816 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-01-07T19:48:34.652+09:00  WARN 10816 --- [demo] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-07T19:48:34.668+09:00  INFO 10816 --- [demo] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 19.24
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-07T19:48:34.873+09:00  INFO 10816 --- [demo] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-07T19:48:36.067+09:00  INFO 10816 --- [demo] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-07T19:48:36.150+09:00  INFO 10816 --- [demo] [Thread-30] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'transactionManager' in thread "Thread-30" while other thread holds singleton lock for other beans [authController]
+2026-01-07T19:48:36.150+09:00  INFO 10816 --- [demo] [Thread-30] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'platformTransactionManagerCustomizers' in thread "Thread-30" while other thread holds singleton lock for other beans [authController, authService]
+2026-01-07T19:48:36.151+09:00  INFO 10816 --- [demo] [Thread-30] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizationAutoConfiguration' in thread "Thread-30" while other thread holds singleton lock for other beans [authController, authService]
+2026-01-07T19:48:36.152+09:00  INFO 10816 --- [demo] [Thread-30] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'transactionExecutionListeners' in thread "Thread-30" while other thread holds singleton lock for other beans [authController, jpa.named-queries#1, usersRepository, authService]
+2026-01-07T19:48:36.152+09:00  INFO 10816 --- [demo] [Thread-30] o.s.b.f.s.DefaultListableBeanFactory     : Obtaining singleton bean 'spring.transaction-org.springframework.boot.autoconfigure.transaction.TransactionProperties' in thread "Thread-30" while other thread holds singleton lock for other beans [authController, usersRepository, authService]
+2026-01-07T19:48:36.166+09:00  INFO 10816 --- [demo] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-01-07T19:48:36.239+09:00  WARN 10816 --- [demo] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-07T19:48:36.322+09:00  INFO 10816 --- [demo] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-01-07T19:48:36.352+09:00  WARN 10816 --- [demo] [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2026-01-07T19:48:36.404+09:00  INFO 10816 --- [demo] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-01-07T19:48:36.419+09:00  INFO 10816 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 5002 (http) with context path '/'
+2026-01-07T19:48:36.437+09:00  INFO 10816 --- [demo] [restartedMain] cteam.planit.PlanitApplication           : Started PlanitApplication in 2.85 seconds (process running for 366.03)
+2026-01-07T19:48:36.444+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Starting Image Migration...
+2026-01-07T19:48:36.619+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'camping' already exists. Skipping.
+2026-01-07T19:48:36.766+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'default' already exists. Skipping.
+2026-01-07T19:48:36.939+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'hotel' already exists. Skipping.
+2026-01-07T19:48:37.073+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'pension' already exists. Skipping.
+2026-01-07T19:48:37.264+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'resort' already exists. Skipping.
+2026-01-07T19:48:37.413+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image for category 'guesthouse' already exists. Skipping.
+2026-01-07T19:48:37.414+09:00  INFO 10816 --- [demo] [restartedMain] c.p.main.config.ImageMigrationRunner     : Image Migration Completed.
+2026-01-07T19:48:37.480+09:00  INFO 10816 --- [demo] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-01-07T19:48:37.480+09:00  WARN 10816 --- [demo] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-01-07T19:48:37.480+09:00  INFO 10816 --- [demo] [Thread-32] c.planit.main.services.TourApiService    : === Starting to load all tour data for caching ===
+2026-01-07T19:48:37.480+09:00  WARN 10816 --- [demo] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-01-07T19:48:37.480+09:00  INFO 10816 --- [demo] [Thread-32] c.planit.main.services.TourApiService    : Fetching page 1...
+2026-01-07T19:48:37.922+09:00  INFO 10816 --- [demo] [Thread-32] c.planit.main.services.TourApiService    : Fetching page 2...
+2026-01-07T19:48:38.212+09:00  INFO 10816 --- [demo] [Thread-32] c.planit.main.services.TourApiService    : Fetching page 3...
+2026-01-07T19:48:38.465+09:00  INFO 10816 --- [demo] [Thread-32] c.planit.main.services.TourApiService    : Fetching page 4...
+2026-01-07T19:48:38.735+09:00  INFO 10816 --- [demo] [Thread-32] c.planit.main.services.TourApiService    : === Finished loading all tour data. Total cached: 3480 ===
+2026-01-07T19:48:38.735+09:00  INFO 10816 --- [demo] [Thread-32] c.planit.main.services.TourApiService    : === Starting to save data to database ===
+2026-01-07T19:48:38.746+09:00  INFO 10816 --- [demo] [Thread-32] c.planit.main.services.TourApiService    : Data already exists (3480 items). Skipping save operation.
+2026-01-07T19:48:38.746+09:00  INFO 10816 --- [demo] [Thread-32] c.planit.main.services.TourApiService    : === Checking for accommodations with missing minPrice ===
+2026-01-07T19:48:38.753+09:00  INFO 10816 --- [demo] [Thread-32] c.planit.main.services.TourApiService    : === All accommodations have minPrice. No update needed. ===
