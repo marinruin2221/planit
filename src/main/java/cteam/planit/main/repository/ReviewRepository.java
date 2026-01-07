@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-  List<Review> findByContentIdOrderByReviewDateDesc(String contentId);
+  List<Review> findByContentIdAndDeleteYNOrderByReviewDateDesc(String contentId, String deleteYN);
 
   int countByContentId(String contentId);
 

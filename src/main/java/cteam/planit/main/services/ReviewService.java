@@ -20,7 +20,7 @@ public class ReviewService {
 
     public List<Review> getReviewsByContentId(String contentId) {
         try {
-            List<Review> reviews = reviewRepository.findByContentIdOrderByReviewDateDesc(contentId);
+            List<Review> reviews = reviewRepository.findByContentIdAndDeleteYNOrderByReviewDateDesc(contentId, "N");
 
             // 리뷰가 없으면 더미 데이터 초기화
             if (reviews.isEmpty()) {
@@ -50,7 +50,7 @@ public class ReviewService {
     @Transactional
     public List<Review> initializeDummyReviews(String contentId) {
         // 이미 리뷰가 있으면 반환
-        List<Review> existing = reviewRepository.findByContentIdOrderByReviewDateDesc(contentId);
+        List<Review> existing = reviewRepository.findByContentIdAndDeleteYNOrderByReviewDateDesc(contentId, "N");
         if (!existing.isEmpty()) {
             return existing;
         }
