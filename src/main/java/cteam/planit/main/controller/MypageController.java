@@ -63,6 +63,12 @@ public class MypageController
 		service.reviewCreate(reviewDTO);
 	}
 
+	@PostMapping("/reviewUpdate")
+	public void reviewUpdate(@RequestBody ReviewDTO reviewDTO) throws Exception
+	{
+		service.reviewUpdate(reviewDTO);
+	}
+
 	@PostMapping("/reviewDelete")
 	public void reviewDelete(@RequestBody ReviewDTO reviewDTO) throws Exception
 	{

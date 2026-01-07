@@ -165,6 +165,21 @@ public class MypageService
 		reviewRepository.save(review);
 	}
 
+	public void reviewUpdate(ReviewDTO reviewDTO) throws Exception
+	{
+		Optional<Review> info = reviewRepository.findById(reviewDTO.getId());
+
+		if(info.isPresent())
+		{
+			Review review = info.get();
+
+			if(reviewDTO.getStars() != null) review.setStars(Integer.parseInt(reviewDTO.getStars()));
+			if(reviewDTO.getContent() != null) review.setContent(reviewDTO.getContent());
+
+			reviewRepository.save(review);
+		}
+	}
+
 	public void reviewDelete(ReviewDTO reviewDTO) throws Exception
 	{
 		Optional<Review> review = reviewRepository.findById(reviewDTO.getId());
