@@ -35,6 +35,6 @@ public class MainService
 
 	public List<Accommodation> bestGoodStay() throws Exception
 	{
-		return accommodationRepository.findTop10ByOrderByMinPriceAsc();
+		return accommodationRepository.findTop10ByReviewCount();
 	}
 }

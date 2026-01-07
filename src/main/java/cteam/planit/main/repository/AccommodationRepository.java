@@ -4,6 +4,7 @@ import cteam.planit.main.entity.Accommodation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,7 +29,27 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, St
 
     List<Accommodation> findByMinPriceIsNull();
 
-    List<Accommodation> findTop10ByOrderByMinPriceAsc();
+    @Query(
+        value = """
+        SELECT a.*
+        FROM (
+        SELECT a.*, COUNT(r.id) AS review_count
+        FROM ACCOMMODATION a
+        LEFT JOIN REVIEW r
+        ON a.content_id = r.content_id
+        AND r.delete_yn = 'N'
+        GROUP BY a.content_id, a.title, a.addr1, a.addr2, a.zipcode,
+                a.areacode, a.sigungucode, a.cat1, a.cat2, a.cat3,
+                a.contenttypeid, a.tel, a.firstimage, a.firstimage2,
+                a.mapx, a.mapy, a.mlevel, a.createdtime, a.modifiedtime,
+                a.min_price
+        ) a
+        ORDER BY a.review_count DESC
+        FETCH FIRST 10 ROWS ONLY
+        """,
+        nativeQuery = true
+        )
+    List<Accommodation> findTop10ByReviewCount();
 
     @org.springframework.data.jpa.repository.Query(
         "SELECT a FROM Accommodation a WHERE " +
