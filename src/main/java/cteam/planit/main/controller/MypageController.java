@@ -39,6 +39,12 @@ public class MypageController
 		return service.breakdown(breakdownDTO);
 	}
 
+	@PostMapping("/breakdownCreate")
+	public void breakdownCreate(@RequestBody BreakdownDTO breakdownDTO) throws Exception
+	{
+		service.breakdownCreate(breakdownDTO);
+	}
+
 	@PostMapping("/breakdownCancel")
 	public void breakdownCancel(@RequestBody BreakdownDTO breakdownDTO) throws Exception
 	{

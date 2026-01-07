@@ -93,6 +93,21 @@ public class MypageService
 		);
 	}
 
+	public void breakdownCreate(BreakdownDTO breakdownDTO) throws Exception
+	{
+		BreakdownDAO breakdown = new BreakdownDAO();
+		breakdown.setContentId(breakdownDTO.getContentId());
+		breakdown.setUserId(breakdownDTO.getUserId());
+		breakdown.setName(breakdownDTO.getName());
+		breakdown.setDateF(breakdownDTO.getDateF());
+		breakdown.setDateT(breakdownDTO.getDateT());
+		breakdown.setPrice(breakdownDTO.getPrice());
+		breakdown.setStatus(breakdownDTO.getStatus());
+		breakdown.setDeleteYN("N");
+
+		breakdownRepository.save(breakdown);
+	}
+
 	public void breakdownCancel(BreakdownDTO breakdownDTO) throws Exception
 	{
 		Optional<BreakdownDAO> breakdown = breakdownRepository.findById(breakdownDTO.getId());
