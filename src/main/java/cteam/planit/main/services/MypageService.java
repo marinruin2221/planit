@@ -93,7 +93,7 @@ public class MypageService
 			today
 		);
 
-		PageRequest pageable = PageRequest.of(breakdownDTO.getPage(), breakdownDTO.getSize());
+		PageRequest pageable = PageRequest.of(breakdownDTO.getPage(), breakdownDTO.getSize(),Sort.by(Sort.Direction.DESC, "id"));
 		
 		return breakdownRepository.findByUserIdAndDeleteYNAndNameContaining
 		(
@@ -134,7 +134,10 @@ public class MypageService
 
 	public Page<Review> review(ReviewDTO reviewDTO) throws Exception
 	{
-		PageRequest pageable = PageRequest.of(reviewDTO.getPage(), reviewDTO.getSize(),Sort.by(Sort.Direction.DESC, "reviewDate"));
+		PageRequest pageable = PageRequest.of(reviewDTO.getPage(), reviewDTO.getSize(),Sort.by(
+			Sort.Order.desc("id"),
+			Sort.Order.desc("reviewDate")
+		));
 
 		return reviewRepository.findByUserIdAndDeleteYNAndNameContaining
 		(
