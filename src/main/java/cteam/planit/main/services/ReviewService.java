@@ -126,19 +126,19 @@ public class ReviewService {
                 }
             }
             
-            Review review = Review.builder()
-                    .contentId(contentId)
-                    .userId("marinruin")
-                    .name("리뷰 테스트 데이터 " + i)
-                    .reviewerName(reviewerNames[rand.nextInt(reviewerNames.length)])
-                    .reviewerLevel(rand.nextInt(20) + 1)
-                    .stars(stars)
-                    .content(content)
-                    .reviewDate(LocalDate.now().minusDays(rand.nextInt(365)))
-                    .deleteYN("N")
-                    .build();
+            // Review review = Review.builder()
+            //         .contentId(contentId)
+            //         .userId("marinruin")
+            //         .name("리뷰 테스트 데이터 " + i)
+            //         .reviewerName(reviewerNames[rand.nextInt(reviewerNames.length)])
+            //         .reviewerLevel(rand.nextInt(20) + 1)
+            //         .stars(stars)
+            //         .content(content)
+            //         .reviewDate(LocalDate.now().minusDays(rand.nextInt(365)))
+            //         .deleteYN("N")
+            //         .build();
             
-            reviews.add(review);
+            // reviews.add(review);
         }
         
         return reviewRepository.saveAll(reviews);
