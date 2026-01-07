@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import cteam.planit.main.dao.BreakdownDAO;
@@ -133,7 +134,7 @@ public class MypageService
 
 	public Page<Review> review(ReviewDTO reviewDTO) throws Exception
 	{
-		PageRequest pageable = PageRequest.of(reviewDTO.getPage(), reviewDTO.getSize());
+		PageRequest pageable = PageRequest.of(reviewDTO.getPage(), reviewDTO.getSize(),Sort.by(Sort.Direction.DESC, "reviewDate"));
 
 		return reviewRepository.findByUserIdAndDeleteYNAndNameContaining
 		(
