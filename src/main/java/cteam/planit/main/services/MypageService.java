@@ -17,6 +17,7 @@ import cteam.planit.main.dto.InformationDTO;
 import cteam.planit.main.dto.ReviewDTO;
 import cteam.planit.main.entity.Review;
 import cteam.planit.main.repository.ReviewRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class MypageService
@@ -80,8 +81,17 @@ public class MypageService
 		return informationDTO;
 	}
 
+	@Transactional
 	public Page<BreakdownDAO> breakdown(BreakdownDTO breakdownDTO) throws Exception
 	{
+		String today = LocalDate.now().toString();
+
+		breakdownRepository.updateCompletedByCheckoutDate
+		(
+			breakdownDTO.getUserId(),
+			today
+		);
+
 		PageRequest pageable = PageRequest.of(breakdownDTO.getPage(), breakdownDTO.getSize());
 		
 		return breakdownRepository.findByUserIdAndDeleteYNAndNameContaining

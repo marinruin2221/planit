@@ -30,9 +30,9 @@ public class PlanitApplication implements CommandLineRunner
 			breakdownDAO.setContentId("1");
 			breakdownDAO.setName("서울 강남 호텔" + i);
 			breakdownDAO.setDateF("2025-01-05");
-			breakdownDAO.setDateT("2025-01-07");
+			breakdownDAO.setDateT("2026-01-07");
 			breakdownDAO.setPrice("150000");
-			breakdownDAO.setStatus("3");
+			breakdownDAO.setStatus("1");
 			breakdownDAO.setDeleteYN("N");
 			breakdownRepository.save(breakdownDAO);
 		}
