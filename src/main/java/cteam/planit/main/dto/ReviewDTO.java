@@ -8,6 +8,7 @@ public class ReviewDTO
 	private Long id;			// 여행 리뷰 시퀀스
 	private String contentId;   // 여행 리뷰 숙소 ID
 	private String userId;		// 여행 리뷰 사용자 ID
+	private String nickname;	// 여행 리뷰 사용자 이름
 	private String name;		// 여행 리뷰 이름
 	private String date;		// 여행 리뷰 날짜
 	private String stars;		// 여행 리뷰 별점

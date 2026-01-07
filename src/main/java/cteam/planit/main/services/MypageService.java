@@ -150,7 +150,7 @@ public class MypageService
 			.contentId(reviewDTO.getContentId())
 			.userId(reviewDTO.getUserId())
 			.name(reviewDTO.getName())
-			.reviewerName(reviewDTO.getName())
+			.reviewerName(reviewDTO.getNickname())
 			.reviewerLevel(Integer.parseInt(reviewDTO.getLevel()))
 			.stars(Integer.parseInt(reviewDTO.getStars()))
 			.content(reviewDTO.getContent())
