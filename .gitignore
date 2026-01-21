@@ -37,3 +37,6 @@ build/
 
 ### Generated Files ###
 rag_data.csv
+
+### Logs ###
+logs/

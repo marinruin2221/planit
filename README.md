@@ -23,6 +23,7 @@ PlanIt 프로젝트의 백엔드 워크스페이스입니다. Spring Boot를 기
 | 2026-01-06 | 김관범 | **인증 API 구현**<br>- `AuthController`에 `/login`, `/me`, `/logout` 엔드포인트 추가<br>- `AuthService`에 로그인 검증 및 세션 복원 로직 구현<br>- `LoginRequestDTO`, `LoginResponseDTO` 생성<br>- 세션 기반 인증 처리<br>**디테일 페이지 404 오류 수정**<br>- `TourApiService.getItemByContentId` DB 우선 조회로 변경<br>**서버 시작 안정화**<br>- `ImageMigrationRunner` 예외 처리 추가 (테이블 없어도 서버 시작 가능)<br>- `CommonImage` 엔티티 Oracle 시퀀스 호환 수정 | [`src/main/java/cteam/planit/main/controller/AuthController.java`](src/main/java/cteam/planit/main/controller/AuthController.java)<br>[`src/main/java/cteam/planit/main/services/AuthService.java`](src/main/java/cteam/planit/main/services/AuthService.java)<br>[`src/main/java/cteam/planit/main/dto/LoginRequestDTO.java`](src/main/java/cteam/planit/main/dto/LoginRequestDTO.java)<br>[`src/main/java/cteam/planit/main/dto/LoginResponseDTO.java`](src/main/java/cteam/planit/main/dto/LoginResponseDTO.java)<br>[`src/main/java/cteam/planit/main/services/TourApiService.java`](src/main/java/cteam/planit/main/services/TourApiService.java) | 인증 시스템 및 디테일 조회 완료 |
 
 | 2026-01-07 | 김관범 | **AI 기능 접근 권한 수정**<br> - `/api/ai/**` 경로에 대해 `permitAll()` 설정 추가 (로그인 없이 AI 채팅 허용) | [`src/main/java/cteam/planit/main/configurations/SecurityConfig.java`](src/main/java/cteam/planit/main/configurations/SecurityConfig.java) | 프론트엔드 403 에러 해결 |
+| 2026-01-21 | 김관범 | **Git 설정 업데이트**<br> - 로그 파일(`.gitignore`) 추적 제외 설정 추가 | [`.gitignore`](.gitignore) |  |
 
 ### 새 항목 추가 템플릿
 
